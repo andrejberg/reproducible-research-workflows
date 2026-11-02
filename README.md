@@ -23,7 +23,8 @@ and the selection of modules taught there.
 
 | Path | What it is |
 |---|---|
-| `environment.yml` | The software environment: Python, JupyterLab with the Git extension, and the analysis packages, each pinned to an exact version |
+| `requirements.txt` | The software environment: JupyterLab with the Git extension and the analysis packages, each pinned to an exact version |
+| `runtime.txt` | The Python version |
 | `postBuild` | Run once when the environment is built; sets the defaults of the Git panel |
 | `start` | Run at every session start; keeps conda environments you create in your home directory |
 | `data/ecoli-growth/` | The example dataset: *E. coli* growth curves, with source, licence and a script that regenerates the sample |
