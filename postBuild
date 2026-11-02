@@ -1,5 +1,5 @@
 #!/bin/bash
-# Repo2Docker runs this once after installing environment.yml.
+# Repo2Docker runs this once after installing requirements.txt.
 # Default settings for the Git panel: a commit stages all changed files in one step, and
 # JupyterLab asks for name and email before the first commit.
 set -euo pipefail
