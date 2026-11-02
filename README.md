@@ -1,13 +1,23 @@
 # Reproducible research workflows with Jupyter and Python
 
-Teaching materials for an online workshop on reproducible research workflows for
-researchers of the Rhine-Main Universities (Johannes Gutenberg University Mainz,
-Goethe University Frankfurt, TU Darmstadt). The workshop runs in JupyterLab on
-[Jupyter4NFDI](https://hub.nfdi-jupyter.de), which builds its environment from this
-repository.
+Teaching materials on reproducible research workflows: structuring a research project,
+writing Python with the help of an LLM, reading and writing data, visualising and
+fitting models, managing environments, handling tables and metadata, writing reusable
+functions, and turning a notebook into a workflow.
+
+The materials run in JupyterLab. The repository is meant to be built with
+[Repo2Docker](https://repo2docker.readthedocs.io), so a JupyterHub that builds from Git
+repositories (for example [Jupyter4NFDI](https://hub.nfdi-jupyter.de) or
+[Binder](https://mybinder.org)) can start a ready-to-use session from it.
 
 Modules are added here as they are ready. Each module will have its own README with its
 starting state and how to run its exercises.
+
+## Branches
+
+`main` holds the materials without reference to any particular event. A course or
+workshop that uses them gets its own branch, which adds the event-specific information
+and the selection of modules taught there.
 
 ## Contents
 
@@ -15,12 +25,13 @@ starting state and how to run its exercises.
 |---|---|
 | `data/ecoli-growth/` | The example dataset: *E. coli* growth curves, with source, licence and a script that regenerates the sample |
 
-## Licence
+## Licence and citation
 
-The workshop materials are licensed under
+The materials are licensed under
 [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/);
-the full text is in `LICENSE`. Please credit "Andrej Berg, Johannes Gutenberg University
-Mainz" and link this repository when you reuse them.
+the full text is in `LICENSE`. When you reuse them, credit Andrej Berg
+([ORCID 0000-0002-5232-1995](https://orcid.org/0000-0002-5232-1995)) and link this
+repository. `CITATION.cff` holds the citation metadata.
 
 The example data in `data/` comes from third parties under its own licence (also
 CC BY 4.0). Its README names the creators and the DOI to credit.

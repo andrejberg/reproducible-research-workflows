@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you reuse these materials, please cite them as below."
+type: software
+title: "Reproducible research workflows with Jupyter and Python"
+abstract: >-
+  Teaching materials on reproducible research workflows with JupyterLab and Python.
+authors:
+  - family-names: Berg
+    given-names: Andrej
+    orcid: "https://orcid.org/0000-0002-5232-1995"
+license: CC-BY-4.0
+repository-code: "https://github.com/andrejberg/reproducible-research-workflows"
+keywords:
+  - reproducible research
+  - research data management
+  - Jupyter
+  - Python
+  - teaching materials

@@ -1,6 +1,6 @@
 # E. coli growth curves — example dataset
 
-The workshop's example dataset: optical density of
+The example dataset of these materials: optical density of
 *Escherichia coli* growing at nine temperatures (29–45 °C) in media with four glucose
 concentrations (0.1, 0.5, 1 and 2 %), read on a plate reader every 5 minutes for 24 hours.
 
