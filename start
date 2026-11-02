@@ -1,0 +1,7 @@
+#!/bin/bash
+# Repo2Docker runs this every time a session starts.
+# Conda environments you create go into your home directory, which is kept between
+# sessions. Without this they would be lost when the session restarts.
+export CONDA_ENVS_DIRS="$HOME/.conda/envs"
+
+exec "$@"

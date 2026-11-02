@@ -1,0 +1,16 @@
+#!/bin/bash
+# Repo2Docker runs this once after installing environment.yml.
+# Default settings for the Git panel: a commit stages all changed files in one step, and
+# JupyterLab asks for name and email before the first commit.
+set -euo pipefail
+
+settings_dir="${NB_PYTHON_PREFIX}/share/jupyter/lab/settings"
+mkdir -p "$settings_dir"
+cat > "$settings_dir/overrides.json" <<'EOF'
+{
+  "@jupyterlab/git:plugin": {
+    "simpleStaging": true,
+    "promptUserIdentity": true
+  }
+}
+EOF
