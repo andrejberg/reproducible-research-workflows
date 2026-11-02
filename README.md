@@ -26,7 +26,7 @@ and the selection of modules taught there.
 | `requirements.txt` | The software environment: JupyterLab with the Git extension and the analysis packages, each pinned to an exact version |
 | `runtime.txt` | The Python version |
 | `postBuild` | Run once when the environment is built; sets the defaults of the Git panel |
-| `start` | Run at every session start; keeps conda environments you create in your home directory |
+| `start` | Run at every session start; keeps conda environments and kernels you create in `work/`, the folder that is kept between sessions |
 | `data/ecoli-growth/` | The example dataset: *E. coli* growth curves, with source, licence and a script that regenerates the sample |
 
 ## Licence and citation

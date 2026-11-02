@@ -1,7 +1,10 @@
 #!/bin/bash
 # Repo2Docker runs this every time a session starts.
-# Conda environments you create go into your home directory, which is kept between
-# sessions. Without this they would be lost when the session restarts.
-export CONDA_ENVS_DIRS="$HOME/.conda/envs"
+# On Jupyter4NFDI with "Mount user data", only ~/work is kept between sessions. Conda
+# environments you create and the kernels you register go there, so they survive a
+# restart. Jupyter's runtime files stay outside, on the local disk.
+export CONDA_ENVS_DIRS="$HOME/work/.conda/envs"
+export JUPYTER_DATA_DIR="$HOME/work/.local/share/jupyter"
+export JUPYTER_RUNTIME_DIR="$HOME/.local/share/jupyter/runtime"
 
 exec "$@"
