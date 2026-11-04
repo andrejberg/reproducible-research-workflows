@@ -18,14 +18,13 @@ project/
 └── experiments/
 ```
 
-| Path | What it is |
-|---|---|
-| `journal.md` | The chronological record of the project: decisions, progress, problems, next steps |
-| `environment.yml` | The software environment, with exact package versions |
-| `.gitignore` | Files Git should not track, such as Jupyter checkpoints |
-| `shared/data/` | The complete reference dataset with its source, licence and provenance |
-| `shared/code/` | Functions used by more than one experiment |
-| `experiments/` | One folder per experiment |
+- `journal.md` is the chronological record of the project: decisions, progress, problems
+  and next steps. The newest entry comes first.
+- `environment.yml` is the software environment, with exact package versions.
+- `.gitignore` lists files Git should not track, such as Jupyter checkpoints.
+- `shared/data/` holds the reference data with its source, licence and provenance.
+- `shared/code/` holds functions used by more than one experiment.
+- `experiments/` holds one folder per experiment.
 
 ## Experiment convention
 
@@ -74,14 +73,14 @@ Then:
 4. Write generated outputs to `data/processed/` and `results/`, and list them in
    `metadata.yml`.
 5. Record your observations and interpretation in `README.md`.
-6. Add a short entry to `journal.md`.
+6. Add a short entry at the top of `journal.md`.
 7. Commit the experiment folder in Git.
 
 ## Example
 
-`experiments/2026-11-04_m04-fit-growth-curves/` is a finished entry that you can read and
-rerun. Its README shows what a filled-in entry looks like, and its `metadata.yml` links
-each output to its input and code.
+`experiments/2026-11-04_m04-fit-growth-curves/` shows what a filled-in `README.md` and
+`metadata.yml` look like. It is illustrative: it is not a real result, and the files it
+names are not included.
 
 ## Data credit
 

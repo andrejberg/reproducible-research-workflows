@@ -1,13 +1,12 @@
-# Structured facts about this experiment. Narrative belongs in README.md.
-# Paths are relative to this folder.
+# This is an illustrative example. It shows what a filled-in entry looks like; it is not a real result, and the files it names are not included.
 
 experiment:
   id: "2026-11-04_m04-fit-growth-curves"
-  title: "Fit an E. coli growth curve at 37 C and 1 percent glucose"
+  title: "Fit E. coli growth curves at 24 C and 1 percent glucose"
   date_started: "2026-11-04"
-  date_completed: "2026-11-04"
-  author: "Andrej Berg"
-  status: "completed"
+  date_completed: null
+  author: null
+  status: "in_progress"   # draft | in_progress | completed
   module: "M04"
   project: "reproducible-research-workflows"
   keywords:
@@ -16,12 +15,12 @@ experiment:
     - "curve fitting"
 
 inputs:
-  - path: "data/raw/ecoli-growth-37c-1pct.csv"
+  - path: "data/raw/ecoli_growth_T24_G1.xlsx"
     role: "raw_data"
     source: "https://doi.org/10.5281/zenodo.19416053"
-    source_version: "Repo1pct.xlsx, sheet 37_1%n2"
+    source_version: null
     licence: "CC-BY-4.0"
-    checksum: "sha256:b7d99a36eed7cbfcd567a3ca4e9950f92a70a808176c92c9c7a1bb64e4d82324"
+    checksum: null
 
 code:
   - path: "code/01_clean_data.ipynb"
@@ -30,12 +29,12 @@ code:
     role: "analysis"
 
 outputs:
-  - path: "data/processed/ecoli-growth-37c-1pct-clean.csv"
+  - path: "data/processed/ecoli_growth_T24_G1_clean.csv"
     role: "processed_data"
   - path: "results/figures/growth_curve_fit.png"
     role: "figure"
   - path: "results/tables/fit_parameters.csv"
-    role: "table"
+    role: "fit_parameters"
 
 software:
   environment_file: "../../environment.yml"
@@ -46,6 +45,6 @@ provenance:
   processed_to_results: "code/02_fit_growth_model.ipynb"
 
 reuse:
-  licence: "CC-BY-4.0"
+  licence: null
   contact: null
   related_experiment: null
