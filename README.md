@@ -26,7 +26,7 @@ and the selection of modules taught there.
 - `postBuild`: Run once when the environment is built; sets the defaults of the Git panel
 - `start`: Run at every session start; keeps your Git settings in `work/`, the folder that is kept between sessions
 - `self-test.ipynb`: Checks that the environment works: packages, example data, the persistent `work/` folder, terminal, kernels and Git. Run it before the first session
-- `template/`: A reusable project structure: self-contained experiment entries, a journal, READMEs and metadata, with an illustrative example
+- `template/`: A reusable project structure: self-contained experiment entries, a journal, READMEs and metadata
 - `data/ecoli-growth/`: The example dataset: *E. coli* growth curves, with source, licence and a script that regenerates the sample
 
 ## Licence and citation

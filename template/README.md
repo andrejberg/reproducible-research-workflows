@@ -76,13 +76,7 @@ Then:
 6. Add a short entry at the top of `journal.md`.
 7. Commit the experiment folder in Git.
 
-## Example
-
-`experiments/2026-11-04_m04-fit-growth-curves/` shows what a filled-in `README.md` and
-`metadata.yml` look like. It is illustrative: it is not a real result, and the files it
-names are not included.
-
 ## Data credit
 
-The example data is by González Siso et al., published under CC BY 4.0 at
+The data in `shared/data/` is by González Siso et al., published under CC BY 4.0 at
 <https://doi.org/10.5281/zenodo.19416053>. See `shared/data/ecoli-growth/README.md`.
