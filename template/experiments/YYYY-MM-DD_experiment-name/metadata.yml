@@ -1,0 +1,42 @@
+# Structured facts about this experiment. Narrative belongs in README.md.
+# Paths are relative to this folder. Leave a value as null until you know it.
+
+experiment:
+  id: "YYYY-MM-DD_experiment-name"   # the same as the folder name
+  title: null
+  date_started: null                 # YYYY-MM-DD
+  date_completed: null
+  author: null
+  status: "draft"                    # draft | in_progress | completed
+  module: null
+  project: null
+  keywords: []
+
+inputs:
+  - path: "data/raw/<file>"
+    role: "raw_data"                 # raw_data | reference_data | configuration
+    source: null                     # DOI or URL
+    source_version: null
+    licence: null
+    checksum: null
+
+code:
+  - path: "code/<notebook-or-script>"
+    role: "analysis"                 # data_cleaning | analysis | visualisation | workflow
+
+outputs:
+  - path: "results/<file>"
+    role: "figure"                   # processed_data | figure | table | report
+
+software:
+  environment_file: "../../environment.yml"
+  environment_name: "rrw-workshop"
+
+provenance:
+  raw_to_processed: null             # the code that turns raw data into processed data
+  processed_to_results: null         # the code that turns processed data into results
+
+reuse:
+  licence: null
+  contact: null
+  related_experiment: null

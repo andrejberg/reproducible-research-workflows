@@ -1,0 +1,8 @@
+# Jupyter and Python working files
+.ipynb_checkpoints/
+__pycache__/
+
+# Editor lock files and secrets
+~$*
+.~lock.*#
+.env

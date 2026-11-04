@@ -1,0 +1,17 @@
+# The software environment of this project, and the one place that records package
+# versions. Experiments refer to this file from their metadata.yml.
+# Recreate it with: conda env create -f environment.yml
+name: rrw-workshop
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - pip:
+      - ipykernel==7.4.0
+      - numpy==2.5.4
+      - pandas==3.1.0
+      - openpyxl==3.1.5
+      - matplotlib==3.11.2
+      - scipy==1.18.1
+      - xarray==2026.9.0
