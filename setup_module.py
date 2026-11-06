@@ -3,15 +3,15 @@
 # requires-python = ">=3.13"
 # dependencies = []
 # ///
-"""Set up your project in work/, the folder that is kept between sessions.
+"""Set up the folder work/rrw-workshop for your experiments. work/ is kept between sessions.
 
-    python ~/setup_module.py            creates the project, if it is missing
-    python ~/setup_module.py <module>   also adds the module's experiment to the project
+    python ~/setup_module.py            creates the folder work/rrw-workshop, if it is missing
+    python ~/setup_module.py <module>   also adds the module's experiment to that folder
 
 Run it as often as you like: it never overwrites what is already there.
 
 The work folder is slow with many small files. To write fewer of them, this script builds
-the project on the local disk and packs its Git history into one file before copying it.
+the folder on the local disk and packs its Git history into one file before copying it.
 """
 
 import os
@@ -61,7 +61,7 @@ def create_project():
         git(build, "repack", "-a", "-d", "-q", "-n")
         copy_into_place(build, PROJECT)
     init(PROJECT)  # lets Git check what the work folder supports, which can differ from the local disk
-    print(f"Created the project with its Git repository: {PROJECT}")
+    print(f"Created the folder {PROJECT} from the template, with a Git repository and a first commit.")
 
 
 def add_repository():
@@ -75,7 +75,8 @@ def add_repository():
     init(PROJECT)
     git(PROJECT, "add", ".")
     git(PROJECT, "commit", "-q", "-m", "Add a Git repository to the existing project")
-    print(f"Added a Git repository to the existing project: {PROJECT}")
+    print(f"The folder {PROJECT} had no Git repository. Added the template files it was missing, "
+          "kept the files it had, created a Git repository and committed everything in the folder.")
 
 
 def modules():
@@ -95,18 +96,23 @@ def add_experiment(module):
     relative = target.relative_to(PROJECT).as_posix()
 
     if target.exists() and git(PROJECT, "ls-files", "--", relative):
-        print(f"Already there, nothing changed: {target}")
+        print(f"Module {module}: the experiment folder {target} already exists in Git, "
+              "so nothing was changed.")
         return
-    if not target.exists():
+    copied = not target.exists()
+    if copied:
         target.parent.mkdir(exist_ok=True)
         copy_into_place(source, target)
+    done = f"copied the experiment folder to {target}" if copied else f"found the experiment folder {target}"
 
     git(PROJECT, "add", "--", relative)
     # A restored folder can match the last commit, and then there is nothing to commit.
     if git(PROJECT, "status", "--porcelain", "--", relative):
         # Commits this folder only. Anything else you have staged stays as it is.
         git(PROJECT, "commit", "-q", "-m", f"Add the starting state of {module}", "--", relative)
-    print(f"Added the experiment: {target}")
+        print(f"Module {module}: {done} and committed it in Git.")
+    else:
+        print(f"Module {module}: {done}. It matches the last Git commit, so there was nothing to commit.")
 
 
 def setup(module):
@@ -116,10 +122,10 @@ def setup(module):
     elif not (PROJECT / ".git").exists():
         add_repository()
     else:
-        print(f"The project is already there: {PROJECT}")
+        print(f"The folder {PROJECT} already exists with a Git repository, so it was not created again.")
 
     if module is None:
-        print(f"Available modules: {', '.join(modules()) or 'none'}.")
+        print(f"No module was named, so no experiment was added. Available modules: {', '.join(modules()) or 'none'}.")
     else:
         add_experiment(module)
 
@@ -140,7 +146,6 @@ def main():
     except OSError as error:
         sys.exit(f"The setup is not complete: {error}")
 
-    print(f"Work inside {PROJECT.relative_to(Path.home())}/ only: everything else is reset at the next start.")
     if not os.path.ismount(WORK):
         print(f"WARNING: {WORK} is not a separate storage mount, so your work may be lost when the "
               "session stops. On Jupyter4NFDI, stop the lab (File → Hub Control Panel → Stop My "
