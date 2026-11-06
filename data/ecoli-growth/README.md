@@ -16,7 +16,10 @@ concentrations (0.1, 0.5, 1 and 2 %), read on a plate reader every 5 minutes for
   every module README.
 
 The source files are Excel workbooks. They stay unmodified on Zenodo and are not stored in
-this repository.
+this repository. A module that needs one downloads it at setup: its `setup.json` names the
+URL and the MD5 from the table below (see "Module layout" in the main `README.md`). The URL
+of a file is `https://zenodo.org/api/records/19416053/files/<source file>/content`, with
+`·` written as `%C2%B7`.
 
 | Source file | Content | MD5 (as published by Zenodo) |
 |---|---|---|

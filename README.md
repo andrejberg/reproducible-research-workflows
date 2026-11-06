@@ -44,6 +44,7 @@ from it after a restart.
 ```text
 modules/<module>/
 ├── README.md
+├── setup.json
 └── starting-state/
     └── YYYY-MM-DD_experiment-name/
 ```
@@ -51,10 +52,28 @@ modules/<module>/
 - `README.md` describes the starting state and how to run the exercises. It stays with the
   materials and is not copied. It tells readers to run `setup_module.py` with the module's
   folder name, and to work inside `work/` only.
-- `starting-state/` holds exactly one experiment, which follows the experiment convention
-  in `template/README.md`. The setup command copies it to `experiments/` in the project
-  and commits it.
-- A module needs nothing from another module, so its experiment ships its own data.
+- `setup.json` says what the setup command does for this module. `experiment` names the
+  folder in `starting-state/`. `download` is optional and lists files to add to the
+  experiment, each with its `url`, its `md5` checksum and its `path` inside the experiment:
+
+  ```json
+  {
+    "experiment": "2026-11-03_first-look",
+    "download": [
+      {
+        "url": "https://zenodo.org/api/records/19416053/files/Repo1pct.xlsx/content",
+        "md5": "b52a4e3556b1d401799a4b43094bf2a5",
+        "path": "data/raw/Repo1pct.xlsx"
+      }
+    ]
+  }
+  ```
+
+- `starting-state/` holds one experiment, which follows the experiment convention in
+  `template/README.md`. The setup command copies it to `experiments/` in the project, adds
+  the downloads and commits it. A module with downloads needs network access at setup.
+- A module needs nothing from another module, so its experiment brings its own data: small
+  files in `starting-state/`, or files that `setup.json` downloads.
 - Every file costs time in `work/`, so an experiment holds only what the module uses: about
   ten files at most, and no `.gitkeep` files or empty folders.
 

@@ -8,17 +8,22 @@
     python ~/setup_module.py            creates the folder work/rrw-workshop, if it is missing
     python ~/setup_module.py <module>   also adds the module's experiment to that folder
 
+Each module's setup.json says which experiment to add and which files to download for it.
 Run it as often as you like: it never overwrites what is already there.
 
 The work folder is slow with many small files. To write fewer of them, this script builds
 the folder on the local disk and packs its Git history into one file before copying it.
 """
 
+import hashlib
+import http.client
+import json
 import os
 import shutil
 import subprocess
 import sys
 import tempfile
+import urllib.request
 from pathlib import Path
 
 MATERIALS = Path(__file__).resolve().parent
@@ -29,6 +34,7 @@ PROJECT = WORK / "rrw-workshop"
 # The script's own commits are marked as its own, and they work before you set your name.
 GIT = ["git", "-c", "user.name=Setup script", "-c", "user.email=setup@example.invalid"]
 NOT_CONTENT = (".ipynb_checkpoints", "__pycache__")
+DOWNLOAD_TIMEOUT = 60  # seconds without a response
 
 
 def git(folder, *args):
@@ -82,16 +88,43 @@ def add_repository():
 def modules():
     if not MODULES.is_dir():
         return []
-    return sorted(path.name for path in MODULES.iterdir() if (path / "starting-state").is_dir())
+    return sorted(path.parent.name for path in MODULES.glob("*/setup.json"))
+
+
+def read_setup(module):
+    """Return the module's experiment folder and its list of downloads, as setup.json defines them."""
+    try:
+        setup = json.loads((MODULES / module / "setup.json").read_text(encoding="utf-8"))
+        source = MODULES / module / "starting-state" / setup["experiment"]
+        downloads = [(item["url"], item["md5"], item["path"]) for item in setup.get("download", [])]
+    except (ValueError, KeyError, TypeError) as error:
+        sys.exit(f"The file setup.json of module {module} cannot be used ({error!r}). Please tell your tutor.")
+    if not source.is_dir():
+        sys.exit(f"Module {module} names the experiment {source.name} in setup.json, "
+                 "but starting-state/ does not have it. Please tell your tutor.")
+    return source, downloads
+
+
+def download(url, md5, target):
+    """Save the file at target only if its checksum matches."""
+    try:
+        with urllib.request.urlopen(url, timeout=DOWNLOAD_TIMEOUT) as response:
+            content = response.read()
+    except (OSError, http.client.HTTPException) as error:
+        sys.exit(f"Could not download {target.name} from {url}: {error}\n"
+                 "The experiment was not added. Check the network connection and run this command "
+                 "again. If it keeps failing, please tell your tutor.")
+    actual = hashlib.md5(content).hexdigest()
+    if actual != md5:
+        sys.exit(f"The download of {target.name} has the checksum {actual}, not the expected {md5}, "
+                 "so it was not kept and the experiment was not added. Run this command again. "
+                 "If it keeps failing, please tell your tutor.")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(content)
 
 
 def add_experiment(module):
-    experiments = [path for path in (MODULES / module / "starting-state").iterdir()
-                   if path.is_dir() and path.name not in NOT_CONTENT]
-    if len(experiments) != 1:
-        sys.exit(f"Module {module} should have one experiment in starting-state/ "
-                 f"and has {len(experiments)}. Please tell your tutor.")
-    source = experiments[0]
+    source, downloads = read_setup(module)
     target = PROJECT / "experiments" / source.name
     relative = target.relative_to(PROJECT).as_posix()
 
@@ -100,10 +133,27 @@ def add_experiment(module):
               "so nothing was changed.")
         return
     copied = not target.exists()
-    if copied:
-        target.parent.mkdir(exist_ok=True)
-        copy_into_place(source, target)
+    missing = [item for item in downloads if not (target / item[2]).exists()]
+
+    # Download before touching the project, so that a failed download leaves nothing half-made.
+    with tempfile.TemporaryDirectory() as local:
+        build = Path(local) / source.name
+        if copied:
+            shutil.copytree(source, build, ignore=shutil.ignore_patterns(*NOT_CONTENT))
+        for url, md5, path in missing:
+            print(f"Module {module}: downloading {Path(path).name} ...", flush=True)
+            download(url, md5, build / path)
+        if copied:
+            target.parent.mkdir(exist_ok=True)
+            copy_into_place(build, target)
+        else:
+            for _, _, path in missing:
+                (target / path).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(build / path, target / path)
+
     done = f"copied the experiment folder to {target}" if copied else f"found the experiment folder {target}"
+    if missing:
+        done += f", downloaded {len(missing)} file(s) into it, checked their checksums"
 
     git(PROJECT, "add", "--", relative)
     # A restored folder can match the last commit, and then there is nothing to commit.
