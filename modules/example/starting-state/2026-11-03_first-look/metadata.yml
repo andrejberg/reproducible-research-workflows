@@ -1,0 +1,20 @@
+# Structured facts about this experiment. Narrative belongs in README.md.
+# Paths are relative to this folder.
+
+experiment:
+  id: "2026-11-03_first-look"
+  title: "First look"
+  status: "draft"
+
+inputs:
+  - path: "data/raw/values.csv"
+    role: "raw_data"
+    source: "dummy data"
+
+code:
+  - path: "code/first_look.ipynb"
+    role: "analysis"
+
+software:
+  environment_file: "../../environment.yml"
+  environment_name: "rrw-workshop"
