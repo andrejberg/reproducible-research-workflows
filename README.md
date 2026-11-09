@@ -14,8 +14,9 @@ Rhine-Main Universities (JGU Mainz, Goethe University Frankfurt, TU Darmstadt).
 - **LLM:** [GWDG Chat AI](https://chat-ai.academiccloud.de) with an Academic Cloud login.
   You may use another chat service, but expect different results. Put only public or
   made-up data into any LLM
-- **Preparation:** mandatory. Registered participants receive the instructions in advance;
-  they include running `self-test.ipynb`
+- **Preparation:** mandatory, as described in [`preparation.md`](preparation.md).
+  Registered participants receive the instructions in advance; they include running
+  `self-test.ipynb`
 - **Setup help:** optional online session on Friday 27 November 2026, 10:00–11:00, for
   problems with the preparation
 
