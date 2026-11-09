@@ -1,5 +1,35 @@
 # Reproducible research workflows with Jupyter and Python
 
+## This workshop: Rhine-Main Universities, 30 November – 3 December 2026
+
+This branch carries the materials for the online workshop for researchers at the
+Rhine-Main Universities (JGU Mainz, Goethe University Frankfurt, TU Darmstadt).
+
+- **Dates:** Monday 30 November to Thursday 3 December 2026, daily 09:00–12:15: one
+  module 09:00–10:30, a break until 10:45, a second module 10:45–12:15
+- **Format:** online and hands-on, in English; eight modules of 90 minutes, two per day
+- **Where the materials run:** on [Jupyter4NFDI](https://hub.nfdi-jupyter.de), which
+  builds a session from this branch. You need a computer with internet access and nothing
+  installed
+- **LLM:** [GWDG Chat AI](https://chat-ai.academiccloud.de) with an Academic Cloud login.
+  You may use another chat service, but expect different results. Put only public or
+  made-up data into any LLM
+- **Preparation:** mandatory. Registered participants receive the instructions in advance;
+  they include running `self-test.ipynb`
+- **Setup help:** optional online session on Friday 27 November 2026, 10:00–11:00, for
+  problems with the preparation
+
+The modules, added to `modules/` as they are ready:
+
+1. How do I work in JupyterLab and structure my research?
+2. How do I write Python with an LLM?
+3. How do I read and write data?
+4. How do I visualise data and fit models?
+5. How do I install modules and manage environments?
+6. How do I handle tables and metadata?
+7. How do I write reusable functions?
+8. How do I turn a notebook into a workflow?
+
 Teaching materials on reproducible research workflows: structuring a research project,
 writing Python with the help of an LLM, reading and writing data, visualising and
 fitting models, managing environments, handling tables and metadata, writing reusable
