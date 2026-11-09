@@ -21,8 +21,8 @@ including these materials, is reset at the next start, so whatever you create ou
 `work/` is lost.
 
 Your project is `work/rrw-workshop/`. All modules add their experiment to it, and it has
-one Git repository. To create it, and to add a module's experiment, run in a terminal
-(File → New → Terminal):
+one Git repository. `SETUP.ipynb` creates it before the first session. To create it in a
+terminal instead (File → New → Terminal), and to add a module's experiment, run:
 
 ```bash
 python ~/setup_module.py          # creates the project, if it is missing
@@ -90,7 +90,7 @@ and the selection of modules taught there.
 - `postBuild`: Run once when the environment is built; sets the defaults of the Git panel
 - `start`: Run at every session start; keeps your Git settings in `work/`, the folder that is kept between sessions, and fills in a Git name or email you have not set from your Jupyter4NFDI account
 - `git_identity.py`: Fills in that name and email. Your email goes into every commit, and anyone can read it in a repository you publish. To use another one, set it with `git config --global user.email "you@example.org"`; a value you set is never replaced
-- `self-test.ipynb`: Checks in four short steps that your lab is ready: the analysis packages, the example data, the kept `work/` folder, and your Git name and email. Run it before the first session
+- `SETUP.ipynb`: Gets your lab ready in five short steps: checks the analysis packages, the example data and the kept `work/` folder, sets your Git name and email, and creates your project. Run it before the first session
 - `setup_module.py`: Creates your project in `work/` and adds a module's experiment to it
 - `modules/`: The modules. `modules/example/` shows the layout and lets you try the setup command
 - `template/`: A reusable project structure: self-contained experiment entries, a journal, READMEs and metadata
