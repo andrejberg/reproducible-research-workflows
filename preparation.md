@@ -96,14 +96,32 @@ git config --global user.email "you@example.org"
 A value you set yourself is kept in `work/` and never replaced. Commits you made before
 keep the address they were made with.
 
-## 4. Initiate the workshop directory
+## 4. Run the self-test
+
+The self-test is a notebook that checks in five short steps that your lab has what the
+workshop needs: the analysis packages, the example data, the `work/` folder, your Git
+name and email from step 3, and your project from step 4. Each step says what it checks.
+
+This is a good oportunity to get familiar with the python synthax. You don't need to understand
+everything but try to read the code and compare it to what you already know from other programming
+languages.
+
+1. In the file browser, find and open `self-test.ipynb`.
+2. Choose **Run → Run All Cells**.
+3. Every check prints `PASS` or `FAIL`. A failed check also prints **What to do**; follow
+   it and run all cells again.
+
+When everything passes, the last cell shows `All 5 checks passed. Your lab is ready for
+the workshop.`
+
+## 5. Initiate the workshop directory
 
 Only the `work/` folder is kept when the lab stops. Everything else in the file browser,
 including the workshop materials, is reset at the next start. Whatever you create outside
 `work/` is lost.
 
-Your project for the whole workshop is `work/rrw-workshop/`. Create it now. In the
-terminal, paste:
+Your project for the whole workshop is `work/rrw-workshop/`. Create it by running the setup script.
+In the terminal (if you closed it open a terminal: **File → New → Terminal**), paste:
 
 ```bash
 python ~/setup_module.py
@@ -122,20 +140,6 @@ Check the result:
    `work/rrw-workshop` open in the file browser, it shows the project's repository. Its
    **History** has one commit, "Create the project from the template".
 
-## 5. Run the self-test
-
-The self-test is a notebook that checks in five short steps that your lab has what the
-workshop needs: the analysis packages, the example data, the `work/` folder, your Git
-name and email from step 3, and your project from step 4. Each step says what it checks.
-
-1. In the file browser, go back to your home folder: click the folder icon at the start
-   of the path above the file list. Open `self-test.ipynb`.
-2. Choose **Run → Run All Cells**.
-3. Every check prints `PASS` or `FAIL`. A failed check also prints **What to do**; follow
-   it and run all cells again.
-
-When everything passes, the last cell shows `All 5 checks passed. Your lab is ready for
-the workshop.`
 
 ## 6. Open the materials
 
