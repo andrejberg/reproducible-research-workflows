@@ -14,7 +14,7 @@ You need a computer with internet access and a current web browser. You install 
 - **Your login address**, right after step 1, at the latest by **Friday 27 November,
   18:00**. If there is a waiting list and we have no address from you by then, your place
   goes to the next person on the list.
-- **Only if a step fails:** what failed, by **Thursday 26 November, 12:00** (step 8).
+- **Only if a step fails:** what failed, by **Thursday 26 November, 12:00** (step 7).
 
 Send both by replying to the mail these instructions came with.
 
@@ -35,7 +35,7 @@ The workshop runs on Jupyter4NFDI, a service that runs JupyterLab in your browse
    your account has on Jupyter4NFDI. It may differ from the address you registered with.
 4. Open <https://hub.nfdi-jupyter.de/hub/credits> and note the credits per day for
    **deNBI-Cloud**. A running lab uses credits, so stop it after each session (end of
-   step 6).
+   step 5).
 5. **Report** the address from point 3, exactly as shown, by replying to the mail these
    instructions came with.
 
@@ -56,84 +56,51 @@ address as soon as you can. You can start the workshop lab once the tutor has en
    take several minutes. Later starts are faster.
 
 JupyterLab opens with the file browser on the left. It shows the workshop materials,
-including `README.md`, `self-test.ipynb`, `template/` and `modules/`, and the folder
+including `README.md`, `SETUP.ipynb`, `template/` and `modules/`, and the folder
 `work/`.
 
 **The tutor may join your lab.** During the workshop, the tutor can open your running lab
 through Real Time Collaboration to help you. Please let the tutor know if you don't want
 to use this function.
 
-## 3. Check your Git name and email
+## 3. Run the setup notebook
 
-Git records who made each change. The lab takes your name and email from your
-Jupyter4NFDI account when it starts.
-
-1. Open a terminal: **File → New → Terminal**.
-2. Paste this line and press Enter:
-
-   ```bash
-   git config --global user.name; git config --global user.email
-   ```
-
-3. It shows two lines: your name and your email. If both are right, there is nothing to
-   do.
-
-**Your email goes into every change you record with Git (every commit).** Anyone can read
-it in a repository you publish, for example on GitHub. To use another address, set it
-before your first commit:
-
-```bash
-git config --global user.email "you@example.org"
-```
-
-If a line is empty, or you want another name, set it yourself in the same way:
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "you@example.org"
-```
-
-A value you set yourself is kept in `work/` and never replaced. Commits you made before
-keep the address they were made with.
-
-## 4. Run the self-test
-
-The self-test is a notebook that checks in four short steps that your lab has what the
-workshop needs: the analysis packages, the example data, the `work/` folder, and your Git
-name and email from step 3. Each step says what it checks.
+The setup notebook gets your lab ready in five short steps. It checks the analysis
+packages, the example data and the `work/` folder, shows your Git name and email, and
+creates your workshop project. Each step says what it does.
 
 This is a good opportunity to get familiar with Python syntax. You don't need to
 understand everything, but try to read the code and compare it with what you already know
 from other programming languages.
 
-1. In the file browser, find and open `self-test.ipynb`.
-2. Choose **Run → Run All Cells**.
-3. Every check prints `PASS` or `FAIL`. A failed check also prints **What to do**; follow
-   it and run all cells again.
+**Your Git name and email.** Git records who made each change. The notebook takes your
+name and email from your Jupyter4NFDI account. Your email goes into every change you
+record with Git (every commit), and anyone can read it in a repository you publish, for
+example on GitHub. The notebook's step 5 makes the first commit of your project, so decide
+before you run it.
 
-When everything passes, the last cell shows `All 4 checks passed. Your lab is ready for
-the workshop.`
+1. In the file browser, find and open `SETUP.ipynb`.
+2. **Only if you want another name or email** than the ones of your Jupyter4NFDI account:
+   scroll to step 4 of the notebook and type them between the quotes at the top of its
+   cell, for example `EMAIL = "you@example.org"`. A value you set is kept in `work/` and
+   never replaced.
+3. Choose **Run → Run All Cells**.
+4. Every step prints `PASS` or `FAIL`. A failed step also prints **What to do**; follow
+   it and run all cells again. Running it again is safe: it never overwrites what is
+   already there.
 
-## 5. Create your workshop project
+When everything passes, the last cell shows `All 5 checks passed. Your lab is ready for
+the workshop.` Step 4 shows the name and email your commits carry. If you change them
+later, commits you made before keep the values they were made with.
 
-Only the `work/` folder is kept when the lab stops. Everything else in the file browser,
-including the workshop materials, is reset at the next start. Whatever you create outside
-`work/` is lost.
+**Your workshop project (step 5 of the notebook).** Only the `work/` folder is kept when
+the lab stops. Everything else in the file browser, including the workshop materials, is
+reset at the next start. Whatever you create outside `work/` is lost. Your project for the
+whole workshop is `work/rrw-workshop/`, and the notebook creates it with a Git repository
+and a first commit. This can take up to a minute, because `work/` is slow with many small
+files.
 
-Your project for the whole workshop is `work/rrw-workshop/`. Create it with the setup
-script. In the terminal (if you closed it, open a new one with **File → New → Terminal**),
-paste:
-
-```bash
-python ~/setup_module.py
-```
-
-It can take up to a minute, because `work/` is slow with many small files. It reports
-that it created the folder `/home/jovyan/work/rrw-workshop` with a Git repository and a
-first commit. A second line says that no module was named, which is expected: the
-modules add their parts during the workshop.
-
-Check the result:
+## 4. Check your workshop project
 
 1. In the file browser, open `work`, then `rrw-workshop`. It contains `README.md` and
    other files and folders.
@@ -141,7 +108,7 @@ Check the result:
    `work/rrw-workshop` open in the file browser, it shows the project's repository. Its
    **History** has one commit, "Create the project from the template".
 
-## 6. Open the materials
+## 5. Open the materials
 
 1. In the file browser, open `template/` and read `template/README.md`. It describes the
    project structure you will use in the workshop.
@@ -150,7 +117,7 @@ Check the result:
 **Stop the lab when you are done for the day:** **File → Hub Control Panel → Stop My
 Server**. A running lab uses credits even when you are not working in it.
 
-## 7. Log in to the LLM chat
+## 6. Log in to the LLM chat
 
 The workshop uses GWDG Chat AI, a chat service with large language models (LLMs).
 
@@ -164,7 +131,7 @@ will use the LLM to write and debug code snippets, so you do not need a paid
 subscription. **Put only public or made-up data into any LLM**, never personal data or
 unpublished research data.
 
-## 8. Report a problem, if there is one
+## 7. Report a problem, if there is one
 
 If you have reported your address (step 1) and every step worked, there is nothing more
 to send.
@@ -189,8 +156,8 @@ The slot is optional. If everything works, you do not need to come.
 
 - [ ] I logged in to Jupyter4NFDI and reported my address (by 27 November, 18:00).
 - [ ] The lab starts from the workshop page.
-- [ ] `git config` shows the name and email I want in my commits.
-- [ ] The self-test shows `All 4 checks passed`.
+- [ ] `SETUP.ipynb` shows `All 5 checks passed`, with the Git name and email I want in my
+  commits.
 - [ ] `work/rrw-workshop/` exists, and the Git tab shows its first commit.
 - [ ] `template/` and the module folders open.
 - [ ] I can log in to GWDG Chat AI, or I have chosen another service.

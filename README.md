@@ -16,7 +16,7 @@ Rhine-Main Universities (JGU Mainz, Goethe University Frankfurt, TU Darmstadt).
   made-up data into any LLM
 - **Preparation:** mandatory, as described in [`preparation.md`](preparation.md).
   Registered participants receive the instructions in advance; they include running
-  `self-test.ipynb`
+  `SETUP.ipynb`
 - **Setup help:** optional online session on Friday 27 November 2026, 10:00–11:00, for
   problems with the preparation
 
