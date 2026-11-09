@@ -36,7 +36,7 @@ The workshop runs on Jupyter4NFDI, a service that runs JupyterLab in your browse
 4. Open <https://hub.nfdi-jupyter.de/hub/credits> and note the credits per day for
    **deNBI-Cloud**. A running lab uses credits, so stop it after each session (end of
    step 6).
-5. **Report** the address from step 3, exactly as shown, by replying to the mail these
+5. **Report** the address from point 3, exactly as shown, by replying to the mail these
    instructions came with.
 
 The tutor uses this address to give you access to the workshop. The deadline is
@@ -59,7 +59,7 @@ JupyterLab opens with the file browser on the left. It shows the workshop materi
 including `README.md`, `self-test.ipynb`, `template/` and `modules/`, and the folder
 `work/`.
 
-**Tutor may join your lab.** During the workshop, the tutor can open your running lab
+**The tutor may join your lab.** During the workshop, the tutor can open your running lab
 through Real Time Collaboration to help you. Please let the tutor know if you don't want
 to use this function.
 
@@ -98,30 +98,31 @@ keep the address they were made with.
 
 ## 4. Run the self-test
 
-The self-test is a notebook that checks in five short steps that your lab has what the
-workshop needs: the analysis packages, the example data, the `work/` folder, your Git
-name and email from step 3, and your project from step 4. Each step says what it checks.
+The self-test is a notebook that checks in four short steps that your lab has what the
+workshop needs: the analysis packages, the example data, the `work/` folder, and your Git
+name and email from step 3. Each step says what it checks.
 
-This is a good oportunity to get familiar with the python synthax. You don't need to understand
-everything but try to read the code and compare it to what you already know from other programming
-languages.
+This is a good opportunity to get familiar with Python syntax. You don't need to
+understand everything, but try to read the code and compare it with what you already know
+from other programming languages.
 
 1. In the file browser, find and open `self-test.ipynb`.
 2. Choose **Run → Run All Cells**.
 3. Every check prints `PASS` or `FAIL`. A failed check also prints **What to do**; follow
    it and run all cells again.
 
-When everything passes, the last cell shows `All 5 checks passed. Your lab is ready for
+When everything passes, the last cell shows `All 4 checks passed. Your lab is ready for
 the workshop.`
 
-## 5. Initiate the workshop directory
+## 5. Create your workshop project
 
 Only the `work/` folder is kept when the lab stops. Everything else in the file browser,
 including the workshop materials, is reset at the next start. Whatever you create outside
 `work/` is lost.
 
-Your project for the whole workshop is `work/rrw-workshop/`. Create it by running the setup script.
-In the terminal (if you closed it open a terminal: **File → New → Terminal**), paste:
+Your project for the whole workshop is `work/rrw-workshop/`. Create it with the setup
+script. In the terminal (if you closed it, open a new one with **File → New → Terminal**),
+paste:
 
 ```bash
 python ~/setup_module.py
@@ -140,7 +141,6 @@ Check the result:
    `work/rrw-workshop` open in the file browser, it shows the project's repository. Its
    **History** has one commit, "Create the project from the template".
 
-
 ## 6. Open the materials
 
 1. In the file browser, open `template/` and read `template/README.md`. It describes the
@@ -154,14 +154,15 @@ Server**. A running lab uses credits even when you are not working in it.
 
 The workshop uses GWDG Chat AI, a chat service with large language models (LLMs).
 
-1. Go to <https://chat-ai.academiccloud.de> and log in with Academic Cloud. Use "Federated Login" 
-   to use your university account.
+1. Go to <https://chat-ai.academiccloud.de> and log in with Academic Cloud. Choose
+   **Federated Login** to log in with your university account.
 2. Start a new chat and send a short message, for example "Hello". An answer appears.
 
-If the login does not work, you may use another chat service of your choice. Expect its results 
-to differ from the presented solutions. During the workshop we will use the LLM to write and debug
-code snippets. There is no need to get a paid subscription for that. If you use a commercial service: 
-**Put only public or made-up data into any LLM**, never personal data or unpublished research data.
+If the login does not work, you may use another chat service of your choice. Expect its
+results to differ from the solutions presented in the workshop. During the workshop we
+will use the LLM to write and debug code snippets, so you do not need a paid
+subscription. **Put only public or made-up data into any LLM**, never personal data or
+unpublished research data.
 
 ## 8. Report a problem, if there is one
 
@@ -173,9 +174,10 @@ If a step failed, reply to the mail these instructions came with by **Thursday
 
 ## If something goes wrong
 
-If a step fails, check that you have successfully finished all previous steps and try to run the failed step again.
-If this does not solve the problem, send the output of the failed cell or a description of what you see, and
-say which step it is. Then come to the setup slot.
+If a step fails, check that you have finished all previous steps, then try the failed step
+again. If this does not solve the problem, reply to the mail these instructions came with:
+say which step failed, and send the output of the failed cell or a description of what you
+see. Then come to the setup slot.
 
 ## The setup slot, if you need help
 
@@ -188,8 +190,8 @@ The slot is optional. If everything works, you do not need to come.
 - [ ] I logged in to Jupyter4NFDI and reported my address (by 27 November, 18:00).
 - [ ] The lab starts from the workshop page.
 - [ ] `git config` shows the name and email I want in my commits.
+- [ ] The self-test shows `All 4 checks passed`.
 - [ ] `work/rrw-workshop/` exists, and the Git tab shows its first commit.
-- [ ] The self-test shows `All 5 checks passed`.
 - [ ] `template/` and the module folders open.
 - [ ] I can log in to GWDG Chat AI, or I have chosen another service.
 - [ ] If a step failed, I reported it (by 26 November, 12:00).
