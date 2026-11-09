@@ -7,4 +7,10 @@
 # Keep the environment file in ~/work and rebuild the environment from it after a restart.
 export GIT_CONFIG_GLOBAL="$HOME/work/.gitconfig"
 
+# Fill in a Git name or email you have not set from your Jupyter4NFDI account (see
+# git_identity.py). The lab starts anyway if the hub does not answer within a few seconds.
+if [ -d "$HOME/work" ]; then
+    timeout 5 python3 "$(dirname "$0")/git_identity.py" || true
+fi
+
 exec "$@"

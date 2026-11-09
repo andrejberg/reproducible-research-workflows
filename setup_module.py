@@ -10,6 +10,8 @@
 
 Each module's setup.json says which experiment to add and which files to download for it.
 Run it as often as you like: it never overwrites what is already there.
+Its commits carry your Git name and email. Where you have not set them, it takes them from
+your Jupyter4NFDI account (see git_identity.py).
 
 The work folder is slow with many small files. To write fewer of them, this script builds
 the folder on the local disk and packs its Git history into one file before copying it.
@@ -26,15 +28,26 @@ import tempfile
 import urllib.request
 from pathlib import Path
 
+import git_identity
+
 MATERIALS = Path(__file__).resolve().parent
 MODULES = MATERIALS / "modules"
 WORK = Path.home() / "work"
 PROJECT = WORK / "rrw-workshop"
 
-# The script's own commits are marked as its own, and they work before you set your name.
-GIT = ["git", "-c", "user.name=Setup script", "-c", "user.email=setup@example.invalid"]
+# Commits carry your Git name and email. Where one is still missing, after asking the hub
+# (git_identity.py), the commit uses this placeholder, so it works before you set yours.
+PLACEHOLDER = {"user.name": "Setup script", "user.email": "setup@example.invalid"}
+GIT = ["git"]
 NOT_CONTENT = (".ipynb_checkpoints", "__pycache__")
 DOWNLOAD_TIMEOUT = 60  # seconds without a response
+
+
+def use_identity():
+    """Fill in a missing Git name or email from the hub, and use the placeholder for what is left."""
+    git_identity.fill_in()
+    GIT[1:] = [arg for key, value in PLACEHOLDER.items() if not git_identity.configured(key)
+               for arg in ("-c", f"{key}={value}")]
 
 
 def git(folder, *args):
@@ -167,6 +180,7 @@ def add_experiment(module):
 
 def setup(module):
     WORK.mkdir(exist_ok=True)
+    use_identity()
     if not PROJECT.exists():
         create_project()
     elif not (PROJECT / ".git").exists():
