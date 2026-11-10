@@ -26,13 +26,14 @@ come to the optional [setup slot](#the-setup-slot-if-you-need-help) on Friday
 
 The workshop runs on Jupyter4NFDI, a service that runs JupyterLab in your browser.
 
-1. Go to <https://hub.nfdi-jupyter.de> and log in with your university account.
-2. **If the university login fails**, use the guest access instead: on the login page,
-   choose **Guest Access**, then **Helmholtz ID**, and log in with GitHub, Google or
-   ORCID. Use the same route every time, because each route is a separate account with
-   its own files.
+1. Go to <https://hub.nfdi-jupyter.de> and log in with your university account. To get 
+   to the selection of universities you need to select **Guest Access** first. This will 
+   bring you to the Helmholz ID interface. If you experience problems logging in with your 
+   university login, log in with GitHub, Google or ORCID. Use the same route 
+   every time, because each route is a separate account with its own files.
 3. Open <https://hub.nfdi-jupyter.de/hub/api/user_email>. It shows the email address
-   your account has on Jupyter4NFDI. It may differ from the address you registered with.
+   your account has on Jupyter4NFDI. It may differ from the address you registered with 
+   for the workshop.
 4. Open <https://hub.nfdi-jupyter.de/hub/credits> and note the credits per day for
    **deNBI-Cloud**. A running lab uses credits, so stop it after each session (end of
    step 5).
@@ -59,7 +60,7 @@ JupyterLab opens with the file browser on the left. It shows the workshop materi
 including `README.md`, `SETUP.ipynb`, `template/` and `modules/`, and the folder
 `work/`.
 
-**The tutor may join your lab.** During the workshop, the tutor can open your running lab
+**The tutor may join your lab.** During the workshop, the tutor may open your running lab
 through Real Time Collaboration to help you. Please let the tutor know if you don't want
 to use this function.
 
