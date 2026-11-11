@@ -28,5 +28,3 @@ if [ "$(git -C "$repo" branch --show-current 2>/dev/null)" = main ]; then
 fi
 
 exec "$@"
-
-git checkout 2026-11-rmu
