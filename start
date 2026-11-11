@@ -13,6 +13,20 @@ if [ -d "$HOME/work" ]; then
     timeout 5 python3 "$(dirname "$0")/git_identity.py" || true
 fi
 
+# Repo2Docker builds the image from the Git ref you chose, but it does so by moving the
+# default branch (main) to that commit. Rename the branch to the one the image was built
+# from, so the Git panel shows the event branch and a pull follows that branch. Nothing
+# happens if the image was built from main or from a commit that is no branch tip.
+repo="$(dirname "$0")"
+if [ "$(git -C "$repo" branch --show-current 2>/dev/null)" = main ]; then
+    built_from=$(git -C "$repo" for-each-ref --points-at HEAD \
+        --format='%(refname:lstrip=3)' refs/remotes/origin | grep -vx -e HEAD -e main)
+    if [ -n "$built_from" ] && [ "$(echo "$built_from" | wc -l)" -eq 1 ]; then
+        git -C "$repo" branch -q -m main "$built_from" &&
+            git -C "$repo" branch -q -u "origin/$built_from" || true
+    fi
+fi
+
 exec "$@"
 
 git checkout 2026-11-rmu
