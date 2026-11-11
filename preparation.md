@@ -1,4 +1,4 @@
-# Preparation for the RMU workshop
+# Preparation for the Jupyter workshop
 
 Workshop: Reproducible research workflows with Jupyter and Python, online,
 Monday 30 November to Thursday 3 December 2026, daily 09:00–12:15.
@@ -8,6 +8,8 @@ project folder exists and the materials are open, so you can start with module o
 09:00 on Monday.
 
 You need a computer with internet access and a current web browser. You install nothing.
+
+The whole procedure will take you 30-60 min.
 
 **What to send, and by when**
 
@@ -35,8 +37,8 @@ The workshop runs on Jupyter4NFDI, a service that runs JupyterLab in your browse
    your account has on Jupyter4NFDI. It may differ from the address you registered with 
    for the workshop.
 4. Open <https://hub.nfdi-jupyter.de/hub/credits> and note the credits per day for
-   **deNBI-Cloud**. A running lab uses credits, so stop it after each session (end of
-   step 5).
+   **deNBI-Cloud**. Your should see a value between 120 and 500. Please reach out to 
+   the tutor if you see less than 100 credits.
 5. **Report** the address from point 3, exactly as shown, by replying to the mail these
    instructions came with.
 
@@ -51,7 +53,7 @@ address as soon as you can. You can start the workshop lab once the tutor has en
 
 ## 2. Start the lab
 
-1. Open the workshop page: <https://hub.nfdi-jupyter.de/workshops/r3du839ryrclmzccsexel2a3w25tfq3>
+1. Open the workshop page: <https://hub.nfdi-jupyter.de/workshops/ie6zo4o9xehoib4b7jjq9dnrx9hjx6gc>
 2. Start the lab. The workshop's settings are already filled in.
 3. Wait. The first start after a change to the materials builds the environment and can
    take several minutes. Later starts are faster.
