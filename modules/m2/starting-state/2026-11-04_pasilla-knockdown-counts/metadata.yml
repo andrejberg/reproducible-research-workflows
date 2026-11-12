@@ -1,0 +1,42 @@
+# Structured facts about this experiment. Narrative belongs in README.md.
+# Paths are relative to this folder. Leave a value as null until you know it.
+
+experiment:
+  id: "2026-11-04_pasilla-knockdown-counts"   # the same as the folder name
+  title: "Read counts after a pasilla knockdown: a first look"
+  date_started: null                  # YYYY-MM-DD
+  date_completed: null
+  author: null
+  status: "draft"                     # draft | in_progress | completed
+  module: "M2"
+  project: "rrw-workshop"
+  keywords: ["RNA-seq", "read counts", "Drosophila melanogaster", "RNAi knockdown"]
+
+inputs:
+  # The counts are typed into the first cell of the notebook, not kept in a data file.
+  - path: "code/explore_counts.ipynb"
+    role: "raw_data"                  # raw_data | reference_data | configuration
+    source: "https://bioconductor.org/packages/pasilla/"
+    source_version: "1.40.0"          # file inst/extdata/pasilla_gene_counts.tsv
+    licence: "LGPL"
+    # MD5 of the whole source file pasilla_gene_counts.tsv; the notebook holds six of its rows.
+    checksum: "md5:f46bb780e3bf314a7002229625454b7b"
+
+code:
+  - path: "code/explore_counts.ipynb"
+    role: "analysis"                  # data_cleaning | analysis | visualisation | workflow
+
+outputs: []
+
+software:
+  environment_file: "../../environment.yml"
+  environment_name: "rrw-workshop"
+
+provenance:
+  raw_to_processed: null              # the code that turns raw data into processed data
+  processed_to_results: "code/explore_counts.ipynb"
+
+reuse:
+  licence: "LGPL"
+  contact: null
+  related_experiment: null
