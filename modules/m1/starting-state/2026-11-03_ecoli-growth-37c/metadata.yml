@@ -1,0 +1,40 @@
+# Structured facts about this experiment. Narrative belongs in README.md.
+# Paths are relative to this folder. Leave a value as null until you know it.
+
+experiment:
+  id: "2026-11-03_ecoli-growth-37c"   # the same as the folder name
+  title: null
+  date_started: null                  # YYYY-MM-DD
+  date_completed: null
+  author: null
+  status: "draft"                     # draft | in_progress | completed
+  module: null
+  project: null
+  keywords: []
+
+inputs:
+  - path: "data/raw/ecoli-growth-37c-1pct.csv"
+    role: "raw_data"                  # raw_data | reference_data | configuration
+    source: null                      # DOI or URL
+    source_version: null
+    licence: null
+    checksum: null
+
+code:
+  - path: "code/growth_curve.ipynb"
+    role: "analysis"                  # data_cleaning | analysis | visualisation | workflow
+
+outputs: []
+
+software:
+  environment_file: "../../environment.yml"
+  environment_name: "rrw-workshop"
+
+provenance:
+  raw_to_processed: null              # the code that turns raw data into processed data
+  processed_to_results: null          # the code that turns processed data into results
+
+reuse:
+  licence: null
+  contact: null
+  related_experiment: null
