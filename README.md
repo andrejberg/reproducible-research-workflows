@@ -45,13 +45,16 @@ from it after a restart.
 modules/<module>/
 ├── README.md
 ├── setup.json
-└── starting-state/
-    └── YYYY-MM-DD_experiment-name/
+├── starting-state/
+│   └── YYYY-MM-DD_experiment-name/
+└── solutions/
 ```
 
-- `README.md` describes the starting state and how to run the exercises. It stays with the
-  materials and is not copied. It tells readers to run `setup_module.py` with the module's
-  folder name, and to work inside `work/` only.
+- `README.md` describes the starting state and how to run the exercises. The setup command
+  copies it into the project as `<MODULE>_INSTRUCTIONS.md` (for example
+  `M1_INSTRUCTIONS.md`) and commits it with the experiment, so the instructions are next to
+  your work. It tells readers to run `setup_module.py` with the module's folder name, and
+  to work inside `work/` only.
 - `setup.json` says what the setup command does for this module. `experiment` names the
   folder in `starting-state/`. `download` is optional and lists files to add to the
   experiment, each with its `url`, its `md5` checksum and its `path` inside the experiment:
@@ -76,6 +79,9 @@ modules/<module>/
   files in `starting-state/`, or files that `setup.json` downloads.
 - Every file costs time in `work/`, so an experiment holds only what the module uses: about
   ten files at most, and no `.gitkeep` files or empty folders.
+- `solutions/` holds the module's reference solution: a `README.md` with the answers per
+  exercise step, the completed experiment files in `experiment/` and a journal entry. It
+  stays with the materials and is not copied into the project.
 
 ## Branches
 

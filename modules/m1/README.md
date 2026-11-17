@@ -24,8 +24,11 @@ Work inside `work/` only: everything outside it is reset at the next start.
    python ~/setup_module.py m1
    ```
 
-2. In the file browser, go to `work/rrw-workshop/experiments/2026-11-03_ecoli-growth-37c/`.
-3. Open `README.md` and `metadata.yml` and see what they already say.
+   You should see "Module m1: copied the experiment folder … and committed it in Git."
+2. In the file browser, open `work/rrw-workshop/M1_INSTRUCTIONS.md` (right-click → Open
+   With → Markdown Preview). It is a copy of these instructions, next to your project.
+3. Go to `work/rrw-workshop/experiments/2026-11-03_ecoli-growth-37c/`. Open `README.md`
+   and `metadata.yml` and see what they already say.
 
 You need nothing from other modules, and you can run the command again: it never
 overwrites what is already there.
@@ -37,19 +40,36 @@ overwrites what is already there.
    example `growth["A7"]`. Run the second and the third cell again and compare the plot.
 3. Restart the kernel (Kernel → Restart Kernel). Run only the third cell. Read the error:
    which variable is missing, and why? Then run all cells (Run → Run All Cells).
-4. Create a new notebook in the experiment's `code/` folder (File → New → Notebook). In
-   it, run `growth` and read the error. Then run:
+4. Create a new notebook in the experiment's `code/` folder (File → New → Notebook, kernel
+   Python 3). In its first cell, type and run:
 
    ```python
-   import sys
-   sys.executable
+   print(growth.head())
    ```
 
-   This is the Python interpreter that runs the notebook's kernel. In one sentence, why
-   does the new notebook not know `growth`? Close the new notebook and delete it.
-5. Back in `growth_curve.ipynb`, add a Markdown cell at the top (Esc, A, then M) that says
-   in two or three sentences what the notebook does and which data it reads. Save the
-   notebook (Ctrl + S).
+   You should see `NameError: name 'growth' is not defined`. `growth` exists in the
+   notebook `growth_curve.ipynb` only: each notebook has its own **kernel**, a running
+   Python process that holds the notebook's variables.
+5. In the next cell of the new notebook, type and run:
+
+   ```python
+   import os
+   import sys
+
+   print("Interpreter:", sys.executable)
+   print("Kernel process:", os.getpid())
+   ```
+
+   Restart the kernel (Kernel → Restart Kernel) and run the cell again. The
+   **interpreter**, the Python program installed in the lab, stays the same. The kernel
+   process number changes: a restart starts a new kernel from the same interpreter, which
+   is why step 3 lost the variables. Close the new notebook and delete it.
+6. Back in `growth_curve.ipynb`, add a Markdown cell at the top: click the first cell,
+   press Esc, A (new cell above), then M (Markdown). A Markdown cell holds text, which
+   JupyterLab formats when you run it; a code cell holds Python, which the kernel runs.
+   Write two or three sentences on what the notebook does and which data it reads, and
+   run the cell (Shift + Enter): you should see formatted text. Every notebook should
+   start with such a description. Save the notebook (Ctrl + S).
 
 ## Larger exercise (20 min, in groups)
 
@@ -66,9 +86,10 @@ Bring the experiment up to the project's template. The template experiment is in
    with its role.
 3. `work/rrw-workshop/journal.md`: add an entry for today at the top. What did you do,
    what did you decide, and what comes next?
-4. Commit: open the Git panel (the Git icon in the left sidebar), check that it lists
-   your changes, write a short message and commit. Do not click **Initialize a
-   Repository**: the project already has one.
+4. Commit: open the Git panel (the Git icon in the left sidebar). It should list
+   `README.md`, `metadata.yml`, `growth_curve.ipynb`, `journal.md` and the new
+   `results/figures/growth-curve.png`. Write a short message, for example
+   `add meta data`, and commit.
 5. In your group, compare what you put in the README and what in the journal. Agree on a
    rule for which information belongs where.
 
@@ -80,13 +101,18 @@ Complete the metadata from the dataset's repository record.
 2. In `metadata.yml`, fill in `source`, `source_version`, `licence` and `checksum` of the
    input, and `reuse.licence`. The record lists a checksum for the workbook
    `Repo1pct.xlsx`; note in a comment that the CSV was exported from it.
-3. In the journal, note what the record does not tell you about how the data was
-   measured. Do not fill these gaps with guesses.
+3. In the journal, note what the record does not tell you.
 4. Commit your changes.
+
+## Solutions
+
+A reference solution for all three exercises is in `~/modules/m1/solutions/`. Its
+`README.md` gives the answers step by step; `experiment/` shows the completed experiment
+files and `journal-entry.md` a journal entry. Try the exercise first, then compare.
 
 ## Data credit
 
 The data is by María Isabel González Siso, Manuel Becerra, Daniel Torrecilla,
 Ana-María Díaz-Díaz, Jorge López-Beceiro and Ramón Artiaga, published on Zenodo under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/):
-<https://doi.org/10.5281/zenodo.19416053>. See `data/ecoli-growth/README.md`.
+<https://doi.org/10.5281/zenodo.19416053>. See `~/data/ecoli-growth/README.md`.

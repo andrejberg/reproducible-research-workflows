@@ -1,0 +1,46 @@
+# Structured facts about this experiment. Narrative belongs in README.md.
+# Paths are relative to this folder. Leave a value as null until you know it.
+
+experiment:
+  id: "2026-11-03_ecoli-growth-37c"   # the same as the folder name
+  title: "E. coli growth at 37 °C with 1 % glucose: a first look"
+  date_started: "2026-11-30"          # YYYY-MM-DD
+  date_completed: "2026-11-30"
+  author: "Ada Lovelace"
+  status: "completed"                 # draft | in_progress | completed
+  module: "M1"
+  project: "rrw-workshop"
+  keywords: ["Escherichia coli", "growth curve", "optical density"]
+
+inputs:
+  - path: "data/raw/ecoli-growth-37c-1pct.csv"
+    role: "raw_data"                  # raw_data | reference_data | configuration
+    source: "https://doi.org/10.5281/zenodo.19416053"
+    # The record gives no version number. It is one version of the concept DOI
+    # 10.5281/zenodo.16944298, published on 2026-04-04.
+    source_version: "2026-04-04"
+    licence: "CC-BY-4.0"
+    # MD5 of the source workbook Repo1pct.xlsx, as listed in the record. This CSV is its
+    # sheet 37_1%n2, exported unchanged.
+    checksum: "md5:b52a4e3556b1d401799a4b43094bf2a5"
+
+code:
+  - path: "code/growth_curve.ipynb"
+    role: "analysis"                  # data_cleaning | analysis | visualisation | workflow
+
+outputs:
+  - path: "results/figures/growth-curve.png"
+    role: "figure"                    # processed_data | figure | table | report
+
+software:
+  environment_file: "../../environment.yml"
+  environment_name: "rrw-workshop"
+
+provenance:
+  raw_to_processed: null              # the code that turns raw data into processed data
+  processed_to_results: "code/growth_curve.ipynb"
+
+reuse:
+  licence: "CC-BY-4.0"
+  contact: null
+  related_experiment: null
