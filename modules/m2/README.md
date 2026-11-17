@@ -110,6 +110,13 @@ Make the parser report malformed sample names instead of failing on them.
    malformed one?
 4. Add a line to the journal and commit.
 
+## Solutions
+
+A reference solution for all three exercises is in `~/modules/m2/solutions/`. Its
+`README.md` gives the results that do not depend on the LLM and the answers step by step;
+`experiment/` shows the completed experiment files and `journal-entry.md` a journal entry.
+Try the exercise first, then compare.
+
 ## Data credit
 
 The counts are an excerpt of `pasilla_gene_counts.tsv` in the Bioconductor data package

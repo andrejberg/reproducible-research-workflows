@@ -6,7 +6,8 @@
 """Set up the folder work/rrw-workshop for your experiments. work/ is kept between sessions.
 
     python ~/setup_module.py            creates the folder work/rrw-workshop, if it is missing
-    python ~/setup_module.py <module>   also adds the module's experiment to that folder
+    python ~/setup_module.py <module>   also adds the module's experiment to that folder, and
+                                        its instructions as <MODULE>_INSTRUCTIONS.md
 
 Each module's setup.json says which experiment to add and which files to download for it.
 Run it as often as you like: it never overwrites what is already there.
@@ -136,14 +137,33 @@ def download(url, md5, target):
     target.write_bytes(content)
 
 
+def copy_instructions(module):
+    """Copy the module's README into the project, so its instructions are next to your work.
+    Return the copy's path if it was made now, or None if it already existed."""
+    source = MODULES / module / "README.md"
+    target = PROJECT / f"{module.upper()}_INSTRUCTIONS.md"
+    if target.exists() or not source.is_file():
+        return None
+    shutil.copy2(source, target)
+    return target
+
+
 def add_experiment(module):
     source, downloads = read_setup(module)
     target = PROJECT / "experiments" / source.name
     relative = target.relative_to(PROJECT).as_posix()
+    instructions = PROJECT / f"{module.upper()}_INSTRUCTIONS.md"
 
     if target.exists() and git(PROJECT, "ls-files", "--", relative):
         print(f"Module {module}: the experiment folder {target} already exists in Git, "
-              "so nothing was changed.")
+              "so it was not changed.")
+        if copy_instructions(module):
+            git(PROJECT, "add", "--", instructions.name)
+            git(PROJECT, "commit", "-q", "-m", f"Add the instructions of {module}", "--",
+                instructions.name)
+            print(f"Module {module}: copied its instructions to {instructions} and committed them in Git.")
+        else:
+            print(f"Module {module}: its instructions are in {instructions}.")
         return
     copied = not target.exists()
     missing = [item for item in downloads if not (target / item[2]).exists()]
@@ -167,15 +187,19 @@ def add_experiment(module):
     done = f"copied the experiment folder to {target}" if copied else f"found the experiment folder {target}"
     if missing:
         done += f", downloaded {len(missing)} file(s) into it, checked their checksums"
+    paths = [relative]
+    if copy_instructions(module):
+        paths.append(instructions.name)
 
-    git(PROJECT, "add", "--", relative)
+    git(PROJECT, "add", "--", *paths)
     # A restored folder can match the last commit, and then there is nothing to commit.
-    if git(PROJECT, "status", "--porcelain", "--", relative):
-        # Commits this folder only. Anything else you have staged stays as it is.
-        git(PROJECT, "commit", "-q", "-m", f"Add the starting state of {module}", "--", relative)
+    if git(PROJECT, "status", "--porcelain", "--", *paths):
+        # Commits the experiment and the instructions only. Anything else you have staged stays as it is.
+        git(PROJECT, "commit", "-q", "-m", f"Add the starting state of {module}", "--", *paths)
         print(f"Module {module}: {done} and committed it in Git.")
     else:
         print(f"Module {module}: {done}. It matches the last Git commit, so there was nothing to commit.")
+    print(f"Module {module}: its instructions are in {instructions}.")
 
 
 def setup(module):
