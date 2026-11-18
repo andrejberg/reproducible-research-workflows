@@ -68,15 +68,14 @@ record information when it becomes available.
    (`in_progress`), the module (`M1`) and the project (`rrw-workshop`). Under `outputs`,
    enter the figure that the notebook writes, `results/figures/growth-curve.png`, with the
    role `figure`. Leave every value you do not know as `null`.
-4. In `work/rrw-workshop/journal.md`, add an entry for today at the top: what you did,
-   what you decided
-5. Commit: open the Git panel (the Git icon in the left sidebar). It should list
+3. In `work/rrw-workshop/journal.md`, add an entry for today at the top: what you did,
+   what you decided.
+4. Commit: open the Git panel (the Git icon in the left sidebar). It should list
    `README.md`, `metadata.yml`, `growth_curve.ipynb`, `journal.md` and the new
    `results/figures/growth-curve.png`. Write a short message, for example
    `add meta data`, and commit.
-6. In your group, compare what you put in the README and what in the journal. Agree on a rule
+5. In your group, compare what you put in the README and what in the journal. Agree on a rule
    for which information belongs where.
- 
 
 ## Bonus exercise (30 min, homework)
 

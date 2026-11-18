@@ -37,15 +37,16 @@ differ; what matters is that the same information is there.
   larger exercise alone, the values from the record (`source`, `source_version`,
   `licence`, `checksum`, `reuse.licence`) are still `null`, and sections you could not
   answer yet keep their questions. Outputs list `results/figures/growth-curve.png` with
-  role `figure`.
-- Commit: the Git panel lists the changed `README.md`, `metadata.yml`, `growth_curve.ipynb`
-  and the new `results/figures/growth-curve.png`. With simple staging, one commit takes
-  all of them.
-- What stays empty, and why: the licence, source version and checksum of the input are
-  in the dataset's record, which you have not read yet (bonus). `date_completed` is known
-  only when the experiment is done. `contact` and `related_experiment` may never apply.
-  Leaving them `null` is correct: a guessed value is worse than an empty one, and the
-  file shows what is still open.
+  role `figure`. Leaving an unknown value `null` is correct: a guessed value is worse than
+  an empty one, and the file shows what is still open.
+- Journal: see `journal-entry.md`, without its bonus line.
+- Commit: the Git panel lists the changed `README.md`, `metadata.yml`, `growth_curve.ipynb`,
+  `journal.md` and the new `results/figures/growth-curve.png`. With simple staging, one
+  commit takes all of them.
+- A good group rule: the README explains the experiment so that it can be understood
+  without anything else (purpose, method, observations, how to reproduce); the journal
+  records what happened when, briefly, across experiments, and points to the experiment
+  for details.
 
 ## Bonus exercise
 
@@ -63,7 +64,7 @@ From the record at <https://doi.org/10.5281/zenodo.19416053>:
 - `licence` and `reuse.licence`: CC BY 4.0.
 - `checksum`: the record lists `md5:b52a4e3556b1d401799a4b43094bf2a5` for `Repo1pct.xlsx`.
   It is the workbook's checksum, not the CSV's, which the comment must say.
-- Journal: see `journal-entry.md`. Gaps in the record (also in
+- Journal: the bonus line in `journal-entry.md` updates the entry. Gaps in the record (also in
   `~/data/ecoli-growth/README.md` § Known gaps in the source metadata): strain, medium
   apart from glucose, instrument and plate type; whether optical density was read at
   600 nm and blank-corrected; what the sheet-name suffixes mean; no linked publication.
@@ -82,9 +83,9 @@ Each M1 skill, with the exercise step that practises it:
 - explain kernel vs. interpreter — small 4–5
 - apply the directory template — larger 1–2 (the template's sections and fields), bonus 1
   (the template experiment)
-- create an experiment entry — the set-up adds the folder; larger 1–3 make it a complete
+- create an experiment entry — the set-up adds the folder; larger 1–4 make it a complete
   entry
-- write a journal entry — bonus 4
+- write a journal entry — larger 3, bonus 4
 - write a README — larger 1
-- open the Git panel — larger 3
-- commit an experiment entry — larger 3, bonus 5
+- open the Git panel — larger 4
+- commit an experiment entry — larger 4, bonus 5
