@@ -1,7 +1,8 @@
 ## 2026-11-30
 
 - Completed M2: asked an LLM for code on the pasilla read counts, checked its results by
-  hand and fixed a bug in the code for the mean per condition.
+  hand, fixed a bug in the code that parses the sample names and computed the mean per
+  condition.
 - Problem: `ValueError: invalid literal for int() with base 10: 'rep1'`.
 - Solution: the replicate part of a sample name is `rep1`; removed `rep` before
   converting it to a number.

@@ -46,12 +46,12 @@ When you work with the LLM:
 2. Copy the first code cell into the chat and ask, for example:
 
    > Using the dictionary `counts` above, write plain Python that prints the genes whose
-   > mean count over all seven samples is above `threshold = 1000`, with their mean.
+   > mean count over all seven samples is above `threshold = 100`.
 
-3. Paste the answer into the cell under "Small exercise" and run it. If it fails, paste
-   the error message into the chat and ask for a fix.
-4. Read the code before you trust it. Which line computes the mean, which line is the
+3. Read the code before you trust it. Which line computes the mean, which line is the
    condition? If you cannot tell, ask the LLM to add a comment to each line.
+4. Paste the answer into the cell that starts with `# your task` and run it. If it fails,
+   paste the error message into the chat and ask for a fix.
 5. Check the result by hand for two genes, one listed and one not: add a cell such as
    `sum(counts["FBgn0039155"]) / 7` and compare.
 6. Commit: open the Git panel (the Git icon in the left sidebar), write a short message
@@ -59,24 +59,34 @@ When you work with the LLM:
 
 ## Larger exercise (20 min, in pairs)
 
-The cell under "Larger exercise" holds the answer an LLM gave to the prompt above it,
-pasted unchanged. It is meant to turn sample names such as `ctrl_rep1` into a condition
-and a replicate number, and to compute the mean count per condition. It contains a bug.
+To compute the mean count per condition, the sample names have to be parsed: `ctrl_rep1`
+becomes the condition `ctrl` and the replicate number `1`. The first code cell under
+"Larger exercise" does this, and it contains a bug.
 
-1. Before you run it, read the prompt and the code together. One of you explains to the
-   other what each part should do.
+1. Before you run it, read the code together. One of you explains to the other what each
+   line should do.
 2. Run the cell. You should see an error. Read the error message from the bottom up:
    which error, in which line, and which line of your cell called it?
-3. Find the cause step by step. In a new cell, run the failing line on one name, for
-   example `"ctrl_rep1".split("_")`, and look at what comes back. What does `int()` get?
+3. Find the cause step by step. In the empty cell below, run the failing line on one name,
+   for example `"ctrl_rep1".split("_")`, and look at what comes back. What does `int()`
+   get?
 4. Fix the line, by yourself or by pasting the error message into the chat. Read the fix
-   before you run it. You should see one line per gene with a `ctrl` and a `kd` mean.
-5. Check one mean by hand: the `kd` mean of `FBgn0039155` from its last three counts.
-6. Document what you did:
+   before you run it. Then run the cell `# check the result`: you should see all seven
+   names, each with its condition and replicate number, such as
+   `'ctrl_rep1': {'condition': 'ctrl', 'replicate': 1}`.
+5. Copy the first code cell and your fixed cell into the chat and ask, for example:
+
+   > Using `counts`, `samples` and `sample_info` above, write plain Python that computes
+   > and prints the mean count per condition for each gene.
+
+   Paste the answer into the cell `# Compute and print the mean count per condition for
+   each gene` and run it. You should see one line per gene with a `ctrl` and a `kd` mean.
+6. Check one mean by hand: the `kd` mean of `FBgn0039155` from its last three counts.
+7. Document what you did:
    - in the notebook, a Markdown cell under the fixed code: what was wrong, how you found
      it and how you fixed it
    - in `journal.md` (in `work/rrw-workshop/`), an entry for today at the top
-7. Commit: the Git panel should list `explore_counts.ipynb` and `journal.md`. Write a
+8. Commit: the Git panel should list `explore_counts.ipynb` and `journal.md`. Write a
    short message and commit.
 
 Be ready to show the group the error message, the line that caused it and your fix.
@@ -104,6 +114,8 @@ sample names instead of failing on them.
 
 - `NameError: name 'counts' is not defined` → the kernel was restarted or the first cell
   was not run → run the first code cell, then the cell you were working on.
+- `KeyError: 'ctrl_rep1'` in the cell for the means → `sample_info` is empty because the
+  parser cell still fails → fix the parser, run its cell, then the cell for the means.
 - The LLM's code uses other variable names or made-up data → it did not see your data →
   paste the first code cell into the chat and name `samples` and `counts`.
 
