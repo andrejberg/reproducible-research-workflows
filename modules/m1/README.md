@@ -68,14 +68,17 @@ record information when it becomes available.
    (`in_progress`), the module (`M1`) and the project (`rrw-workshop`). Under `outputs`,
    enter the figure that the notebook writes, `results/figures/growth-curve.png`, with the
    role `figure`. Leave every value you do not know as `null`.
-3. Commit: open the Git panel (the Git icon in the left sidebar). It should list
-   `README.md`, `metadata.yml`, `growth_curve.ipynb` and the new
+4. In `work/rrw-workshop/journal.md`, add an entry for today at the top: what you did,
+   what you decided
+5. Commit: open the Git panel (the Git icon in the left sidebar). It should list
+   `README.md`, `metadata.yml`, `growth_curve.ipynb`, `journal.md` and the new
    `results/figures/growth-curve.png`. Write a short message, for example
    `add meta data`, and commit.
-4. In your group, compare what you left empty. Why could you not fill it in yet, and when,
-   or from whom, will you get that information?
+6. In your group, compare what you put in the README and what in the journal. Agree on a rule
+   for which information belongs where.
+ 
 
-## Bonus exercise (homework)
+## Bonus exercise (30 min, homework)
 
 Look at the project's template, then complete the metadata from the dataset's repository
 record.
@@ -83,12 +86,11 @@ record.
 1. Open `work/rrw-workshop/README.md` and the template experiment in
    `work/rrw-workshop/experiments/YYYY-MM-DD_experiment-name/`. Which folders does the
    template have that your experiment does not, and what would go into them?
-2. Open the record from the DOI in the README's data credit.
+2. Open the zenodo record from the DOI in the README's data credit.
 3. In `metadata.yml`, fill in `source`, `source_version`, `licence` and `checksum` of the
-   input, and `reuse.licence`. The record lists a checksum for the workbook
-   `Repo1pct.xlsx`; note in a comment that the CSV was exported from it.
-4. In `work/rrw-workshop/journal.md`, add an entry for today at the top: what you did,
-   what you decided, and what the record does not tell you.
+   input, and `reuse.licence`. The zenodo record lists a checksum for the file
+   `Repo1pct.xlsx` right under its file name; note in a comment that the CSV was exported from it.
+4. In `work/rrw-workshop/journal.md`, update what you did.
 5. Commit your changes.
 
 ## Solutions
