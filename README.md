@@ -41,10 +41,7 @@ The materials run in JupyterLab. The repository is meant to be built with
 repositories (for example [Jupyter4NFDI](https://hub.nfdi-jupyter.de) or
 [Binder](https://mybinder.org)) can start a ready-to-use session from it.
 
-Modules are added here as they are ready. Each module has its own README with its starting
-state and how to run its exercises.
-
-## Where your work lives
+## Getting started (before the workshop)
 
 Work inside `work/` only. On a hub with persistent storage (on Jupyter4NFDI, "Mount user
 data"), only `work/` is kept between sessions. Everything else in your home folder,
@@ -53,22 +50,33 @@ including these materials, is reset at the next start, so whatever you create ou
 
 Your project is `work/rrw-workshop/`. All modules add their experiment to it, and it has
 one Git repository. `SETUP.ipynb` creates it before the first session. To create it in a
-terminal instead (File → New → Terminal), and to add a module's experiment, run:
+terminal instead (File → New → Terminal), run:
 
 ```bash
 python ~/setup_module.py          # creates the project, if it is missing
-python ~/setup_module.py example  # also adds this module's experiment
 ```
 
-You can run a module without having done the others, and you can run the command again:
-it never overwrites what is already there. Use the name of the module's folder in `modules/`.
+## Set up the module (during the workshop)
 
-Do not click **Initialize a Repository** in the Git panel. It creates a repository in the
-folder the file browser shows, and the project already has one.
+Work inside `work/` only: everything outside it is reset at the next start.
 
-`work/` is slow with many small files. Keep data as few, larger files, and keep software
-environments out of it: keep the environment file in `work/` and rebuild the environment
-from it after a restart.
+1. Open a terminal (File → New → Terminal) and run:
+
+   ```bash
+   python ~/setup_module.py m1
+   ```
+   <br>
+   You should see "Module m1: copied the experiment folder … and committed it in Git."
+2. In the file browser, open `work/rrw-workshop/M1_INSTRUCTIONS.md` (right-click → Open
+   With → Markdown Preview). It is a copy of the module's instructions,
+   `modules/m1/README.md`, next to your project.
+3. Go to `work/rrw-workshop/experiments/2026-11-03_ecoli-growth-37c/`. Open `README.md`
+   and `metadata.yml` and see what they already say.
+
+You need nothing from other modules, and you can run the command again: it never
+overwrites what is already there.
+
+Repeat this for the other modules once you start working on them.
 
 ## Module layout
 
@@ -84,8 +92,8 @@ modules/<module>/
 - `README.md` describes the starting state and how to run the exercises. The setup command
   copies it into the project as `<MODULE>_INSTRUCTIONS.md` (for example
   `M1_INSTRUCTIONS.md`) and commits it with the experiment, so the instructions are next to
-  your work. It tells readers to run `setup_module.py` with the module's folder name, and
-  to work inside `work/` only.
+  your work. The setup steps are not repeated in it: they are in § Set up the module
+  above.
 - `setup.json` says what the setup command does for this module. `experiment` names the
   folder in `starting-state/`. `download` is optional and lists files to add to the
   experiment, each with its `url`, its `md5` checksum and its `path` inside the experiment:

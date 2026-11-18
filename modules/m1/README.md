@@ -12,26 +12,8 @@ with 1 % glucose:
 - `data/raw/ecoli-growth-37c-1pct.csv`: optical density of eight wells, read every
   5 minutes for 24 hours
 - `code/growth_curve.ipynb`: reads the data, prints a summary and plots the growth curve
-- `README.md` and `metadata.yml`: almost empty. Completing them is part of the exercises.
-
-## Set up the module
-
-Work inside `work/` only: everything outside it is reset at the next start.
-
-1. Open a terminal (File → New → Terminal) and run:
-
-   ```bash
-   python ~/setup_module.py m1
-   ```
-
-   You should see "Module m1: copied the experiment folder … and committed it in Git."
-2. In the file browser, open `work/rrw-workshop/M1_INSTRUCTIONS.md` (right-click → Open
-   With → Markdown Preview). It is a copy of these instructions, next to your project.
-3. Go to `work/rrw-workshop/experiments/2026-11-03_ecoli-growth-37c/`. Open `README.md`
-   and `metadata.yml` and see what they already say.
-
-You need nothing from other modules, and you can run the command again: it never
-overwrites what is already there.
+- `README.md` and `metadata.yml`: every section and field of the project's template, but
+  still empty. Filling them in is part of the exercises.
 
 ## Small exercise (15 min, on your own)
 
@@ -46,7 +28,7 @@ overwrites what is already there.
    ```python
    print(growth.head())
    ```
-
+   <br>
    You should see `NameError: name 'growth' is not defined`. `growth` exists in the
    notebook `growth_curve.ipynb` only: each notebook has its own **kernel**, a running
    Python process that holds the notebook's variables.
@@ -59,7 +41,7 @@ overwrites what is already there.
    print("Interpreter:", sys.executable)
    print("Kernel process:", os.getpid())
    ```
-
+   <br>
    Restart the kernel (Kernel → Restart Kernel) and run the cell again. The
    **interpreter**, the Python program installed in the lab, stays the same. The kernel
    process number changes: a restart starts a new kernel from the same interpreter, which
@@ -73,36 +55,41 @@ overwrites what is already there.
 
 ## Larger exercise (20 min, in groups)
 
-Bring the experiment up to the project's template. The template experiment is in
-`work/rrw-workshop/experiments/YYYY-MM-DD_experiment-name/`, and
-`work/rrw-workshop/README.md` explains it.
+Complete the experiment's `README.md` and `metadata.yml`. They already have every section
+and field of the project's template. Fill in what you know now and leave the rest: you
+record information when it becomes available.
 
-1. `README.md`: give the experiment a title and a one-sentence description, then add the
-   template's sections. Fill in at least the purpose (the question this experiment
+1. `README.md`: replace the title and the one-sentence description. Then answer the
+   sections you can answer now, for example the purpose (the question this experiment
    answers), the method, what you observed in the plot and how to reproduce the result.
-   Keep the data credit.
-2. `metadata.yml`: fill in the title, dates, your name, the status, the module (`M1`) and
-   the project (`rrw-workshop`). Add the figure that the notebook writes to `outputs`,
-   with its role.
-3. `work/rrw-workshop/journal.md`: add an entry for today at the top. What did you do,
-   what did you decide, and what comes next?
-4. Commit: open the Git panel (the Git icon in the left sidebar). It should list
-   `README.md`, `metadata.yml`, `growth_curve.ipynb`, `journal.md` and the new
+   Replace a section's questions with your answer; leave the questions of a section you
+   cannot answer yet. Keep the data credit.
+2. `metadata.yml`: fill in the title, the start date, your name, the status
+   (`in_progress`), the module (`M1`) and the project (`rrw-workshop`). Under `outputs`,
+   enter the figure that the notebook writes, `results/figures/growth-curve.png`, with the
+   role `figure`. Leave every value you do not know as `null`.
+3. Commit: open the Git panel (the Git icon in the left sidebar). It should list
+   `README.md`, `metadata.yml`, `growth_curve.ipynb` and the new
    `results/figures/growth-curve.png`. Write a short message, for example
    `add meta data`, and commit.
-5. In your group, compare what you put in the README and what in the journal. Agree on a
-   rule for which information belongs where.
+4. In your group, compare what you left empty. Why could you not fill it in yet, and when,
+   or from whom, will you get that information?
 
 ## Bonus exercise (homework)
 
-Complete the metadata from the dataset's repository record.
+Look at the project's template, then complete the metadata from the dataset's repository
+record.
 
-1. Open the record from the DOI in the README's data credit.
-2. In `metadata.yml`, fill in `source`, `source_version`, `licence` and `checksum` of the
+1. Open `work/rrw-workshop/README.md` and the template experiment in
+   `work/rrw-workshop/experiments/YYYY-MM-DD_experiment-name/`. Which folders does the
+   template have that your experiment does not, and what would go into them?
+2. Open the record from the DOI in the README's data credit.
+3. In `metadata.yml`, fill in `source`, `source_version`, `licence` and `checksum` of the
    input, and `reuse.licence`. The record lists a checksum for the workbook
    `Repo1pct.xlsx`; note in a comment that the CSV was exported from it.
-3. In the journal, note what the record does not tell you.
-4. Commit your changes.
+4. In `work/rrw-workshop/journal.md`, add an entry for today at the top: what you did,
+   what you decided, and what the record does not tell you.
+5. Commit your changes.
 
 ## Solutions
 

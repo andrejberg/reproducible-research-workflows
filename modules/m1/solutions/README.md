@@ -33,18 +33,26 @@ differ; what matters is that the same information is there.
 
 ## Larger exercise
 
-- README and metadata: see `experiment/`. Outputs list `results/figures/growth-curve.png`
-  with role `figure`.
-- Journal: see `journal-entry.md`.
-- Commit: the Git panel lists the changed `README.md`, `metadata.yml`, `growth_curve.ipynb`,
-  `journal.md` and the new `results/figures/growth-curve.png`. With simple staging, one
-  commit takes all of them.
-- A good group rule: the README explains the experiment so that it can be understood
-  without anything else (purpose, method, observations, how to reproduce); the journal
-  records what happened when, briefly, across experiments, and points to the experiment
-  for details.
+- README and metadata: see `experiment/`, which also has the bonus answers. After the
+  larger exercise alone, the values from the record (`source`, `source_version`,
+  `licence`, `checksum`, `reuse.licence`) are still `null`, and sections you could not
+  answer yet keep their questions. Outputs list `results/figures/growth-curve.png` with
+  role `figure`.
+- Commit: the Git panel lists the changed `README.md`, `metadata.yml`, `growth_curve.ipynb`
+  and the new `results/figures/growth-curve.png`. With simple staging, one commit takes
+  all of them.
+- What stays empty, and why: the licence, source version and checksum of the input are
+  in the dataset's record, which you have not read yet (bonus). `date_completed` is known
+  only when the experiment is done. `contact` and `related_experiment` may never apply.
+  Leaving them `null` is correct: a guessed value is worse than an empty one, and the
+  file shows what is still open.
 
 ## Bonus exercise
+
+- Template: the template experiment also has `data/processed/` (derived data that code
+  recreates from raw data) and `results/tables/` (generated tables). This experiment
+  writes neither, so it does not need those folders: an experiment holds only what it
+  uses. `work/rrw-workshop/README.md` § Experiment convention explains each folder.
 
 From the record at <https://doi.org/10.5281/zenodo.19416053>:
 
@@ -55,26 +63,28 @@ From the record at <https://doi.org/10.5281/zenodo.19416053>:
 - `licence` and `reuse.licence`: CC BY 4.0.
 - `checksum`: the record lists `md5:b52a4e3556b1d401799a4b43094bf2a5` for `Repo1pct.xlsx`.
   It is the workbook's checksum, not the CSV's, which the comment must say.
-- Gaps for the journal (also in `~/data/ecoli-growth/README.md` § Known gaps in the
-  source metadata): strain, medium apart from glucose, instrument and plate type; whether
-  optical density was read at 600 nm and blank-corrected; what the sheet-name suffixes
-  mean; no linked publication.
+- Journal: see `journal-entry.md`. Gaps in the record (also in
+  `~/data/ecoli-growth/README.md` § Known gaps in the source metadata): strain, medium
+  apart from glucose, instrument and plate type; whether optical density was read at
+  600 nm and blank-corrected; what the sheet-name suffixes mean; no linked publication.
 
 ## Skills covered
 
 Each M1 skill, with the exercise step that practises it:
 
-- navigate the JupyterLab interface — set-up steps 1–3 (terminal, file browser), small 1
+- navigate the JupyterLab interface — the set-up (terminal, file browser; repository
+  README § Set up the module), small 1
 - create and open notebooks — small 1 (open), small 4 (create)
 - run cells — small 1–3
 - restart the kernel — small 3, small 5
 - save notebooks — small 6
 - write Markdown cells — small 6
 - explain kernel vs. interpreter — small 4–5
-- apply the directory template — larger 1–2 (against the template experiment)
-- create an experiment entry — set-up step 1 adds the folder; larger 1–4 make it a
-  complete entry
-- write a journal entry — larger 3, bonus 3
+- apply the directory template — larger 1–2 (the template's sections and fields), bonus 1
+  (the template experiment)
+- create an experiment entry — the set-up adds the folder; larger 1–3 make it a complete
+  entry
+- write a journal entry — bonus 4
 - write a README — larger 1
-- open the Git panel — larger 4
-- commit an experiment entry — larger 4, bonus 4
+- open the Git panel — larger 3
+- commit an experiment entry — larger 3, bonus 5
