@@ -19,28 +19,15 @@ in four control samples and three samples in which the gene *pasilla* was knocke
 - `README.md` and `metadata.yml`: describe the experiment and the data source. The
   observations in the README are still open.
 
-## Set up the module
+## Module-specific preparation
 
-Work inside `work/` only: everything outside it is reset at the next start.
+1. In `experiments/2026-11-04_pasilla-knockdown-counts/`, open `README.md` and read what
+   the experiment is about and how the sample names are built.
+2. Open [GWDG Chat AI](https://chat-ai.academiccloud.de) in a second browser tab, or
+   another chat service you use. You copy code from the notebook into the chat, and the
+   answer back into a notebook cell.
 
-1. Open a terminal (File → New → Terminal) and run:
-
-   ```bash
-   python ~/setup_module.py m2
-   ```
-
-2. In the file browser, go to `work/rrw-workshop/experiments/2026-11-04_pasilla-knockdown-counts/`.
-3. Open `README.md` and read what the experiment is about and how the sample names are
-   built.
-
-You need nothing from other modules, and you can run the command again: it never
-overwrites what is already there.
-
-## Working with an LLM
-
-Open [GWDG Chat AI](https://chat-ai.academiccloud.de) in a second browser tab, or another
-chat service you use. Copy code from the notebook into the chat, and the answer back into
-a notebook cell.
+When you work with the LLM:
 
 - Put only public or made-up data into an LLM. The counts in this experiment are
   published, so you may paste them.
@@ -72,43 +59,53 @@ a notebook cell.
 
 ## Larger exercise (20 min, in pairs)
 
-The notebook holds the answer an LLM gave to a prompt, pasted unchanged. It is meant to
-turn sample names such as `ctrl_rep1` into a condition and a replicate number, and to
-compute the mean count per condition. It contains a bug.
+The cell under "Larger exercise" holds the answer an LLM gave to the prompt above it,
+pasted unchanged. It is meant to turn sample names such as `ctrl_rep1` into a condition
+and a replicate number, and to compute the mean count per condition. It contains a bug.
 
 1. Before you run it, read the prompt and the code together. One of you explains to the
    other what each part should do.
-2. Run the cell. Read the error message from the bottom up: which error, in which line,
-   and which line of your cell called it?
+2. Run the cell. You should see an error. Read the error message from the bottom up:
+   which error, in which line, and which line of your cell called it?
 3. Find the cause step by step. In a new cell, run the failing line on one name, for
    example `"ctrl_rep1".split("_")`, and look at what comes back. What does `int()` get?
 4. Fix the line, by yourself or by pasting the error message into the chat. Read the fix
-   before you run it.
+   before you run it. You should see one line per gene with a `ctrl` and a `kd` mean.
 5. Check one mean by hand: the `kd` mean of `FBgn0039155` from its last three counts.
-6. Which genes have a lower mean in the knockdown samples than in the controls? Look at
-   the size of the difference too: the counts are not normalised.
-7. Document:
+6. Document what you did:
    - in the notebook, a Markdown cell under the fixed code: what was wrong, how you found
      it and how you fixed it
-   - in the experiment's `README.md`, the observations
-   - in `metadata.yml`, your name and the date
-   - in `work/rrw-workshop/journal.md`, an entry for today at the top
-8. Commit your changes in the Git panel.
+   - in `journal.md` (in `work/rrw-workshop/`), an entry for today at the top
+7. Commit: the Git panel should list `explore_counts.ipynb` and `journal.md`. Write a
+   short message and commit.
 
 Be ready to show the group the error message, the line that caused it and your fix.
 
-## Bonus exercise (homework)
+## Bonus exercise (30 min, homework)
 
-Make the parser report malformed sample names instead of failing on them.
+Interpret the means, complete the experiment entry, and make the parser report malformed
+sample names instead of failing on them.
 
-1. The bonus cell defines `more_samples`, made-up names to test with. The rule is
-   `<condition>_rep<number>`, where the condition is `ctrl` or `kd`.
-2. Ask the LLM to change your fixed `parse_sample_name` so that it prints which name is
-   malformed and why, and goes on with the next name. Give it the rule.
-3. Run it on `samples + more_samples`. Check by hand which names break the rule and
+1. Which genes have a lower mean in the knockdown samples than in the controls? Look at
+   the size of the difference too: the counts are not normalised.
+2. In the experiment's `README.md`, answer the questions under "Observations and
+   interpretation". In `metadata.yml`, fill in `date_started`, `author` and `status`
+   (its comment lists the values).
+3. The bonus cell of the notebook defines `more_samples`, made-up names to test with. The
+   rule is `<condition>_rep<number>`, where the condition is `ctrl` or `kd`. Ask the LLM
+   to change your fixed `parse_sample_name` so that it prints which name is malformed and
+   why, and goes on with the next name. Give it the rule.
+4. Run it on `samples + more_samples`. Check by hand which names break the rule and
    compare with what the code reports. Does it accept every valid name and report every
    malformed one?
-4. Add a line to the journal and commit.
+5. Add a line to `journal.md` and commit your changes.
+
+## If something fails
+
+- `NameError: name 'counts' is not defined` → the kernel was restarted or the first cell
+  was not run → run the first code cell, then the cell you were working on.
+- The LLM's code uses other variable names or made-up data → it did not see your data →
+  paste the first code cell into the chat and name `samples` and `counts`.
 
 ## Solutions
 
