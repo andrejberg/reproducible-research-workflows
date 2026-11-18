@@ -24,7 +24,9 @@ code:
   - path: "code/growth_curve.ipynb"
     role: "analysis"                  # data_cleaning | analysis | visualisation | workflow
 
-outputs: []
+outputs:
+  - path: null                        # results/<file>
+    role: null                        # processed_data | figure | table | report
 
 software:
   environment_file: "../../environment.yml"
