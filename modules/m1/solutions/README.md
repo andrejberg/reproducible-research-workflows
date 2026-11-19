@@ -38,7 +38,7 @@ differ; what matters is that the same information is there.
   questions. Outputs list `results/figures/growth-curve.png` with
   role `figure`. Leaving an unknown value `null` is correct: a guessed value is worse than
   an empty one, and the file shows what is still open.
-- Journal: see `journal-entry.md`, without its `Bonus:` line.
+- Journal: see `journal-entry.md`, without its `EX3:` line.
 - Commit: the Git panel lists the changed `README.md`, `metadata.yml`, `growth_curve.ipynb`,
   `journal.md` and the new `results/figures/growth-curve.png`. With simple staging, one
   commit takes all of them.
@@ -63,7 +63,7 @@ From the record at <https://doi.org/10.5281/zenodo.19416053>:
 - `licence` and `reuse.licence`: CC BY 4.0.
 - `checksum`: the record lists `md5:b52a4e3556b1d401799a4b43094bf2a5` for `Repo1pct.xlsx`.
   It is the workbook's checksum, not the CSV's, which the comment must say.
-- Journal: the `Bonus:` line in `journal-entry.md` updates the entry. Gaps in the record (also in
+- Journal: the `EX3:` line in `journal-entry.md` updates the entry. Gaps in the record (also in
   `~/data/ecoli-growth/README.md` § Known gaps in the source metadata): strain, medium
   apart from glucose, instrument and plate type; whether optical density was read at
   600 nm and blank-corrected; what the sheet-name suffixes mean; no linked publication.

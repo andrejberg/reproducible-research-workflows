@@ -45,6 +45,9 @@ An LLM writes the code; to judge it, you first look at how Python code reads.
    condition? If you cannot tell, ask the LLM to comment each line.
 4. Paste the code into the `# your task` cell and run it. If it fails, paste the error
    message into the chat.
+5. Save the notebook (Ctrl + S) and open the Git panel (Git icon in the left sidebar). It
+   should list `explore_counts.ipynb`. Write a short message, for example
+   `list genes above threshold`, and commit.
 
 ## EX2: Debugging (20 min, in pairs)
 
@@ -72,6 +75,8 @@ the mean you want to group the sets and for that you want to parse the sample na
 6. Write down the fix: in a Markdown cell under the parser (what was wrong, how you found
    it, how you fixed it), and in an entry for today at the top of `journal.md` (in
    `work/rrw-workshop/`).
+7. Save the notebook and open the Git panel. It should list `explore_counts.ipynb` and
+   `journal.md`. Write a short message, for example `fix sample name parser`, and commit.
 
 ## EX3: Improvement (30 min, homework)
 
@@ -88,6 +93,9 @@ more reliable, then complete the experiment entry with what you found.
 4. In the experiment's `README.md`, answer the questions under "Observations and
    interpretation". In `metadata.yml`, fill in `date_started`, `author` and `status` (its
    comment lists the values).
+5. Save the notebook and open the Git panel. It should list `explore_counts.ipynb`,
+   `README.md` and `metadata.yml`. Write a short message, for example
+   `report malformed sample names`, and commit.
 
 ## Solutions
 

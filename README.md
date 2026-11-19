@@ -32,8 +32,8 @@ The modules, added to `modules/` as they are ready:
 8. How do I turn a notebook into a workflow?
 
 Teaching materials on reproducible research workflows: structuring a research project,
-writing Python with the help of an LLM, reading and writing data, visualising and
-fitting models, managing environments, handling tables and metadata, writing reusable
+writing Python with the help of an LLM, reading and writing data, visualising data,
+version control with Git, managing environments, handling tables and metadata, writing reusable
 functions, and turning a notebook into a workflow.
 
 The materials run in JupyterLab. The repository is meant to be built with
@@ -70,8 +70,9 @@ Work inside `work/` only: everything outside it is reset at the next start.
 2. In the file browser, open `work/rrw-workshop/M1_INSTRUCTIONS.md` (right-click → Open
    With → Markdown Preview). It is a copy of the module's instructions,
    `modules/m1/README.md`, next to your project.
-3. Go to `work/rrw-workshop/experiments/2026-11-03_ecoli-growth-37c/`. Open `README.md`
-   and `metadata.yml` and see what they already say.
+3. Go to the experiment folder the setup command named, in
+   `work/rrw-workshop/experiments/`. Open its `README.md` and `metadata.yml` and see what
+   they already say.
 
 You need nothing from other modules, and you can run the command again: it never
 overwrites what is already there.
@@ -89,7 +90,8 @@ modules/<module>/
 └── solutions/
 ```
 
-- `README.md` describes the starting state and how to run the exercises. The setup command
+- `README.md` says what you need before you start, gives the module's exercises and says
+  where the solutions are. The setup command
   copies it into the project as `<MODULE>_INSTRUCTIONS.md` (for example
   `M1_INSTRUCTIONS.md`) and commits it with the experiment, so the instructions are next to
   your work. The setup steps are not repeated in it: they are in § Set up the module
