@@ -6,14 +6,13 @@ like:
 
 - `experiment/` — the files of `work/rrw-workshop/experiments/2026-11-03_ecoli-growth-37c/`
   after all three exercises: `README.md`, `metadata.yml` and `code/growth_curve.ipynb`
-  (with the Markdown cell of the small exercise). The data file is unchanged and not
-  repeated here.
+  (with the Markdown cell of EX1). The data file is unchanged and not repeated here.
 - `journal-entry.md` — the entry at the top of `work/rrw-workshop/journal.md`.
 
 Names and dates in the solution (author, `2026-11-30`) are examples. Your wording will
 differ; what matters is that the same information is there.
 
-## Small exercise
+## EX1: JupyterLab and the kernel
 
 - Step 2: with `growth["A7"]` the curve has the same shape but lies a little lower
   (about 0.49 instead of 0.53 after 4 hours). Only the cells that are run again change.
@@ -31,15 +30,15 @@ differ; what matters is that the same information is there.
   A restart ends that process and starts a new one, so the variables are gone.
 - Step 6: see the first cell of `experiment/code/growth_curve.ipynb`.
 
-## Larger exercise
+## EX2: A complete experiment entry
 
-- README and metadata: see `experiment/`, which also has the bonus answers. After the
-  larger exercise alone, the values from the record (`source`, `source_version`,
-  `licence`, `checksum`, `reuse.licence`) are still `null`, and sections you could not
-  answer yet keep their questions. Outputs list `results/figures/growth-curve.png` with
+- README and metadata: see `experiment/`, which also has the EX3 answers. After EX2
+  alone, the values from the record (`source`, `source_version`, `licence`, `checksum`,
+  `reuse.licence`) are still `null`, and sections you could not answer yet keep their
+  questions. Outputs list `results/figures/growth-curve.png` with
   role `figure`. Leaving an unknown value `null` is correct: a guessed value is worse than
   an empty one, and the file shows what is still open.
-- Journal: see `journal-entry.md`, without its bonus line.
+- Journal: see `journal-entry.md`, without its `Bonus:` line.
 - Commit: the Git panel lists the changed `README.md`, `metadata.yml`, `growth_curve.ipynb`,
   `journal.md` and the new `results/figures/growth-curve.png`. With simple staging, one
   commit takes all of them.
@@ -48,7 +47,7 @@ differ; what matters is that the same information is there.
   records what happened when, briefly, across experiments, and points to the experiment
   for details.
 
-## Bonus exercise
+## EX3: Metadata from the data record
 
 - Template: the template experiment also has `data/processed/` (derived data that code
   recreates from raw data) and `results/tables/` (generated tables). This experiment
@@ -64,7 +63,7 @@ From the record at <https://doi.org/10.5281/zenodo.19416053>:
 - `licence` and `reuse.licence`: CC BY 4.0.
 - `checksum`: the record lists `md5:b52a4e3556b1d401799a4b43094bf2a5` for `Repo1pct.xlsx`.
   It is the workbook's checksum, not the CSV's, which the comment must say.
-- Journal: the bonus line in `journal-entry.md` updates the entry. Gaps in the record (also in
+- Journal: the `Bonus:` line in `journal-entry.md` updates the entry. Gaps in the record (also in
   `~/data/ecoli-growth/README.md` § Known gaps in the source metadata): strain, medium
   apart from glucose, instrument and plate type; whether optical density was read at
   600 nm and blank-corrected; what the sheet-name suffixes mean; no linked publication.
@@ -74,18 +73,18 @@ From the record at <https://doi.org/10.5281/zenodo.19416053>:
 Each M1 skill, with the exercise step that practises it:
 
 - navigate the JupyterLab interface — the set-up (terminal, file browser; repository
-  README § Set up the module), small 1
-- create and open notebooks — small 1 (open), small 4 (create)
-- run cells — small 1–3
-- restart the kernel — small 3, small 5
-- save notebooks — small 6
-- write Markdown cells — small 6
-- explain kernel vs. interpreter — small 4–5
-- apply the directory template — larger 1–2 (the template's sections and fields), bonus 1
-  (the template experiment)
-- create an experiment entry — the set-up adds the folder; larger 1–4 make it a complete
-  entry
-- write a journal entry — larger 3, bonus 4
-- write a README — larger 1
-- open the Git panel — larger 4
-- commit an experiment entry — larger 4, bonus 5
+  README § Set up the module), EX1 step 1
+- create and open notebooks — EX1 step 1 (open), EX1 step 4 (create)
+- run cells — EX1 steps 1–3
+- restart the kernel — EX1 step 3, EX1 step 5
+- save notebooks — EX1 step 6
+- write Markdown cells — EX1 step 6
+- explain kernel vs. interpreter — EX1 steps 4–5
+- apply the directory template — EX2 steps 1–2 (the template's sections and fields), EX3
+  step 1 (the template experiment)
+- create an experiment entry — the set-up adds the folder; EX2 steps 1–4 make it a
+  complete entry
+- write a journal entry — EX2 step 3, EX3 step 4
+- write a README — EX2 step 1
+- open the Git panel — EX2 step 4
+- commit an experiment entry — EX2 step 4, EX3 step 5
