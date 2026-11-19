@@ -1,0 +1,10 @@
+{
+  "experiment": "2026-11-05_ecoli-growth-temperatures",
+  "download": [
+    {
+      "url": "https://zenodo.org/api/records/19416053/files/Repo1pct.xlsx/content",
+      "md5": "b52a4e3556b1d401799a4b43094bf2a5",
+      "path": "data/raw/Repo1pct.xlsx"
+    }
+  ]
+}

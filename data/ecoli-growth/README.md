@@ -35,8 +35,10 @@ of a file is `https://zenodo.org/api/records/19416053/files/<source file>/conten
 |---|---|
 | `make_sample.py` | Downloads `Repo1pct.xlsx`, checks its MD5, exports sheet `37_1%n2` to CSV unchanged |
 | `ecoli-growth-37c-1pct.csv` | The smoke-test sample: 37 °C, 1 % glucose, 289 readings. SHA-256 `b7d99a36eed7cbfcd567a3ca4e9950f92a70a808176c92c9c7a1bb64e4d82324` |
+| `make_m3_sheets.py` | Downloads `Repo1pct.xlsx`, checks its MD5, exports sheets `29_1%b`, `37_1%n2` and `45_1%b` to CSV unchanged, into the experiment of module m3 |
 
 Regenerate the sample from the repository root with `uv run data/ecoli-growth/make_sample.py`.
+Regenerate the CSV files of module m3 with `uv run data/ecoli-growth/make_m3_sheets.py`.
 
 ## Columns of a sheet
 
