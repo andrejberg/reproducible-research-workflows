@@ -36,6 +36,7 @@ These values follow from the data:
   without setting it takes `threshold = 1000` from the cell `# Variables and data types`
   and lists only three genes; the means under "Results that do not depend on the LLM"
   show it.
+- Step 5: the commit holds `explore_counts.ipynb`.
 
 ## EX2: Debugging
 
@@ -55,6 +56,7 @@ These values follow from the data:
 - Step 5, hand check: `(70 + 38 + 52) / 3` = 53.33.
 - Step 6: the Markdown cell under the fixed code in
   `experiment/code/explore_counts.ipynb`, and `journal-entry.md`.
+- Step 7: the commit holds `explore_counts.ipynb` and `journal.md`.
 
 ## EX3: Improvement
 
@@ -72,6 +74,7 @@ These values follow from the data:
   the small ones are not.
 - Step 4: see `experiment/README.md` § Observations and interpretation and
   `experiment/metadata.yml`.
+- Step 5: the commit holds `explore_counts.ipynb`, `README.md` and `metadata.yml`.
 
 ## Skills covered
 
@@ -91,4 +94,5 @@ Each M2 skill, with the exercise step that practises it:
 - debug step by step — EX2 1–4
 
 Requirements from M1 used here: run cells and restart the kernel ("Before you start" 3),
-Markdown cells (EX2 6), the journal entry (EX2 6), the experiment entry (EX3 4).
+Markdown cells (EX2 6), the journal entry (EX2 6), the experiment entry (EX3 4), a commit
+in the Git panel (EX1 5, EX2 7, EX3 5).
