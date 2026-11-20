@@ -1,0 +1,85 @@
+# Structured facts about this experiment. Narrative belongs in README.md.
+# Paths are relative to this folder. Leave a value as null until you know it.
+
+experiment:
+  id: "2026-11-05_ecoli-growth-temperatures"   # the same as the folder name
+  title: "E. coli growth at three temperatures with 1 % glucose"
+  date_started: "2026-11-30"          # YYYY-MM-DD
+  date_completed: null
+  author: "Ada Lovelace"
+  status: "in_progress"               # draft | in_progress | completed
+  module: "M3"
+  project: "rrw-workshop"
+  keywords: ["Escherichia coli", "growth curve", "optical density", "temperature"]
+
+inputs:
+  - path: "data/raw/Repo1pct.xlsx"
+    role: "raw_data"                  # raw_data | reference_data | configuration
+    source: "https://doi.org/10.5281/zenodo.19416053"
+    # The record gives no version number. It is one version of the concept DOI
+    # 10.5281/zenodo.16944298, published on 2026-04-04.
+    source_version: "2026-04-04"
+    licence: "CC-BY-4.0"
+    checksum: "md5:b52a4e3556b1d401799a4b43094bf2a5"   # as listed in the record
+  # The three CSV files are sheets of Repo1pct.xlsx, exported unchanged.
+  - path: "data/raw/ecoli-growth-29c-1pct.csv"
+    role: "raw_data"
+    source: "data/raw/Repo1pct.xlsx, sheet 29_1%b"
+    licence: "CC-BY-4.0"
+  - path: "data/raw/ecoli-growth-37c-1pct.csv"
+    role: "raw_data"
+    source: "data/raw/Repo1pct.xlsx, sheet 37_1%n2"
+    licence: "CC-BY-4.0"
+  - path: "data/raw/ecoli-growth-45c-1pct.csv"
+    role: "raw_data"
+    source: "data/raw/Repo1pct.xlsx, sheet 45_1%b"
+    licence: "CC-BY-4.0"
+  # Fetched with code/growth_curves.ipynb through the Zenodo API (EX2 and EX3).
+  - path: "data/raw/Repo2pct.xlsx"
+    role: "raw_data"
+    source: "https://doi.org/10.5281/zenodo.19416053"
+    source_version: "2026-04-04"
+    licence: "CC-BY-4.0"
+    checksum: "md5:4b23a459726b4e37260e89a9bf322e98"
+  - path: "data/raw/Repo0·1pct.xlsx"
+    role: "raw_data"
+    source: "https://doi.org/10.5281/zenodo.19416053"
+    source_version: "2026-04-04"
+    licence: "CC-BY-4.0"
+    checksum: "md5:d4abd96f8b3cc135eba7f341308baec6"
+  - path: "data/raw/Repo0·5pct.xlsx"
+    role: "raw_data"
+    source: "https://doi.org/10.5281/zenodo.19416053"
+    source_version: "2026-04-04"
+    licence: "CC-BY-4.0"
+    checksum: "md5:bf807e8d5ab42a8adbd863aa2d06d739"
+
+code:
+  - path: "code/growth_curves.ipynb"
+    role: "analysis"                  # data_cleaning | analysis | visualisation | workflow
+
+outputs:
+  - path: "data/processed/ecoli-growth-29c-1pct-hours.csv"
+    role: "processed_data"            # processed_data | figure | table | report
+  - path: "data/processed/ecoli-growth-37c-1pct-hours.csv"
+    role: "processed_data"
+  - path: "data/processed/ecoli-growth-45c-1pct-hours.csv"
+    role: "processed_data"
+  # The nine sheets of Repo2pct.xlsx, ecoli-growth-29c-2pct.csv to ecoli-growth-45c-2pct.csv
+  - path: "data/processed/ecoli-growth-*-2pct.csv"
+    role: "processed_data"
+  - path: "results/figures/growth-curves-1pct.png"
+    role: "figure"
+
+software:
+  environment_file: "../../environment.yml"
+  environment_name: "rrw-workshop"
+
+provenance:
+  raw_to_processed: "code/growth_curves.ipynb"   # the code that turns raw data into processed data
+  processed_to_results: "code/growth_curves.ipynb"
+
+reuse:
+  licence: "CC-BY-4.0"
+  contact: null
+  related_experiment: null
