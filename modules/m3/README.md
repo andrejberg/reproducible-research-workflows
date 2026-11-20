@@ -22,7 +22,7 @@ When you work with the LLM:
 - Put only public or made-up data into an LLM. The growth curves are published, so you may
   paste them.
 - Say what you have and what you want: paste the cells that define the names you use, such
-  as `RAW` and `PROCESSED`.
+  as `RAW` and `PROCESSED`, and say that you work in a Jupyter notebook.
 - The LLM gives different code each time, and other services give different code again.
   Judge it by its result, which you check yourself.
 
@@ -50,14 +50,14 @@ in one figure.
    Open one: its last column is `time_h`, ending near 24.1.
 4. Ask for the figure, for example:
 
-   > Plot the column `Average` against `time_h` for every table in `growth`, in one
-   > figure, with axis labels that name the units, a legend with the temperatures and a
-   > title. Save it to `FIGURES` as `growth-curves-1pct.png`. Create `FIGURES` if it is
-   > missing.
+   > In a Jupyter notebook cell, plot the column `Average` against `time_h` for every
+   > table in `growth`, in one figure, with axis labels that name the units, a legend with
+   > the temperatures and a title. Save it to `FIGURES` as `growth-curves-1pct.png`, and
+   > show it below the cell. Create `FIGURES` if it is missing.
 
-   Run it in the cell `# your task: plot …`. You should see three curves: 37 °C rises
-   first, 29 °C last, and 45 °C levels off lowest. `results/figures/` should hold the PNG
-   file.
+   Run it in the cell `# your task: plot …`. You should see three curves below the cell:
+   37 °C rises first, 29 °C last, and 45 °C levels off lowest. `results/figures/` should
+   hold the PNG file.
 5. Save the notebook (Ctrl + S) and open the Git panel. It should list
    `growth_curves.ipynb` as changed, and the three processed files and the figure as
    untracked. Stage them all, write a short message, for example
@@ -69,20 +69,23 @@ Your figure shows 1 % glucose only, and the dataset's repository also has a work
 2 % glucose. You fetch it with code, so the step can be rerun and checked, and you make
 sure that the file arrived intact and your raw data stayed as it was.
 
-1. Run the cell `# Ask Zenodo for the record`. You should see the record's title and its
-   five files, each with its size and an `md5:` checksum. `record` holds the whole answer
-   as dictionaries and lists.
-2. Ask the LLM for the download, for example:
+1. Run the cell `# Ask Zenodo for the record`. You should see the repository's whole
+   answer: dictionaries `{…}` and lists `[…]` inside each other, with keys such as
+   `metadata` and `files`. `record` holds it.
+2. Run the cell `# access fields inside a nested dictionary`. You should see the record's
+   title and its five files, each with its size and an `md5:` checksum: each one is a
+   field picked out of `record`.
+3. Copy the cells `# Paths` and `# Ask Zenodo for the record`, and the answer that cell
+   shows, into the chat. Ask for the download, for example:
 
-   > `record["files"]` is a list of dictionaries with the keys `key` (the file name),
-   > `checksum` (such as `"md5:4b23…"`) and `links`, where `links["self"]` is the
-   > download URL. Write Python with `urllib.request` and `hashlib` that downloads
-   > `Repo2pct.xlsx`, computes its MD5 and saves it to `RAW` only if the MD5 matches the
-   > checksum. Print both checksums.
+   > This is a Zenodo API call and its answer `record`. In a Jupyter notebook cell, write
+   > Python that downloads `Repo2pct.xlsx` with the link given in `record`, computes its
+   > MD5 and saves the file to `RAW` only if the MD5 matches the checksum in `record`.
+   > Print both checksums.
 
    Run it in the cell `# your task: download …`. You should see the same checksum twice,
    and `Repo2pct.xlsx` in `data/raw/`.
-3. Ask for the conversion to an open format, for example:
+4. Ask for the conversion to an open format, for example:
 
    > Write pandas code that reads every sheet of `RAW / "Repo2pct.xlsx"` and writes each
    > one to `PROCESSED` as CSV without the index, named like `ecoli-growth-29c-2pct.csv`
@@ -91,12 +94,12 @@ sure that the file arrived intact and your raw data stayed as it was.
    Run it in the cell `# your task: convert …`. `data/processed/` should hold nine new
    files, from `ecoli-growth-29c-2pct.csv` to `ecoli-growth-45c-2pct.csv`. The warning
    `Workbook contains no default style` is harmless.
-4. Run the cell `# Check in Git`. `git status` should list `Repo2pct.xlsx` as new (`??`)
-   and no changed file (`M`) in `data/raw/`. `git log` shows the history of `data/raw/`:
-   the one commit of the setup, which added the raw data.
-5. Save the notebook and open the Git panel. It should list `growth_curves.ipynb`,
-   `Repo2pct.xlsx` and the nine CSV files. Stage them all, write a short message, for
-   example `fetch the 2 % glucose workbook from Zenodo`, and commit.
+5. Save the notebook and open the Git panel. It should list `growth_curves.ipynb` as
+   changed, and `Repo2pct.xlsx` and the nine CSV files as untracked. No file in
+   `data/raw/` is listed as changed: your raw data stayed as it was. Stage them all, write
+   a short message, for example `fetch the 2 % glucose workbook from Zenodo`, and commit.
+6. Open the History tab of the Git panel. Your commit is on top. Further down,
+   `Add the starting state of m3` is the setup's commit, which added the raw data.
 
 ## EX3: Fetch in a loop (30 min, homework)
 
@@ -105,27 +108,35 @@ one loop that checks every file, so that you can rerun it at any time, and recor
 files in the experiment's metadata.
 
 1. After a kernel restart, run all cells above this one first (Run → Run All Above
-   Selected Cell). Then ask the LLM to turn your download code into a loop over each file
-   in `record["files"]` whose name starts with `Repo`: a file already in `RAW` gets its
-   MD5 checked, a missing file is downloaded, checked and saved. Each file gets one
-   printed line: its name, `present` or `downloaded`, and whether the checksum matches.
-2. Run it in the cell `# your task: fetch in a loop`. You should see four lines:
+   Selected Cell).
+2. Look at your download code from EX2 and find the line with the file name
+   `Repo2pct.xlsx`. Think about how you would change the code so that it runs once for
+   each workbook in `record["files"]`, and what it should do with a file that is already
+   in `RAW`.
+3. Ask the LLM for the loop. In a new chat, first paste the cells `# Paths` and
+   `# Ask Zenodo for the record` with its answer, and your download cell, so that the LLM
+   knows `record` and your code. For example:
+
+   > Turn my download code into a loop over each file in `record["files"]` whose name
+   > starts with `Repo`. A file already in `RAW` gets its MD5 checked; a missing file is
+   > downloaded, checked and saved. Print one line per file: its name, `present` or
+   > `downloaded`, and whether the checksum matches.
+
+4. Run it in the cell `# your task: fetch in a loop`. You should see four lines:
    `Repo1pct.xlsx` and `Repo2pct.xlsx` present, `Repo0·1pct.xlsx` and `Repo0·5pct.xlsx`
    downloaded, all four checksums matching. Run it once more: all four are present and
    nothing is downloaded. The repository limits how many requests it answers per minute,
    so do not run the loop over and over.
-3. Run the cell `# Check in Git` again. You should see the two new workbooks (`??`) and
-   no changed file.
-4. In `metadata.yml`, list the two new workbooks and `Repo2pct.xlsx` under `inputs`, the
+5. In `metadata.yml`, list the two new workbooks and `Repo2pct.xlsx` under `inputs`, the
    way `Repo1pct.xlsx` is listed, with the checksums from the record. List the processed
    files and the figure under `outputs`, and fill in `date_started`, `author` and
    `status`.
-5. In `README.md`, replace the placeholders under "Data generated or processed" and answer
-   the questions under "Observations and interpretation". Add an entry for today at the
-   top of `journal.md` (in `work/rrw-workshop/`): what you fetched and how you checked it.
-6. Save the notebook and open the Git panel. It should list `growth_curves.ipynb`, the two
-   workbooks, `metadata.yml`, `README.md` and `journal.md`. Write a short message, for
-   example `fetch all glucose workbooks in a loop`, and commit.
+6. Add an entry for today at the top of `journal.md` (in `work/rrw-workshop/`): what you
+   fetched and how you checked it.
+7. Save the notebook and open the Git panel. It should list `growth_curves.ipynb`,
+   `metadata.yml` and `journal.md` as changed and the two workbooks as untracked, and no
+   file in `data/raw/` as changed. Write a short message, for example
+   `fetch all glucose workbooks in a loop`, and commit.
 
 ## Solutions
 
