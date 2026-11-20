@@ -22,7 +22,8 @@ When you work with the LLM:
 - Put only public or made-up data into an LLM. The growth curves are published, so you may
   paste them.
 - Say what you have and what you want: paste the cells that define the names you use, such
-  as `RAW` and `PROCESSED`, and say that you work in a Jupyter notebook.
+  as `RAW` and `PROCESSED`, and say that you work in a Jupyter notebook. The chat runs no
+  code and opens no links, so it knows only what you paste, such as an API answer.
 - The LLM gives different code each time, and other services give different code again.
   Judge it by its result, which you check yourself.
 
@@ -75,8 +76,10 @@ sure that the file arrived intact and your raw data stayed as it was.
 2. Run the cell `# access fields inside a nested dictionary`. You should see the record's
    title and its five files, each with its size and an `md5:` checksum: each one is a
    field picked out of `record`.
-3. Copy the cells `# Paths` and `# Ask Zenodo for the record`, and the answer that cell
-   shows, into the chat. Ask for the download, for example:
+3. Copy the cells `# Paths` and `# Ask Zenodo for the record`, and the whole answer that
+   cell shows, into the chat. The chat runs no code and cannot open the link, so this
+   answer is how it learns the field names in `record`.
+4. Below what you pasted, ask for the download, for example:
 
    > This is a Zenodo API call and its answer `record`. In a Jupyter notebook cell, write
    > Python that downloads `Repo2pct.xlsx` with the link given in `record`, computes its
@@ -84,8 +87,10 @@ sure that the file arrived intact and your raw data stayed as it was.
    > Print both checksums.
 
    Run it in the cell `# your task: download …`. You should see the same checksum twice,
-   and `Repo2pct.xlsx` in `data/raw/`.
-4. Ask for the conversion to an open format, for example:
+   and `Repo2pct.xlsx` in `data/raw/`. If you get a `KeyError` instead, the LLM guessed a
+   field name: paste the answer of `# Ask Zenodo for the record` again and ask it to fix
+   the code with the field names shown there.
+5. Ask for the conversion to an open format, for example:
 
    > Write pandas code that reads every sheet of `RAW / "Repo2pct.xlsx"` and writes each
    > one to `PROCESSED` as CSV without the index, named like `ecoli-growth-29c-2pct.csv`
@@ -94,11 +99,11 @@ sure that the file arrived intact and your raw data stayed as it was.
    Run it in the cell `# your task: convert …`. `data/processed/` should hold nine new
    files, from `ecoli-growth-29c-2pct.csv` to `ecoli-growth-45c-2pct.csv`. The warning
    `Workbook contains no default style` is harmless.
-5. Save the notebook and open the Git panel. It should list `growth_curves.ipynb` as
+6. Save the notebook and open the Git panel. It should list `growth_curves.ipynb` as
    changed, and `Repo2pct.xlsx` and the nine CSV files as untracked. No file in
    `data/raw/` is listed as changed: your raw data stayed as it was. Stage them all, write
    a short message, for example `fetch the 2 % glucose workbook from Zenodo`, and commit.
-6. Open the History tab of the Git panel. Your commit is on top. Further down,
+7. Open the History tab of the Git panel. Your commit is on top. Further down,
    `Add the starting state of m3` is the setup's commit, which added the raw data.
 
 ## EX3: Fetch in a loop (30 min, homework)

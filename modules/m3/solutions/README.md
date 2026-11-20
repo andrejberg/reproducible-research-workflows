@@ -63,23 +63,27 @@ These values follow from the data:
   Different Temperatures and Glucose Concentrations", and the five files are listed
   under "Results that do not depend on the LLM". `record['metadata']['title']` picks a
   field in two steps: first the dictionary under `metadata`, then its `title`.
-- Step 3: both lines show `4b23a459726b4e37260e89a9bf322e98`. Answer styles tested:
+- Step 3: the pasted answer gives the LLM the field names it needs: `files`, `key`,
+  `checksum` and `links["self"]`. A chat without a code interpreter cannot fetch the
+  record itself.
+- Step 4: both lines show `4b23a459726b4e37260e89a9bf322e98`. Answer styles tested:
   `urllib.request.urlopen` or `urllib.request.urlretrieve`, a search for the file with a
   loop or with `next(...)`. What to watch for: an answer that compares the MD5 with the
   whole checksum string `"md5:4b23…"` never matches; strip the `md5:` first. An answer
   that saves the file first and checks afterwards leaves a bad file in `data/raw/` when
   the checksum differs. An answer that builds the URL by hand works for `Repo2pct.xlsx`,
   but fails with `UnicodeEncodeError` for names such as `Repo0·1pct.xlsx`; the link from
-  the API always works.
-- Step 4: nine files, `ecoli-growth-29c-2pct.csv` to `ecoli-growth-45c-2pct.csv`.
+  the API always works. Without the pasted answer, the LLM guesses field names, and the
+  code stops with a `KeyError`; pasting the answer and asking for a fix repairs it.
+- Step 5: nine files, `ecoli-growth-29c-2pct.csv` to `ecoli-growth-45c-2pct.csv`.
   `pd.read_excel(..., sheet_name=None)` reads all sheets into a dictionary. The
   temperature is the part of the sheet name before `_`. What to watch for: an answer that
   uses the whole sheet name gives file names with `%` and suffixes such as `n2`, against
   the naming rule.
-- Step 5: the Git panel lists `growth_curves.ipynb`, `data/raw/Repo2pct.xlsx` and the
+- Step 6: the Git panel lists `growth_curves.ipynb`, `data/raw/Repo2pct.xlsx` and the
   nine CSV files, and no changed file in `data/raw/`: nothing there has changed since the
   setup. The commit holds these eleven files.
-- Step 6: the History tab shows your commit on top. Clicking
+- Step 7: the History tab shows your commit on top. Clicking
   `Add the starting state of m3` lists the files the setup added, among them the raw data
   in `data/raw/`.
 
@@ -104,28 +108,28 @@ These values follow from the data:
 Each M3 skill, with the exercise step that practises it:
 
 - import modules — EX1 1 (the cell `# Import the modules`), EX2 1 (`json`,
-  `urllib.request`), EX2 3 (`hashlib`)
+  `urllib.request`), EX2 4 (`hashlib`)
 - use relative paths — EX1 1–3 (`RAW`, `PROCESSED`, `FIGURES`, relative to the notebook)
-- read CSV and text files with pandas — EX1 1 and 2–3 (CSV), EX2 4 (the workbook's
+- read CSV and text files with pandas — EX1 1 and 2–3 (CSV), EX2 5 (the workbook's
   sheets); the API's JSON text in EX2 1–2 is read with `json`
-- write files with pandas — EX1 2–3, EX2 4
-- apply file naming conventions — EX1 2–3 and EX2 4, by the rule in the experiment's
+- write files with pandas — EX1 2–3, EX2 5
+- apply file naming conventions — EX1 2–3 and EX2 5, by the rule in the experiment's
   README § Files and names
-- keep raw data read-only — EX1 2–3 (results go to `data/processed/`), EX2 3 (a download
+- keep raw data read-only — EX1 2–3 (results go to `data/processed/`), EX2 4 (a download
   is added, nothing is overwritten), EX3 2–4 (files already present are only checked)
-- separate raw and processed data — EX1 3, EX2 4
-- fetch data from a repository via API — EX2 1–3, EX3 2–4
-- verify a download by checksum — EX2 3, EX3 3–4
+- separate raw and processed data — EX1 3, EX2 5
+- fetch data from a repository via API — EX2 1–4, EX3 2–4
+- verify a download by checksum — EX2 4, EX3 3–4
 - use numpy arrays — EX1 1 (`to_numpy()`, a division for all readings, a True/False
   array as a filter)
 - create plots with matplotlib — EX1 4
 - label and style plots — EX1 4 (axis labels with units, legend, title)
 - save figures — EX1 4
-- view a file's history in Git — EX2 6 (the History tab of the Git panel)
-- check in Git that raw data is unchanged — EX2 5, EX3 7 (the Git panel lists no changed
+- view a file's history in Git — EX2 7 (the History tab of the Git panel)
+- check in Git that raw data is unchanged — EX2 6, EX3 7 (the Git panel lists no changed
   file in `data/raw/`)
 
 Requirements from earlier modules used here: run cells (EX1 1), the experiment entry
-(EX3 5–6), prompting an LLM and reviewing its code (EX1 2–4, EX2 3–4, EX3 2–3), reading
-error messages (whenever an answer fails), a commit in the Git panel (EX1 5, EX2 5,
+(EX3 5–6), prompting an LLM and reviewing its code (EX1 2–4, EX2 3–5, EX3 2–3), reading
+error messages (whenever an answer fails), a commit in the Git panel (EX1 5, EX2 6,
 EX3 7).
