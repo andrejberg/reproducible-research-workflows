@@ -16,7 +16,7 @@ The whole procedure will take you 30-60 min.
 - **Your login address**, right after step 1, at the latest by **Friday 27 November,
   18:00**. If there is a waiting list and we have no address from you by then, your place
   goes to the next person on the list.
-- **Only if a step fails:** what failed, by **Thursday 26 November, 12:00** (step 7).
+- **Only if a step fails:** what failed, by **Thursday 26 November, 12:00** (step 8).
 
 Send both by replying to the mail these instructions came with.
 
@@ -28,18 +28,18 @@ come to the optional [setup slot](#the-setup-slot-if-you-need-help) on Friday
 
 The workshop runs on Jupyter4NFDI, a service that runs JupyterLab in your browser.
 
-1. Go to <https://hub.nfdi-jupyter.de> and log in with your university account. To get 
-   to the selection of universities you need to select **Guest Access** first. This will 
-   bring you to the Helmholz ID interface. If you experience problems logging in with your 
-   university login, log in with GitHub, Google or ORCID. Use the same route 
+1. Go to <https://hub.nfdi-jupyter.de> and log in with your university account. To get
+   to the selection of universities you need to select **Guest Access** first. This will
+   bring you to the Helmholtz ID interface. If you experience problems logging in with your
+   university login, log in with GitHub, Google or ORCID. Use the same route
    every time, because each route is a separate account with its own files.
-3. Open <https://hub.nfdi-jupyter.de/hub/api/user_email>. It shows the email address
-   your account has on Jupyter4NFDI. It may differ from the address you registered with 
+2. Open <https://hub.nfdi-jupyter.de/hub/api/user_email>. It shows the email address
+   your account has on Jupyter4NFDI. It may differ from the address you registered with
    for the workshop.
-4. Open <https://hub.nfdi-jupyter.de/hub/credits> and note the credits per day for
-   **deNBI-Cloud**. Your should see a value between 120 and 500. Please reach out to 
+3. Open <https://hub.nfdi-jupyter.de/hub/credits> and note the credits per day for
+   **deNBI-Cloud**. You should see a value between 120 and 500. Please reach out to
    the tutor if you see less than 100 credits.
-5. **Report** the address from point 3, exactly as shown, by replying to the mail these
+4. **Report** the address from point 2, exactly as shown, by replying to the mail these
    instructions came with.
 
 The tutor uses this address to give you access to the workshop. The deadline is
@@ -134,7 +134,25 @@ will use the LLM to write and debug code snippets, so you do not need a paid
 subscription. **Put only public or made-up data into any LLM**, never personal data or
 unpublished research data.
 
-## 7. Report a problem, if there is one
+## 7. Create a Git hosting account
+
+In module four (M4) you put your workshop project into a private online repository, so you
+can also copy it to your own computer. For that you need an account on GitHub or on your
+university's GitLab.
+
+1. Choose one account:
+   - **GitHub:** create a free account at <https://github.com/signup>. If you already have
+     one, use it.
+   - **Your university's GitLab:** if your university runs a GitLab and you can log in to
+     it, use that account.
+2. Log out, then log in again: GitHub at <https://github.com/login>, GitLab at your
+   university's GitLab address. Your profile picture appears; select it to see your user
+   name. If GitHub asks you to set up two-factor authentication, follow its steps.
+3. Note your user name and the address where you log in. You need both in M4.
+
+You do not need a repository or an access token yet. You create both in M4.
+
+## 8. Report a problem, if there is one
 
 If you have reported your address (step 1) and every step worked, there is nothing more
 to send.
@@ -164,5 +182,6 @@ The slot is optional. If everything works, you do not need to come.
 - [ ] `work/rrw-workshop/` exists, and the Git tab shows its first commit.
 - [ ] `template/` and the module folders open.
 - [ ] I can log in to GWDG Chat AI, or I have chosen another service.
+- [ ] I can log in to GitHub or my university's GitLab, and I noted my user name.
 - [ ] If a step failed, I reported it (by 26 November, 12:00).
 - [ ] I stop the lab when I am done for the day.
