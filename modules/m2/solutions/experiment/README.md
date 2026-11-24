@@ -33,15 +33,13 @@ This experiment produces no files. Its results are printed in the notebook.
 - Expected: the knocked-down gene and some others have fewer reads in the knockdown
   samples.
 - Observed: four genes have a mean above 100 reads over all samples: `FBgn0000042`
-  (86,791), `FBgn0261552` (5,817), `FBgn0025111` (1,563) and `FBgn0039155` (797). `FBgn0039155` drops from a
-  mean of 1,355 reads in the controls to 53 in the knockdown samples, and `FBgn0261552`
-  from 8,439 to 2,321. `FBgn0025111` rises from 422 to 3,084. `FBgn0000008` and
-  `FBgn0000014` hardly change (100 and 1.5 reads in both conditions).
+  (86,791), `FBgn0261552` (5,817), `FBgn0025111` (1,563) and `FBgn0039155` (797).
+  `FBgn0000008` (99.6) just misses the threshold.
 - Error: the LLM's code that parses the sample names stopped with `ValueError: invalid
   literal for int() with base 10: 'rep1'`, because the replicate part of a sample name is
   `rep1`, not `1`. Fixed by removing `rep` before converting it to a number.
-- Interpretation: the clear drops and the rise are large compared with the differences in
-  sequencing depth; the small differences are not. No test was run.
+- Interpretation: the means over all samples do not yet compare control and knockdown;
+  that needs the mean per condition. No test was run.
 
 ## Reproducing this experiment
 
