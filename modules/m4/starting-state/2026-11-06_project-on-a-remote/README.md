@@ -15,14 +15,13 @@ computer where I do my research, and can an earlier state be brought back?
 ## Method
 
 1. A private repository on GitHub or on an institutional GitLab is the remote. Git
-   reaches it over HTTPS with a personal access token, which is never stored in the
-   project.
-2. `code/repository_status.ipynb` shows the project's remote, its latest commits, what has
-   changed and what Git ignores, and writes this status to `results/repository-status.txt`.
+   reaches it over SSH, with a key kept in `~/work/.ssh/`, outside the project.
+2. `code/repository_status.ipynb` shows the project's remote, its latest commits and what
+   has changed, and adds this status to `results/repository-status.txt`.
 
 ## Remote
 
-- Remote repository: <HTTPS address of the repository, without the token>
+- Remote repository: <SSH address of the repository>
 
 ## Files and names
 
@@ -43,4 +42,5 @@ computer where I do my research, and can an earlier state be brought back?
 
 ## Limitations and next steps
 
-- The access token expires; after that, Git asks for a new one.
+- The SSH key in `~/work/.ssh/` works only in this lab. On another computer, create a key
+  there and add it to your account.

@@ -1,7 +1,7 @@
 # M4 – How do I share and sync my work with Git?
 
-You put your project on a private remote repository, keep it in sync, tell Git which files
-to leave out, and go back to earlier states of your work.
+You put your project on a private remote repository, keep it in sync, look at what has
+changed, and go back to earlier states of your work.
 
 You leave with a project that lives outside the workshop platform and that you can clone
 to the computer where you do your research.
@@ -11,15 +11,15 @@ to the computer where you do your research.
 1. Sign in to your hosting account from the preparation in a second browser tab: GitHub,
    or your institution's GitLab.
 2. In `experiments/2026-11-06_project-on-a-remote/`, open `code/repository_status.ipynb`.
-   It shows your project's remote, its latest commits, what has changed and what Git
-   ignores. You run it in EX2.
+   It shows your project's remote, its latest commits and what has changed, and adds this
+   to `results/repository-status.txt`. You run it in EX2.
 
-When you work with an access token:
+Git reaches your remote with an SSH key, a pair of two files:
 
-- A token is a password. Paste it only into Git's password prompt: never into a file, a
-  notebook, a commit or an LLM chat.
-- If a token got into a file or a commit, delete the token on the website and create a new
-  one.
+- The public key (`id_ed25519.pub`) goes to the website. You can show it to anyone.
+- The private key (`id_ed25519`) is like a password: never put it into a file of the
+  project, a notebook, a commit or an LLM chat. If it got there, delete the key on the
+  website and create a new one.
 
 ## EX1: Put your project on a remote (15 min, on your own)
 
@@ -27,42 +27,51 @@ Your project lives only on the workshop platform. Put a copy on a remote reposit
 your work is safe and you can take it with you.
 
 1. Create an empty private repository named `rrw-workshop`, without a README, licence or
-   `.gitignore`, and copy its HTTPS address.
-   - GitHub: **+** → New repository, visibility Private. The address looks like
-     `https://github.com/<username>/rrw-workshop.git`.
+   `.gitignore`, and copy its SSH address.
+   - GitHub: **+** → New repository, visibility Private. The address is under Code → SSH
+     and looks like `git@github.com:<username>/rrw-workshop.git`.
    - GitLab: New project → Create blank project, visibility Private, and untick
-     "Initialize repository with a README". The address is under Code → Clone with HTTPS.
-2. Create a personal access token for this repository and copy it. It is shown only once.
-   - GitHub: your picture → Settings → Credentials →
-     Fine-grained tokens → Generate new token. Repository access: Only select
-     repositories, `rrw-workshop`. Permissions: Contents. Access: Read and write.
-   - GitLab: your picture → Edit profile → Access tokens → Add new token, scope
-     `write_repository`.
-3. In JupyterLab, open Git → Manage Remote Repositories. Enter the name `origin` and the
-   address, and click Add. Close the window.
+     "Initialize repository with a README". The address is under Code → Clone with SSH.
+2. Open a terminal (File → New → Terminal) and create a key in `~/work/.ssh/`, which is
+   kept when the lab restarts:
+
+   ```bash
+   mkdir -p ~/work/.ssh
+   ssh-keygen -t ed25519 -N "" -C "rrw-workshop lab" -f ~/work/.ssh/id_ed25519
+   git config --global core.sshCommand "ssh -i ~/work/.ssh/id_ed25519 -o UserKnownHostsFile=~/work/.ssh/known_hosts -o StrictHostKeyChecking=accept-new"
+   cat ~/work/.ssh/id_ed25519.pub
+   ```
+   <br>
+   The last command shows the public key: one line that starts with `ssh-ed25519`. Select
+   it and copy it (right-click → Copy).
+3. Add the public key to your account: paste it, give it the title `rrw-workshop lab`, and
+   save it.
+   - GitHub: your picture → Settings → SSH and GPG keys → New SSH key.
+   - GitLab: your picture → Edit profile → SSH Keys → Add new key.
+
+   Then, in JupyterLab, open Git → Manage Remote Repositories. Enter the name `origin` and
+   the SSH address, click Add and close the window.
 4. In the experiment's `README.md`, replace the placeholder under "Remote" with the
-   address. The Git panel should list only `README.md`. Commit it, then click Push (the cloud with the arrow up).
-   Enter your username and, as password, the token; tick "Save my login temporarily".
-   Reload the repository's web page: you should see `experiments/`, `journal.md` and
-   `M4_INSTRUCTIONS.md`.
+   address. The Git panel should list only `README.md`. Commit it, then click Push (the
+   cloud with the arrow up). Reload the repository's web page: you should see
+   `experiments/`, `journal.md` and `M4_INSTRUCTIONS.md`.
 
-## EX2: Sync, ignore and go back (20 min, in pairs)
+## EX2: Sync, look at changes and go back (20 min, in pairs)
 
-You will change your project in more than one place, and not every file belongs in it.
-Practise pulling a change, leaving a file out and looking at an earlier state.
+You will change your project in more than one place. Practise pulling a change, seeing
+what it changed, and looking at an earlier state.
 
 1. On the repository's web page, open the experiment's `README.md`, edit it (pencil
    icon, or Edit → Edit single file) and add a line under "Observations and
    interpretation". Commit the change there. In the Git panel, click Pull (the cloud with
-   the arrow down) and open the `README.md`: you should see your line.
-2. Run all cells of `repository_status.ipynb`. The Git panel lists the notebook as changed
-   and `results/repository-status.txt` as untracked. That file changes at every run, so
-   leave it out: right-click it in the Git panel → Ignore this file (add to .gitignore).
-   Run the cell `# What Git ignores`: you should see the file's path at the end, and
-   `.ipynb_checkpoints/`, JupyterLab's automatic copies, near the top.
-3. Save and close the notebook. In the Git panel, right-click `repository_status.ipynb` →
-   Discard. Open the notebook again: it is back as in the last commit, without outputs.
-4. Open a terminal (File → New → Terminal) and run:
+   the arrow down).
+2. In the Git panel, open the History tab and click the top commit, the one you made on
+   the web. It lists `README.md`; click the file to see the change: your line is green.
+3. Run all cells of `repository_status.ipynb`. The Git panel lists the notebook as changed
+   and `results/repository-status.txt` as untracked. Save and close the notebook, then
+   right-click it in the Git panel → Discard. Open it again: it is back as in the last
+   commit, without outputs.
+4. In the terminal, run:
 
    ```bash
    cd ~/work/rrw-workshop
@@ -72,20 +81,23 @@ Practise pulling a change, leaving a file out and looking at an earlier state.
    Copy the short code of the commit "Add the starting state of m4" and run
    `git switch --detach <code>`. Open the experiment's `README.md`: the address and your
    line from the web are not there. Run `git switch main`: both are back.
-5. The Git panel lists `.gitignore`. Commit it and push. On the web page, `.gitignore`
-   now ends with the path of `repository-status.txt`, and that file is not in the
-   repository.
+5. Commit `results/repository-status.txt` and push. On the web page, the experiment now
+   has a `results/` folder with the status file.
 
 ## EX3: Work on another computer (30 min, homework)
 
-Your research happens on your own computer. Clone the project there, work on it, and bring
-the change back, then restore a file as it was in an earlier commit.
+Your research happens on your own computer. Clone the project there and bring a change
+back, then undo a commit you made by mistake.
 
-1. On the computer where you do your research, open a terminal and run
-   `git clone <address>`, with the address from EX1. Enter your username and the token
-   when Git asks. You should see a folder `rrw-workshop` with your experiments. If Git is
-   missing, ask the LLM how to install it on your system. 
-2. In the clone, add an entry for today at the top of `journal.md`: where you cloned the
+1. On the computer where you do your research, create an SSH key in a terminal with
+   `ssh-keygen -t ed25519` (press Enter to accept the default place `~/.ssh/`), and add the
+   public key `~/.ssh/id_ed25519.pub` to your account as in EX1 step 3. If Git or
+   `ssh-keygen` is missing, ask the LLM how to install it on your system.
+2. Run `git clone <address>`, with the SSH address from EX1. You should see a folder
+   `rrw-workshop` with your experiments. Instead of the terminal, you can also use a Git
+   GUI, an app with buttons for clone, commit, push and pull, if you find one that works
+   for you.
+3. In the clone, add an entry for today at the top of `journal.md`: where you cloned the
    project and what you did in this module. Then run:
 
    ```bash
@@ -95,20 +107,16 @@ the change back, then restore a file as it was in an earlier commit.
    ```
    <br>
    If Git asks who you are, set your name and email as it says, and commit again.
-3. Back in JupyterLab, click Pull in the Git panel. `journal.md` should show the new entry.
-4. The line you added on the web in EX2 was a test. Restore the experiment's `README.md` as
-   it was in your EX1 commit. In a terminal, run:
-
-   ```bash
-   cd ~/work/rrw-workshop
-   git log --oneline -- experiments/2026-11-06_project-on-a-remote/README.md
-   ```
-   <br>
-   Copy the short code of your EX1 commit and run
-   `git restore --source <code> experiments/2026-11-06_project-on-a-remote/README.md`.
-   The `README.md` should show the address, but not the line from the web.
-5. The Git panel lists `README.md` as changed. Commit it and push. On the web page, the
-   `README.md` no longer has the line.
+4. Back in JupyterLab, click Pull in the Git panel. `journal.md` should show the new entry.
+5. Make a mistake: in the experiment's `README.md`, delete the address under "Remote",
+   save, and commit with the message "delete the remote address". Do not push.
+6. Undo it: in the Git panel's History tab, click the commit below your mistake (the
+   journal entry). Click its icon "Discard changes introduced *after* this commit (hard
+   reset)" (hover over the icons to see their names) and confirm. The `README.md` has the
+   address again, and the mistake is gone from the History.
+7. Under "Observations and interpretation", add a line on what the hard reset did. Commit
+   and push. On the web page, the commit history goes from the journal entry straight to
+   this commit.
 
 ## Solutions
 
