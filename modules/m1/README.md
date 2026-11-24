@@ -10,55 +10,38 @@ it, you find out how a notebook runs and why it sometimes forgets what it knew.
 
 1. In `experiments/2026-11-03_ecoli-growth-37c/`, open `code/growth_curve.ipynb` and run
    its cells one by one (Shift + Enter). You should see a summary and a growth curve.
-2. In the second cell, replace `growth["Average"]` with one well, `growth["A7"]`. Run the
-   second and third cell again and compare the plot.
-3. Restart the kernel (Kernel → Restart Kernel) and run only the third cell. Which
+2. Restart the kernel (Kernel → Restart Kernel) and run only the third cell. Which
    variable is missing, and why? Then run all cells (Run → Run All Cells).
-4. Create a new notebook in `code/` (File → New → Notebook, kernel Python 3) and run:
+3. Create a new notebook in `code/` (File → New → Notebook, kernel Python 3) and run:
 
    ```python
    print(growth.head())
    ```
    <br>
    You should see `NameError: name 'growth' is not defined`: each notebook has its own
-   **kernel**, the running Python process that holds its variables.
-5. In the next cell, run:
-
-   ```python
-   import os
-   import sys
-
-   print("Interpreter:", sys.executable)
-   print("Kernel process:", os.getpid())
-   ```
-   <br>
-   Restart the kernel and run the cell again. The **interpreter**, the Python program
-   installed in the lab, stays the same; the kernel process number changes. Close the new
-   notebook and delete it.
-6. In `growth_curve.ipynb`, add a Markdown cell at the top: click the first cell, press
-   Esc, A, then M. Write two or three sentences on what the notebook does and which data it
-   reads, and run the cell: you should see formatted text. Save the notebook (Ctrl + S).
+   **kernel**, a running process of the Python interpreter that holds its variables. Close
+   the new notebook and delete it.
+4. Save `growth_curve.ipynb` (Ctrl + S) and open the Git panel (Git icon in the left
+   sidebar). It should list `growth_curve.ipynb` and `results/figures/growth-curve.png`.
+   Write a short message, for example `run growth curve`, and commit.
 
 ## EX2: A complete experiment entry (20 min, in groups)
 
 In a few months, nobody will remember what this experiment was for. Write it down now, so
 the entry explains itself, and commit it.
 
-1. In the experiment's `README.md`, replace the title and the one-sentence description.
-   Answer the sections you can answer now, such as purpose, method, observations and how
-   to reproduce. Leave the questions of the others. Keep the data credit.
+1. In the experiment's `README.md`, replace the title and the one-sentence description,
+   and answer the purpose and the method. Keep the data credit.
 2. In `metadata.yml`, fill in the title, the start date, your name, the status
    (`in_progress`), the module (`M1`) and the project (`rrw-workshop`). Under `outputs`,
    enter `results/figures/growth-curve.png` with the role `figure`. Leave unknown values
    `null`.
 3. In `work/rrw-workshop/journal.md`, add an entry for today at the top: what you did and
    what you decided.
-4. Open the Git panel (Git icon in the left sidebar). It should list `README.md`,
-   `metadata.yml`, `growth_curve.ipynb`, `journal.md` and
-   `results/figures/growth-curve.png`. Write a short message, for example
-   `add meta data`, and commit.
-5. In your group, compare what you put in the README and what in the journal. Agree on a
+4. In your group, compare what you put in the README and what in the journal. Agree on a
    rule for which information belongs where.
+5. Open the Git panel. It should list `README.md`, `metadata.yml` and `journal.md`. Write
+   a short message, for example `add meta data`, and commit.
 
 ## EX3: Metadata from the data record (30 min, homework)
 
@@ -73,7 +56,8 @@ can trace the data back to its source.
    input, and `reuse.licence`. The record lists a checksum for `Repo1pct.xlsx` under its
    file name; note in a comment that the CSV was exported from it.
 4. In `journal.md`, update today's entry.
-5. Commit your changes.
+5. Open the Git panel. It should list `metadata.yml` and `journal.md`. Write a short
+   message, for example `add data source`, and commit.
 
 ## Solutions
 
