@@ -34,22 +34,20 @@ When you work with the LLM:
 Genes with very few reads tell you little, so you want to know which genes have enough.
 An LLM writes the code; to judge it, you first look at how Python code reads.
 
-1. Run the cell `# Variables and data types`. Match each output line with the code that
-   printed it. Two genes have fewer reads than 1000.
-2. Copy the first code cell and the `# your task` line into the chat, for example:
+1. Run the cell `# Variables and data types`. Two genes have fewer reads than 1000.
+2. Copy the first code cell and an instruction to solve `# your task` into the LLM chat,
+   for example:
 
    > Using the dictionary `counts` above, write plain Python that prints the genes whose
    > mean count over all seven samples is above `threshold = 100`.
 
-3. Read the code before you run it: which line computes the mean, which line is the
-   condition? If you cannot tell, ask the LLM to comment each line.
-4. Paste the code into the `# your task` cell and run it. If it fails, paste the error
-   message into the chat.
-5. Save the notebook (Ctrl + S) and open the Git panel (Git icon in the left sidebar). It
+3. Paste the code into the `# your task` cell and run it. Which line is the condition? If
+   it fails, paste the error message into the chat.
+4. Save the notebook (Ctrl + S) and open the Git panel (Git icon in the left sidebar). It
    should list `explore_counts.ipynb`. Write a short message, for example
    `list genes above threshold`, and commit.
 
-## EX2: Debugging (20 min, in pairs)
+## EX2: Debugging (20 min, in groups)
 
 You want to know the mean count over each set of replicates. Sample names look like
 `ctrl_rep1`: a condition, an underscore, `rep` and a replicate number. To calculate
@@ -59,24 +57,21 @@ the mean you want to group the sets and for that you want to parse the sample na
    should do.
 2. Run it. You should see `ValueError: invalid literal for int() with base 10: 'rep1'`.
    Read the traceback from the bottom up: which line failed, and which line called it?
-3. In the empty cell below the parser, try the failing step on one name:
-   `"ctrl_rep1".split("_")`. What does `int()` get?
-4. Paste the parser cell and the error message into the chat and ask for a fix. Read the
-   fix, run it, then run `# check the result`. You should see seven names such as
-   `'ctrl_rep1': {'condition': 'ctrl', 'replicate': 1}`.
-5. Copy the first code cell and your fixed cell into the chat, for example:
+3. Paste
 
-   > Using `counts`, `samples` and `sample_info` above, write plain Python that computes
-   > and prints the mean count per condition for each gene.
+   - the data cell from above
+   - the parser cell
+   - the error message
 
-   Run the answer in the cell `# Compute and print the mean count per condition for each
-   gene`. You should see a `ctrl` and a `kd` mean per gene. Check the `kd` mean of
-   `FBgn0039155` by hand.
-6. Write down the fix: in a Markdown cell under the parser (what was wrong, how you found
-   it, how you fixed it), and in an entry for today at the top of `journal.md` (in
-   `work/rrw-workshop/`).
-7. Save the notebook and open the Git panel. It should list `explore_counts.ipynb` and
-   `journal.md`. Write a short message, for example `fix sample name parser`, and commit.
+   into the chat and ask for a fix. Read the fix, run it, then run `# check the result`.
+   You should see seven names such as `'ctrl_rep1': {'condition': 'ctrl', 'replicate': 1}`.
+4. The cell `# mean count per condition` computes the mean over each set of replicates,
+   but its steps have no comments. Paste it into the chat and ask the LLM to add a comment
+   to each step. Read the comments, paste the code back into the cell and run it. You
+   should see a mean for `ctrl` and `kd` per gene, such as
+   `FBgn0039155 {'ctrl': 1354.8, 'kd': 53.3}`.
+5. Save the notebook and open the Git panel. It should list `explore_counts.ipynb`. Write
+   a short message, for example `fix sample name parser`, and commit.
 
 ## EX3: Improvement (30 min, homework)
 
@@ -88,13 +83,13 @@ more reliable, then complete the experiment entry with what you found.
    why, and goes on with the next one. Give it the rule.
 2. Run it on `samples + more_samples`. Check by hand which names break the rule: does the
    code report exactly those?
-3. In the output of your means cell, which genes have a lower mean in the knockdown than in
-   the controls? Mind the size of the difference: the counts are not normalised.
-4. In the experiment's `README.md`, answer the questions under "Observations and
+3. In the experiment's `README.md`, answer the questions under "Observations and
    interpretation". In `metadata.yml`, fill in `date_started`, `author` and `status` (its
    comment lists the values).
+4. Add an entry for today at the top of `journal.md` (in `work/rrw-workshop/`): what you
+   did in this module, which error you met and how you fixed it.
 5. Save the notebook and open the Git panel. It should list `explore_counts.ipynb`,
-   `README.md` and `metadata.yml`. Write a short message, for example
+   `README.md`, `metadata.yml` and `journal.md`. Write a short message, for example
    `report malformed sample names`, and commit.
 
 ## Solutions
