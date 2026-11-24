@@ -33,13 +33,13 @@ your work is safe and you can take it with you.
    - GitLab: New project → Create blank project, visibility Private, and untick
      "Initialize repository with a README". The address is under Code → Clone with HTTPS.
 2. Create a personal access token for this repository and copy it. It is shown only once.
-   - GitHub: your picture → Settings → Developer settings → Personal access tokens →
+   - GitHub: your picture → Settings → Credentials →
      Fine-grained tokens → Generate new token. Repository access: Only select
-     repositories, `rrw-workshop`. Permissions: Contents, Read and write.
+     repositories, `rrw-workshop`. Permissions: Contents. Access: Read and write.
    - GitLab: your picture → Edit profile → Access tokens → Add new token, scope
      `write_repository`.
 3. In JupyterLab, open Git → Manage Remote Repositories. Enter the name `origin` and the
-   address, and click Add.
+   address, and click Add. Close the window.
 4. In the experiment's `README.md`, replace the placeholder under "Remote" with the
    address. The Git panel should list only `README.md`. Commit it, then click Push (the cloud with the arrow up).
    Enter your username and, as password, the token; tick "Save my login temporarily".
@@ -84,9 +84,7 @@ the change back, then restore a file as it was in an earlier commit.
 1. On the computer where you do your research, open a terminal and run
    `git clone <address>`, with the address from EX1. Enter your username and the token
    when Git asks. You should see a folder `rrw-workshop` with your experiments. If Git is
-   missing, ask the LLM how to install it on your system. With no other computer at hand,
-   clone in a lab terminal into `/tmp/` instead: it is lost at the next start, which is
-   fine for this exercise.
+   missing, ask the LLM how to install it on your system. 
 2. In the clone, add an entry for today at the top of `journal.md`: where you cloned the
    project and what you did in this module. Then run:
 
