@@ -5,8 +5,8 @@ The exercises are in `modules/m1/README.md` (in your project:
 like:
 
 - `experiment/` — the files of `work/rrw-workshop/experiments/2026-11-03_ecoli-growth-37c/`
-  after all three exercises: `README.md`, `metadata.yml` and `code/growth_curve.ipynb`
-  (with the Markdown cell of EX1). The data file is unchanged and not repeated here.
+  after all three exercises: `README.md` and `metadata.yml`. The notebook and the data
+  file are unchanged and not repeated here.
 - `journal-entry.md` — the entry at the top of `work/rrw-workshop/journal.md`.
 
 Names and dates in the solution (author, `2026-11-30`) are examples. Your wording will
@@ -14,38 +14,33 @@ differ; what matters is that the same information is there.
 
 ## EX1: JupyterLab and the kernel
 
-- Step 2: with `growth["A7"]` the curve has the same shape but lies a little lower
-  (about 0.49 instead of 0.53 after 4 hours). Only the cells that are run again change.
-- Step 3: after the restart, the third cell fails with
+- Step 2: after the restart, the third cell fails with
   `NameError: name 'hours' is not defined`. A restart ends the kernel process and with it
   every variable; the notebook file keeps the code and the old output, but nothing is in
   memory until the cells run again from the top.
-- Step 4: the new notebook fails with `NameError: name 'growth' is not defined`. Each
+- Step 3: the new notebook fails with `NameError: name 'growth' is not defined`. Each
   notebook has its own kernel, so the new notebook does not see the variables of
-  `growth_curve.ipynb`.
-- Step 5: the interpreter is, for example, `/srv/conda/envs/notebook/bin/python` in the
-  Jupyter4NFDI image, before and after the restart. The kernel process number is
-  different after the restart. The interpreter is the Python program; a kernel is one
-  running process of it, started for one notebook, and holds that notebook's variables.
-  A restart ends that process and starts a new one, so the variables are gone.
-- Step 6: see the first cell of `experiment/code/growth_curve.ipynb`.
+  `growth_curve.ipynb`. The interpreter is the Python program installed in the lab; a
+  kernel is one running process of it, started for one notebook.
+- Step 4: running the notebook changed `growth_curve.ipynb` (its outputs) and created
+  `results/figures/growth-curve.png`. With simple staging, one commit takes both.
 
 ## EX2: A complete experiment entry
 
 - README and metadata: see `experiment/`, which also has the EX3 answers. After EX2
   alone, the values from the record (`source`, `source_version`, `licence`, `checksum`,
-  `reuse.licence`) are still `null`, and sections you could not answer yet keep their
-  questions. Outputs list `results/figures/growth-curve.png` with
+  `reuse.licence`) are still `null`. EX2 asks for the purpose and the method; the other
+  sections of `experiment/README.md` are answered as an example, and in your entry they
+  may keep their questions. Outputs list `results/figures/growth-curve.png` with
   role `figure`. Leaving an unknown value `null` is correct: a guessed value is worse than
   an empty one, and the file shows what is still open.
 - Journal: see `journal-entry.md`, without its `EX3:` line.
-- Commit: the Git panel lists the changed `README.md`, `metadata.yml`, `growth_curve.ipynb`,
-  `journal.md` and the new `results/figures/growth-curve.png`. With simple staging, one
-  commit takes all of them.
 - A good group rule: the README explains the experiment so that it can be understood
   without anything else (purpose, method, observations, how to reproduce); the journal
   records what happened when, briefly, across experiments, and points to the experiment
   for details.
+- Commit: the Git panel lists the changed `README.md`, `metadata.yml` and `journal.md`.
+  The notebook and the figure were committed in EX1.
 
 ## EX3: Metadata from the data record
 
@@ -67,6 +62,7 @@ From the record at <https://doi.org/10.5281/zenodo.19416053>:
   `~/data/ecoli-growth/README.md` § Known gaps in the source metadata): strain, medium
   apart from glucose, instrument and plate type; whether optical density was read at
   600 nm and blank-corrected; what the sheet-name suffixes mean; no linked publication.
+- Commit: the Git panel lists the changed `metadata.yml` and `journal.md`.
 
 ## Skills covered
 
@@ -74,17 +70,16 @@ Each M1 skill, with the exercise step that practises it:
 
 - navigate the JupyterLab interface — the set-up (terminal, file browser; repository
   README § Set up the module), EX1 step 1
-- create and open notebooks — EX1 step 1 (open), EX1 step 4 (create)
-- run cells — EX1 steps 1–3
-- restart the kernel — EX1 step 3, EX1 step 5
-- save notebooks — EX1 step 6
-- write Markdown cells — EX1 step 6
-- explain kernel vs. interpreter — EX1 steps 4–5
+- create and open notebooks — EX1 step 1 (open), EX1 step 3 (create)
+- run cells — EX1 steps 1–2
+- restart the kernel — EX1 step 2
+- save notebooks — EX1 step 4
+- explain kernel vs. interpreter — EX1 step 3
 - apply the directory template — EX2 steps 1–2 (the template's sections and fields), EX3
   step 1 (the template experiment)
-- create an experiment entry — the set-up adds the folder; EX2 steps 1–4 make it a
+- create an experiment entry — the set-up adds the folder; EX2 steps 1–3 and 5 make it a
   complete entry
 - write a journal entry — EX2 step 3, EX3 step 4
 - write a README — EX2 step 1
-- open the Git panel — EX2 step 4
-- commit an experiment entry — EX2 step 4, EX3 step 5
+- open the Git panel — EX1 step 4
+- commit an experiment entry — EX1 step 4, EX2 step 5, EX3 step 5

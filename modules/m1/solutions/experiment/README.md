@@ -31,8 +31,6 @@ This experiment produces:
 - Expected: a lag phase, exponential growth and a stationary phase.
 - Observed: optical density rises from 0.14 to about 0.53 in the first 4 hours, with
   hardly any lag, then creeps up slowly to 0.58 at 24 hours.
-- The single well `A7` has the same shape but stays below the average (about 0.49 at
-  4 hours), so the wells differ.
 - Interpretation: growth is fast at first and almost stops after 4 hours. No lag phase is
   visible at the 5-minute resolution. This is a description only; no growth rate was
   fitted.
