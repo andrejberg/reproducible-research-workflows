@@ -35,18 +35,19 @@ Genes with very few reads tell you little, so you want to know which genes have 
 An LLM writes the code; to judge it, you first look at how Python code reads.
 
 1. Run the cell `# Variables and data types`. Two genes have fewer reads than 1000.
-2. Copy the first code cell and the `# your task` line into the chat, for example:
+2. Copy the first code cell and an instruction to solve `# your task` into the LLM chat,
+   for example:
 
    > Using the dictionary `counts` above, write plain Python that prints the genes whose
    > mean count over all seven samples is above `threshold = 100`.
 
-3. Paste the code into the `# your task` cell and run it. Which line is the condition? If
+4. Paste the code into the `# your task` cell and run it. Which line is the condition? If
    it fails, paste the error message into the chat.
-4. Save the notebook (Ctrl + S) and open the Git panel (Git icon in the left sidebar). It
+5. Save the notebook (Ctrl + S) and open the Git panel (Git icon in the left sidebar). It
    should list `explore_counts.ipynb`. Write a short message, for example
    `list genes above threshold`, and commit.
 
-## EX2: Debugging (20 min, in pairs)
+## EX2: Debugging (20 min, in groups)
 
 You want to know the mean count over each set of replicates. Sample names look like
 `ctrl_rep1`: a condition, an underscore, `rep` and a replicate number. To calculate
@@ -56,14 +57,15 @@ the mean you want to group the sets and for that you want to parse the sample na
    should do.
 2. Run it. You should see `ValueError: invalid literal for int() with base 10: 'rep1'`.
    Read the traceback from the bottom up: which line failed, and which line called it?
-3. Paste the parser cell and the error message into the chat and ask for a fix. Read the
-   fix, run it, then run `# check the result`. You should see seven names such as
-   `'ctrl_rep1': {'condition': 'ctrl', 'replicate': 1}`.
-4. Write down the fix: in a Markdown cell under the parser (what was wrong, how you found
-   it, how you fixed it), and in an entry for today at the top of `journal.md` (in
-   `work/rrw-workshop/`).
-5. Save the notebook and open the Git panel. It should list `explore_counts.ipynb` and
-   `journal.md`. Write a short message, for example `fix sample name parser`, and commit.
+3. Paste
+   - the data cell from above
+   - the parser cell
+   - the error message
+   into the chat and ask for a fix. Read the fix, run it, then run `# check the result`.
+   You should see seven names such as`'ctrl_rep1': {'condition': 'ctrl', 'replicate': 1}`.
+5. TODO: replace with the task that participants get help to understand code from LLM. the code for calculating set mean for a well formatted parser is prefilled but lacks commenst. participants are asked to go to LLM chat and ask it to add comments for each step.
+6. Save the notebook and open the Git panel. It should list `explore_counts.ipynb`. Write
+   a short message, for example `fix sample name parser`, and commit.
 
 ## EX3: Improvement (30 min, homework)
 
