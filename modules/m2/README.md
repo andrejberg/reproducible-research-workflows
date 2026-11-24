@@ -41,9 +41,9 @@ An LLM writes the code; to judge it, you first look at how Python code reads.
    > Using the dictionary `counts` above, write plain Python that prints the genes whose
    > mean count over all seven samples is above `threshold = 100`.
 
-4. Paste the code into the `# your task` cell and run it. Which line is the condition? If
+3. Paste the code into the `# your task` cell and run it. Which line is the condition? If
    it fails, paste the error message into the chat.
-5. Save the notebook (Ctrl + S) and open the Git panel (Git icon in the left sidebar). It
+4. Save the notebook (Ctrl + S) and open the Git panel (Git icon in the left sidebar). It
    should list `explore_counts.ipynb`. Write a short message, for example
    `list genes above threshold`, and commit.
 
@@ -58,13 +58,19 @@ the mean you want to group the sets and for that you want to parse the sample na
 2. Run it. You should see `ValueError: invalid literal for int() with base 10: 'rep1'`.
    Read the traceback from the bottom up: which line failed, and which line called it?
 3. Paste
+
    - the data cell from above
    - the parser cell
    - the error message
+
    into the chat and ask for a fix. Read the fix, run it, then run `# check the result`.
-   You should see seven names such as`'ctrl_rep1': {'condition': 'ctrl', 'replicate': 1}`.
-5. TODO: replace with the task that participants get help to understand code from LLM. the code for calculating set mean for a well formatted parser is prefilled but lacks commenst. participants are asked to go to LLM chat and ask it to add comments for each step.
-6. Save the notebook and open the Git panel. It should list `explore_counts.ipynb`. Write
+   You should see seven names such as `'ctrl_rep1': {'condition': 'ctrl', 'replicate': 1}`.
+4. The cell `# mean count per condition` computes the mean over each set of replicates,
+   but its steps have no comments. Paste it into the chat and ask the LLM to add a comment
+   to each step. Read the comments, paste the code back into the cell and run it. You
+   should see a mean for `ctrl` and `kd` per gene, such as
+   `FBgn0039155 {'ctrl': 1354.8, 'kd': 53.3}`.
+5. Save the notebook and open the Git panel. It should list `explore_counts.ipynb`. Write
    a short message, for example `fix sample name parser`, and commit.
 
 ## EX3: Improvement (30 min, homework)
@@ -88,8 +94,7 @@ more reliable, then complete the experiment entry with what you found.
 
 A reference solution for all three exercises is in `~/modules/m2/solutions/`. Its
 `README.md` gives the results that do not depend on the LLM and the answers step by step;
-`experiment/` shows the completed experiment files and `journal-entry.md` a journal entry.
-Try the exercise first, then compare.
+`experiment/` shows the completed experiment files. Try the exercise first, then compare.
 
 ## Data credit
 

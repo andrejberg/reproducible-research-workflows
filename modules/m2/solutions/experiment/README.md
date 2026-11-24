@@ -34,12 +34,15 @@ This experiment produces no files. Its results are printed in the notebook.
   samples.
 - Observed: four genes have a mean above 100 reads over all samples: `FBgn0000042`
   (86,791), `FBgn0261552` (5,817), `FBgn0025111` (1,563) and `FBgn0039155` (797).
-  `FBgn0000008` (99.6) just misses the threshold.
+  `FBgn0000008` (99.6) just misses the threshold. The mean per condition (control,
+  knockdown) differs most for `FBgn0039155` (1,354.8 and 53.3), `FBgn0025111` (422.2 and
+  3,084.3) and `FBgn0261552` (8,439.0 and 2,320.7).
 - Error: the LLM's code that parses the sample names stopped with `ValueError: invalid
   literal for int() with base 10: 'rep1'`, because the replicate part of a sample name is
   `rep1`, not `1`. Fixed by removing `rep` before converting it to a number.
-- Interpretation: the means over all samples do not yet compare control and knockdown;
-  that needs the mean per condition. No test was run.
+- Interpretation: three genes have a clearly lower or higher mean in the knockdown
+  samples. The counts are raw and not normalised, and no test was run, so this is a first
+  look, not a result.
 
 ## Reproducing this experiment
 
