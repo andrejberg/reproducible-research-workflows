@@ -2,10 +2,16 @@
 # Repo2Docker runs this every time a session starts.
 # On Jupyter4NFDI with "Mount user data", only ~/work is kept between sessions. Your Git
 # settings (name and email from `git config --global`) go there, so they survive a
-# restart. Conda environments and the kernels you register stay on the local disk: the
-# work folder is slow with many small files, and an installed environment has thousands.
-# Keep the environment file in ~/work and rebuild the environment from it after a restart.
+# restart.
 export GIT_CONFIG_GLOBAL="$HOME/work/.gitconfig"
+
+# uv installs your project's packages into an environment on the local disk, not into
+# ~/work: the work folder is slow with many small files, and an environment has thousands.
+# The environment, uv's download cache and the kernels you register are therefore lost
+# when the lab stops. pyproject.toml and uv.lock stay in your project in ~/work, so
+# `uv sync` in the project folder rebuilds the same environment after a restart.
+export UV_PROJECT_ENVIRONMENT="$HOME/.venvs/rrw-workshop"
+export UV_CACHE_DIR="$HOME/.cache/uv"
 
 # Fill in a Git name or email you have not set from your Jupyter4NFDI account (see
 # git_identity.py). The lab starts anyway if the hub does not answer within a few seconds.

@@ -25,6 +25,12 @@ terminal instead (File → New → Terminal), run:
 python ~/setup_module.py          # creates the project, if it is missing
 ```
 
+The project's software environment is managed with uv: `pyproject.toml` lists its
+packages and `uv.lock` their exact versions. The setup command installs them and registers
+the kernel "Python (rrw-workshop)". The installed environment lives outside `work/` and is
+reset at the next start; running the setup command again, or `uv sync` in
+`work/rrw-workshop/`, rebuilds it.
+
 ## Set up the module (during the workshop)
 
 Work inside `work/` only: everything outside it is reset at the next start.
@@ -101,13 +107,13 @@ and the selection of modules taught there.
 
 ## Contents
 
-- `requirements.txt`: The software environment: JupyterLab with the Git extension and the analysis packages, each pinned to an exact version
+- `requirements.txt`: The software environment of the lab: JupyterLab with the Git extension, the analysis packages and the package manager uv, each pinned to an exact version
 - `runtime.txt`: The Python version
 - `postBuild`: Run once when the environment is built; sets the defaults of the Git panel
-- `start`: Run at every session start; keeps your Git settings in `work/`, the folder that is kept between sessions, and fills in a Git name or email you have not set from your Jupyter4NFDI account
+- `start`: Run at every session start; keeps your Git settings in `work/`, the folder that is kept between sessions, places uv's environment and cache outside `work/`, and fills in a Git name or email you have not set from your Jupyter4NFDI account
 - `git_identity.py`: Fills in that name and email. Your email goes into every commit, and anyone can read it in a repository you publish. To use another one, set it with `git config --global user.email "you@example.org"`; a value you set is never replaced
-- `SETUP.ipynb`: Gets your lab ready in five short steps: checks the analysis packages, the example data and the kept `work/` folder, sets your Git name and email, and creates your project. Run it before the first session
-- `setup_module.py`: Creates your project in `work/` and adds a module's experiment to it
+- `SETUP.ipynb`: Gets your lab ready in five short steps: checks the analysis packages, the example data and the kept `work/` folder, sets your Git name and email, creates your project and installs its software environment. Run it before the first session
+- `setup_module.py`: Creates your project in `work/`, adds a module's experiment to it, and installs the project's software environment with uv
 - `modules/`: The modules. `modules/example/` shows the layout and lets you try the setup command
 - `template/`: A reusable project structure: self-contained experiment entries, a journal, READMEs and metadata
 - `data/ecoli-growth/`: The example dataset: *E. coli* growth curves, with source, licence and a script that regenerates the sample

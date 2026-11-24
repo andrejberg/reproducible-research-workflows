@@ -12,7 +12,8 @@ documentation, data, code and results.
 project/
 ├── README.md
 ├── journal.md
-├── environment.yml
+├── pyproject.toml
+├── uv.lock
 ├── .gitignore
 ├── shared/
 └── experiments/
@@ -20,7 +21,9 @@ project/
 
 - `journal.md` is the chronological record of the project: decisions, progress, problems
   and next steps. The newest entry comes first.
-- `environment.yml` is the software environment, with exact package versions.
+- `pyproject.toml` lists the packages of the software environment; `uv.lock` records the
+  exact version of every package. The package manager uv writes both: never edit
+  `uv.lock` by hand.
 - `.gitignore` lists files Git should not track, such as Jupyter checkpoints.
 - `shared/data/` holds the reference data with its source, licence and provenance.
 - `shared/code/` holds functions used by more than one experiment.
@@ -75,6 +78,21 @@ Then:
 5. Record your observations and interpretation in `README.md`.
 6. Add a short entry at the top of `journal.md`.
 7. Commit the experiment folder in Git.
+
+## Software environment
+
+Run these commands in a terminal from this folder:
+
+```bash
+uv sync                    # install the packages that uv.lock records
+uv add <package>           # add a package to pyproject.toml and uv.lock, and install it
+uv run python -m ipykernel install --user --name rrw-workshop --display-name "Python (rrw-workshop)"
+```
+
+The last command registers the environment as a Jupyter kernel. Choose the kernel
+"Python (rrw-workshop)" in a notebook to run it with these packages. Commit
+`pyproject.toml` and `uv.lock` after every change, so that anyone can recreate the same
+environment with `uv sync`.
 
 ## Data credit
 

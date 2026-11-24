@@ -11,6 +11,8 @@
 
 Each module's setup.json says which experiment to add and which files to download for it.
 Run it as often as you like: it never overwrites what is already there.
+Each run also installs the project's packages with `uv sync` and registers that environment
+as the kernel "Python (rrw-workshop)", so a run after a restart rebuilds both.
 Its commits carry your Git name and email. Where you have not set them, it takes them from
 your Jupyter4NFDI account (see git_identity.py).
 
@@ -42,6 +44,13 @@ PLACEHOLDER = {"user.name": "Setup script", "user.email": "setup@example.invalid
 GIT = ["git"]
 NOT_CONTENT = (".ipynb_checkpoints", "__pycache__")
 DOWNLOAD_TIMEOUT = 60  # seconds without a response
+
+# The project's environment and the kernel that runs notebooks in it. The environment stays
+# on the local disk, outside work/ (the start script sets this path; the default here is the
+# same path, for a session started without it).
+ENVIRONMENT = Path(os.environ.get("UV_PROJECT_ENVIRONMENT", Path.home() / ".venvs" / "rrw-workshop"))
+KERNEL = "rrw-workshop"
+KERNEL_DISPLAY_NAME = "Python (rrw-workshop)"
 
 
 def use_identity():
@@ -202,6 +211,30 @@ def add_experiment(module):
     print(f"Module {module}: its instructions are in {instructions}.")
 
 
+def sync_environment():
+    """Install the packages that pyproject.toml and uv.lock record, and register the kernel."""
+    if not (PROJECT / "pyproject.toml").is_file():
+        print(f"The folder {PROJECT} has no pyproject.toml, so no software environment was installed.")
+        return
+    uv = shutil.which("uv")
+    if uv is None:
+        sys.exit("The lab has no uv, so the project's software environment was not installed. "
+                 "Stop the lab and start it again from the workshop page.")
+    environment = os.environ | {"UV_PROJECT_ENVIRONMENT": str(ENVIRONMENT)}
+    print("Installing the project's software environment with uv sync ...", flush=True)
+    for command in ([uv, "sync", "--quiet"],
+                    [uv, "run", "--no-sync", "python", "-m", "ipykernel", "install", "--user",
+                     "--name", KERNEL, "--display-name", KERNEL_DISPLAY_NAME]):
+        result = subprocess.run(command, cwd=PROJECT, env=environment, capture_output=True, text=True)
+        if result.returncode != 0:
+            sys.exit(f"uv could not install the project's software environment:\n"
+                     f"{(result.stderr or result.stdout).strip()}\n"
+                     "Check the network connection and run this command again. "
+                     "If it keeps failing, please tell your tutor.")
+    print(f"Installed the packages of {PROJECT / 'pyproject.toml'} in {ENVIRONMENT} and registered "
+          f"it as the kernel \"{KERNEL_DISPLAY_NAME}\".")
+
+
 def setup(module):
     WORK.mkdir(exist_ok=True)
     use_identity()
@@ -216,6 +249,7 @@ def setup(module):
         print(f"No module was named, so no experiment was added. Available modules: {', '.join(modules()) or 'none'}.")
     else:
         add_experiment(module)
+    sync_environment()
 
 
 def main():

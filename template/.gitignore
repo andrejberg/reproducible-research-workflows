@@ -1,6 +1,7 @@
 # Jupyter and Python working files
 .ipynb_checkpoints/
 __pycache__/
+.venv/
 
 # Editor lock files and secrets
 ~$*
