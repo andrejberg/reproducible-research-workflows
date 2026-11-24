@@ -86,15 +86,18 @@ more reliable, then complete the experiment entry with what you found.
 3. In the experiment's `README.md`, answer the questions under "Observations and
    interpretation". In `metadata.yml`, fill in `date_started`, `author` and `status` (its
    comment lists the values).
-4. Save the notebook and open the Git panel. It should list `explore_counts.ipynb`,
-   `README.md` and `metadata.yml`. Write a short message, for example
+4. Add an entry for today at the top of `journal.md` (in `work/rrw-workshop/`): what you
+   did in this module, which error you met and how you fixed it.
+5. Save the notebook and open the Git panel. It should list `explore_counts.ipynb`,
+   `README.md`, `metadata.yml` and `journal.md`. Write a short message, for example
    `report malformed sample names`, and commit.
 
 ## Solutions
 
 A reference solution for all three exercises is in `~/modules/m2/solutions/`. Its
 `README.md` gives the results that do not depend on the LLM and the answers step by step;
-`experiment/` shows the completed experiment files. Try the exercise first, then compare.
+`experiment/` shows the completed experiment files and `journal-entry.md` a journal entry.
+Try the exercise first, then compare.
 
 ## Data credit
 

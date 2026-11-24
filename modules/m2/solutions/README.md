@@ -7,6 +7,7 @@ like:
 - `experiment/` — the files of `work/rrw-workshop/experiments/2026-11-04_pasilla-knockdown-counts/`
   after all three exercises: `README.md` (observations filled in), `metadata.yml` (author,
   dates, status) and `code/explore_counts.ipynb` (one possible answer per exercise).
+- `journal-entry.md` — the entry at the top of `work/rrw-workshop/journal.md` (EX3 step 4).
 
 Names and dates in the solution (author, `2026-11-30`) are examples.
 
@@ -46,7 +47,7 @@ These values follow from the data:
 - Step 3: `"ctrl_rep1".split("_")` gives `['ctrl', 'rep1']`, so `int()` gets `'rep1'`.
   Fix: `int(replicate.removeprefix("rep"))`. Equivalent fixes: `replicate[3:]`,
   `replicate.replace("rep", "")`, a regular expression. The rest of the cell then runs, and
-  `pprint(sample_info)` shows the seven names, for example
+  `sample_info` shows the seven names, for example
   `'kd_rep3': {'condition': 'kd', 'replicate': 3}`.
 - Step 4: the commented cell `# mean count per condition` in
   `experiment/code/explore_counts.ipynb` is one possible answer. The comments differ with
@@ -66,7 +67,9 @@ These values follow from the data:
   (step 2) catches both.
 - Step 3: see `experiment/README.md` § Observations and interpretation and
   `experiment/metadata.yml`.
-- Step 4: the commit holds `explore_counts.ipynb`, `README.md` and `metadata.yml`.
+- Step 4: see `journal-entry.md`.
+- Step 5: the commit holds `explore_counts.ipynb`, `README.md`, `metadata.yml` and
+  `journal.md`.
 
 ## Skills covered
 
@@ -86,4 +89,5 @@ Each M2 skill, with the exercise step that practises it:
 - debug step by step — EX2 1–3
 
 Requirements from M1 used here: run cells and restart the kernel ("Before you start" 3),
-the experiment entry (EX3 3), a commit in the Git panel (EX1 4, EX2 5, EX3 4).
+the experiment entry (EX3 3), the journal entry (EX3 4), a commit in the Git panel (EX1 4,
+EX2 5, EX3 5).
