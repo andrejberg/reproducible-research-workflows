@@ -1,7 +1,7 @@
 # M3 – How do I read and write data?
 
-You read growth curves of *E. coli* from files, write processed tables and a figure into
-the experiment, and fetch more of the dataset from its repository with code, checking each
+You read growth curves of *E. coli* from files, write processed tables into the experiment,
+plot them, and fetch more of the dataset from its repository with code, checking each
 download against its checksum.
 
 You leave with an experiment in which raw data stays as it came, everything computed sits
@@ -46,23 +46,21 @@ in one figure.
    > table to `PROCESSED` as `ecoli-growth-<temperature>-1pct-hours.csv`. Create
    > `PROCESSED` if it is missing.
 
-3. Paste the code into the cell `# your task: read …` and run it. In the file browser,
-   `data/processed/` should hold three files such as `ecoli-growth-37c-1pct-hours.csv`.
-   Open one: its last column is `time_h`, ending near 24.1.
-4. Ask for the figure, for example:
+   Run it in the cell `# your task: read …`. In the file browser, `data/processed/`
+   should hold three files such as `ecoli-growth-37c-1pct-hours.csv`. Open one: its last
+   column is `time_h`, ending near 24.1.
+3. Ask for the figure, for example:
 
    > In a Jupyter notebook cell, plot the column `Average` against `time_h` for every
    > table in `growth`, in one figure, with axis labels that name the units, a legend with
-   > the temperatures and a title. Save it to `FIGURES` as `growth-curves-1pct.png`, and
-   > show it below the cell. Create `FIGURES` if it is missing.
+   > the temperatures and a title.
 
    Run it in the cell `# your task: plot …`. You should see three curves below the cell:
-   37 °C rises first, 29 °C last, and 45 °C levels off lowest. `results/figures/` should
-   hold the PNG file.
-5. Save the notebook (Ctrl + S) and open the Git panel. It should list
-   `growth_curves.ipynb` as changed, and the three processed files and the figure as
-   untracked. Stage them all, write a short message, for example
-   `plot growth at three temperatures`, and commit.
+   37 °C rises first, 29 °C last, and 45 °C levels off lowest.
+4. Save the notebook (Ctrl + S) and open the Git panel. It should list
+   `growth_curves.ipynb` as changed, and the three processed files as untracked. Stage
+   them all, write a short message, for example `plot growth at three temperatures`, and
+   commit.
 
 ## EX2: Fetch data from a repository (20 min, on your own)
 
@@ -90,21 +88,10 @@ sure that the file arrived intact and your raw data stayed as it was.
    and `Repo2pct.xlsx` in `data/raw/`. If you get a `KeyError` instead, the LLM guessed a
    field name: paste the answer of `# Ask Zenodo for the record` again and ask it to fix
    the code with the field names shown there.
-5. Ask for the conversion to an open format, for example:
-
-   > Write pandas code that reads every sheet of `RAW / "Repo2pct.xlsx"` and writes each
-   > one to `PROCESSED` as CSV without the index, named like `ecoli-growth-29c-2pct.csv`
-   > for a sheet named like `29_2%`.
-
-   Run it in the cell `# your task: convert …`. `data/processed/` should hold nine new
-   files, from `ecoli-growth-29c-2pct.csv` to `ecoli-growth-45c-2pct.csv`. The warning
-   `Workbook contains no default style` is harmless.
-6. Save the notebook and open the Git panel. It should list `growth_curves.ipynb` as
-   changed, and `Repo2pct.xlsx` and the nine CSV files as untracked. No file in
-   `data/raw/` is listed as changed: your raw data stayed as it was. Stage them all, write
-   a short message, for example `fetch the 2 % glucose workbook from Zenodo`, and commit.
-7. Open the History tab of the Git panel. Your commit is on top. Further down,
-   `Add the starting state of m3` is the setup's commit, which added the raw data.
+5. Save the notebook and open the Git panel. It should list `growth_curves.ipynb` as
+   changed, and `Repo2pct.xlsx` as untracked. No file in `data/raw/` is listed as
+   changed: your raw data stayed as it was. Stage them all, write a short message, for
+   example `fetch the 2 % glucose workbook from Zenodo`, and commit.
 
 ## EX3: Fetch in a loop (30 min, homework)
 
@@ -134,8 +121,7 @@ files in the experiment's metadata.
    so do not run the loop over and over.
 5. In `metadata.yml`, list the two new workbooks and `Repo2pct.xlsx` under `inputs`, the
    way `Repo1pct.xlsx` is listed, with the checksums from the record. List the processed
-   files and the figure under `outputs`, and fill in `date_started`, `author` and
-   `status`.
+   files under `outputs`, and fill in `date_started`, `author` and `status`.
 6. Add an entry for today at the top of `journal.md` (in `work/rrw-workshop/`): what you
    fetched and how you checked it.
 7. Save the notebook and open the Git panel. It should list `growth_curves.ipynb`,
