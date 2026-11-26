@@ -5,7 +5,7 @@ The exercises are in `modules/m5/README.md` (in your project:
 like:
 
 - `experiment/` — the files of `work/rrw-workshop/experiments/2026-11-09_pbmc3k-first-look/`
-  that the exercises change: `README.md` (software environment and results),
+  that change in a complete experiment: `README.md` (results),
   `metadata.yml` (author, dates, status) and `code/first_look.ipynb` (the answer to EX1).
   The dataset is not included: the setup downloads it.
 - `journal-entry.md` — the entries at the top of `work/rrw-workshop/journal.md`, from EX2
@@ -17,18 +17,20 @@ examples. Your commit hashes differ.
 ## What uv and Git show
 
 The versions below are what uv installed in November 2026. A later run can show newer
-versions of the added packages, because `uv add` takes the newest version that fits. The
-change of python-dateutil stays the same as long as its newest version is 3 or higher:
-s3fs needs botocore, and botocore needs python-dateutil below 3.
+versions of anndata and of the packages it needs, because `uv add` takes the newest
+version that fits. EX2 gives the version of s3fs, so that the change of python-dateutil
+stays the same: s3fs 2026.9.0 needs aiobotocore, and aiobotocore and botocore both need
+python-dateutil below 3. s3fs 2026.9.0 still accepts newer versions of aiobotocore, so the
+change lasts as long as these two keep that limit; they have had it for years.
 
 - `uv add anndata` installs 19 packages, among them `anndata==0.13.4`, `h5py==3.16.0` and
   `zarr==3.4.2`. It changes no package the project had before. `pyproject.toml` gets one
   line, `"anndata>=0.13.4"`, under `dependencies`.
 - The dataset holds 2,694 cells and 13,714 genes.
-- `uv add s3fs` installs 19 packages, among them `s3fs==2026.9.0` and
+- `uv add "s3fs==2026.9.0"` installs 19 packages, among them `s3fs==2026.9.0` and
   `botocore==1.43.117`, and replaces one: `- python-dateutil==4.0.0`,
   `+ python-dateutil==2.9.0.post0`. `uv.lock` grows by about 290 lines; `pyproject.toml`
-  gets one line, `"s3fs>=2026.9.0"`.
+  gets one line, `"s3fs==2026.9.0"`.
 
 ## EX1: Add a package to your project
 
@@ -53,22 +55,20 @@ s3fs needs botocore, and botocore needs python-dateutil below 3.
 - Step 1: see "What uv and Git show". The other lines with `+` are new packages that s3fs
   needs. Some of them, such as `six` and `urllib3`, were already in `uv.lock` for
   JupyterLab on another computer, but not installed in the lab's environment.
-- Step 2: the first command prints three lines, `name = "python-dateutil"`,
-  `-version = "4.0.0"` and `+version = "2.9.0.post0"`. `uv.lock` records the same change
-  that uv printed. The second command prints the EX1 commit, the last one that changed
-  `uv.lock`. A participant who did not commit in EX1 sees an earlier commit instead, for
-  example `Create the project from the template`. Then the environment of the counts was
-  never committed: run the counts again after the commit of this exercise.
-- Step 3: see `experiment/README.md`, § Software environment.
-- Step 4: see `journal-entry.md`, the entry of 2026-11-30.
-- Step 5: the commit holds `pyproject.toml`, `uv.lock`, `README.md` and `journal.md`.
-  Pairs see the same lines from uv. To go back to the environment of the counts, take the
-  two files from that commit and install them:
-
-  ```bash
-  git checkout 3f2a1b7 -- pyproject.toml uv.lock
-  uv sync
-  ```
+- Step 2: `git log` lists two commits, the EX1 commit on top and
+  `Create the project from the template` or the setup's commit of the experiment below
+  it. `git show 3f2a1b7:uv.lock | grep …` prints `name = "python-dateutil"` and
+  `version = "4.0.0"`. `git show` reads the file as it was in that commit, so the change
+  uv just made, which is not committed yet, does not appear. A participant who did not
+  commit in EX1 sees the setup's commit on top. Its `uv.lock` has no anndata: the
+  environment of the counts was never committed, so run the counts again after the
+  commit of this exercise and commit the notebook.
+- Step 3: see `journal-entry.md`, the entry of 2026-11-30.
+- Step 4: the commit holds `pyproject.toml`, `uv.lock` and `journal.md`. Pairs see the same
+  lines from uv. The experiment's files do not change: the EX1 commit stays the last one
+  that changed the experiment, so step 2 still finds the environment of the counts. The
+  project's `README.md`, § Software environment, also shows how to recreate that
+  environment.
 
 ## EX3: Recreate the environment on your own computer
 
@@ -79,12 +79,13 @@ s3fs needs botocore, and botocore needs python-dateutil below 3.
   versions your project has, the same as
   `~/.venvs/rrw-workshop/bin/python -c "from importlib.metadata import version; print(version('anndata'), version('python-dateutil'))"`
   prints in the lab. `.gitignore` already lists `.venv/`, so Git does not track it.
-- Step 4: the notebook prints the path of `.venv/bin/python` (on Windows
-  `.venv\Scripts\python.exe`) in the project, `2694 cells` and `13714 genes`. With the
-  first route, `uv run --group jupyter` installs JupyterLab into the project's
-  environment, and the next `uv sync` removes it again, so that the environment holds
-  exactly the packages of `pyproject.toml`. The second route adds the kernel "Python (rrw-workshop)" to your
-  JupyterLab; it runs the `.venv` of this project folder.
+- Step 4: the one-time command adds the kernel "Python (rrw-workshop)" to your user's
+  JupyterLab settings; it runs the `.venv` of this project folder. Both JupyterLabs find
+  it, so the notebook opens on the same kernel name as in the lab. The notebook prints the
+  path of `.venv/bin/python` (on Windows `.venv\Scripts\python.exe`) in the project,
+  `2694 cells` and `13714 genes`. With the No route, `uv run --group jupyter` installs
+  JupyterLab into the project's environment, and the next `uv sync` removes it again, so
+  that the environment holds exactly the packages of `pyproject.toml`.
 - Step 5: see `journal-entry.md`, the entry of 2026-12-02. Possible differences: on
   Windows, the installer is a PowerShell command, and the terminal must be opened again
   before `uv` is found.
@@ -101,14 +102,13 @@ Each M5 skill, with the exercise step that practises it:
   version of every package)
 - read how adding a package changes locked versions — EX2 1–2
 - find the commit that holds an earlier environment — EX2 2
-- record software versions in an experiment entry — EX2 3 (`README.md` § Software
-  environment; `metadata.yml` § `software` names `pyproject.toml`, `uv.lock` and the
-  kernel)
-- commit `pyproject.toml` and `uv.lock` together with the experiment — EX1 4, EX2 5
+- find the environment a result ran with in the project's history — EX2 2 (the last
+  commit that changed the experiment, and its `uv.lock`)
+- commit `pyproject.toml` and `uv.lock` together with the experiment — EX1 4, EX2 4
 - recreate an environment from its files with uv — EX3 1–3 (`uv sync`)
-- open a project's environment in JupyterLab on another computer — EX3 4
+- open a project's environment in JupyterLab on another computer — EX3 4 (the same kernel
+  name "Python (rrw-workshop)" as in the lab)
 
 Requirements from earlier modules used here: import modules (EX1 1–3), restart the kernel
-(EX1 2), kernel and interpreter (EX1 1), the experiment's README (EX2 3), a journal entry
-(EX2 4, EX3 5), a commit in the Git panel (EX1 4, EX2 5, EX3 5), push commits and clone a
-repository (EX3 1).
+(EX1 2), kernel and interpreter (EX1 1), a journal entry (EX2 3, EX3 5), a commit in the
+Git panel (EX1 4, EX2 4, EX3 5), push commits and clone a repository (EX3 1).

@@ -51,46 +51,50 @@ can read the file and anyone who recreates the project gets the same package.
 A colleague's code reads single-cell data straight from public cloud storage and needs
 the package s3fs. Adding a package can change packages you already have, and then your
 EX1 results ran on a different environment than your project has now. Each of you adds
-s3fs to your own project and writes down where the environment of the EX1 results is
-kept.
+s3fs to your own project and finds the environment your EX1 results ran with.
 
-1. In the terminal, in `~/work/rrw-workshop`, run `uv add s3fs`. Read what uv prints:
-   `+` marks a package it installs and `-` one it removes. You should see
-   `- python-dateutil==4.0.0` and `+ python-dateutil==2.9.0.post0`. pandas uses
-   python-dateutil to read dates, and a package that s3fs needs requires a version below 3,
-   so uv replaced the version your project had. You never added python-dateutil yourself.
-   NOTE AB: this is a good example in principle but from my understanding since version of s3fs is not fixed its requirement  python-dateutil<3 will not work indefinetly. it might not cause this package downgrade in the future. right?
-3. See the same change in `uv.lock`, then find the last commit that changed it before:
+1. In the terminal, in `~/work/rrw-workshop`, add s3fs in the version this exercise was
+   written with:
 
    ```bash
-   git diff uv.lock | grep -A2 '^ name = "python-dateutil"'
-   git log --oneline -1 -- uv.lock
+   uv add "s3fs==2026.9.0"
    ```
    <br>
-   The first command shows `-version = "4.0.0"` and `+version = "2.9.0.post0"`. The
-   second shows your EX1 commit, for example
-   `3f2a1b7 add anndata and count cells and genes`. Its `uv.lock` records the
-   environment your cell counts ran with.
-   NOTE AB: this step makes no sence at all. What do we learn here? the current change of uv.lock is uncommited so it is not only unnessasary but also confusing. we drop it. the second change is commited. see below
-4. In the experiment's `README.md`, under "Software environment", replace the line in
-   `<…>` with the hash of that commit, for example: "The cell counts ran with the
-   environment of commit `3f2a1b7` (python-dateutil 4.0.0). On 2026-12-01, s3fs was
-   added, which changed python-dateutil to 2.9.0.post0."
-   NOTE AB: following this practice we would need to go to each experiemht that ran before and add this entry. this is the best way to introduce drift and ensure that it is imposible to reconstruct which environment was used to run an experiment. there is an easy and robust solution. 1. find out what were the last commits that afected an experiment. 2. check which version of pyproject.toml and uv.lock were in those commits. if one needs to restore them it is possible, however this shall not be part of the workshop. all that is required is a clean commit discipline. instructions on how to do this can even go into the project readme and by this be documentation for user and someone who wants to reproduce results at the same time
-6. Add an entry for today at the top of `journal.md` (in `work/rrw-workshop/`): which
+   Read what uv prints: `+` marks a package it installs and `-` one it removes. You
+   should see `- python-dateutil==4.0.0` and `+ python-dateutil==2.9.0.post0`. pandas
+   uses python-dateutil to read dates, and a package that s3fs needs requires a version
+   below 3, so uv replaced the version your project had. You never added python-dateutil
+   yourself.
+2. Find the environment your EX1 results ran with. The results come from the last commit
+   that changed the experiment, and that commit also holds the `uv.lock` they ran with:
+
+   ```bash
+   git log --oneline -- experiments/2026-11-09_pbmc3k-first-look
+   git show <hash>:uv.lock | grep -A1 '^name = "python-dateutil"'
+   ```
+   <br>
+   The first command lists the commits that changed the experiment, newest first. The
+   top one is your EX1 commit, for example
+   `3f2a1b7 add anndata and count cells and genes`. Put its hash in place of `<hash>`
+   in the second command. It shows `version = "4.0.0"`: your cell counts ran with
+   python-dateutil 4.0.0. The project's `README.md`, § Software environment, describes
+   this way of finding an environment.
+3. Add an entry for today at the top of `journal.md` (in `work/rrw-workshop/`): which
    package you added, which version it changed, and which commit holds the environment
    of the EX1 results.
-   NOTE AB: this is still usefull 
-8. Open the Git panel. It should list `pyproject.toml`, `uv.lock`, `README.md` and
-   `journal.md` as changed. Stage them all, write a short message, for example
-   `add s3fs and record the environment of the cell counts`, and commit. Compare with
-   your partner: did uv print the same changes?
+4. Open the Git panel. It should list `pyproject.toml`, `uv.lock` and `journal.md` as
+   changed. Stage them all, write a short message, for example `add s3fs`, and commit.
+   Compare with your partner: did uv print the same changes?
 
 ## EX3: Recreate the environment on your own computer (30 min, homework)
 
 Your project should run on the computer where you do your research, with the same
 packages as in the lab. Recreate its environment there from `pyproject.toml` and
-`uv.lock`. The instructions will work on most unix systems (Linux + MacOSX). The workshop can't give you specific support for installing software on your own computer. The differences beween operating systems are too diverse to cover them all. Check if they apply to your system if not read the specific instructions for your system. Remember that LLM Chats are a usefull tool to get support for installing software.
+`uv.lock`. The instructions work on most Unix systems (Linux and macOS). The workshop
+can't give you specific support for installing software on your own computer: the
+differences between operating systems are too many to cover them all. Check whether the
+instructions apply to your system; if not, read the specific instructions for your
+system. Remember that LLM chats are a useful tool to get support for installing software.
 
 1. Get the project onto your computer. If it is on a remote repository, push it from the
    lab's Git panel, then clone it on your computer, or pull it into a clone you already
@@ -98,7 +102,7 @@ packages as in the lab. Recreate its environment there from `pyproject.toml` and
    from `work/rrw-workshop/` (right-click → Download) into an empty folder on your
    computer.
 2. Install uv on your computer:
-   <https://docs.astral.sh/uv/getting-started/installation/>. 
+   <https://docs.astral.sh/uv/getting-started/installation/>.
 3. Open a terminal in the project folder. Install the packages and check two of their
    versions:
 
@@ -107,35 +111,35 @@ packages as in the lab. Recreate its environment there from `pyproject.toml` and
    uv sync
 
    # check version of anndata and python-dateutil
-   uv run python -c "from importlib.metadata import version; import anndata; print(version('anndata')"
+   uv run python -c "from importlib.metadata import version; import anndata, dateutil; print(version('anndata'), version('python-dateutil'))"
    ```
    <br>
    You should see the versions your project has in the lab, for example
-   `0.13.4 2.9.0.post0`.
-   Check the directory. You should find a .venv directory. Here lives the environment information.
-   NOTE AB: added import before version check. other wise error is no metadata for anndata found instead of no module found: anndata 
-5. If you cloned the whole project, run the notebook on your computer:
-   Do you have jupyter lab installed on your computer? (if you don't know answer: No) 
+   `0.13.4 2.9.0.post0`. Check the project folder with `ls -a`: you should find a
+   `.venv` folder. This is where the environment lives.
+4. If you cloned the whole project, run the notebook on your computer. First run this
+   once, so that JupyterLab offers your project's environment as the kernel
+   "Python (rrw-workshop)", the same name as in the lab:
+
+   ```bash
+   uv run python -m ipykernel install --user --name rrw-workshop --display-name "Python (rrw-workshop)"
+   ```
+   <br>
+   Then start JupyterLab. Do you have JupyterLab installed on your computer? (If you
+   don't know, answer No.)
    - No: run
-     
+
      ```bash
      uv run --group jupyter jupyter lab
      ```
      <br>
      It installs JupyterLab into the project's environment and opens it in your browser.
-     Choose the kernel "Python 3 (ipykernel)": it runs on the project's packages.
-     NOTE AB: I tested it and it works. however I dont like that the kernel is called "Python 3 (ipykernel)". this is inconsistent with the naming on the NFDI server and even with the other option in this task. notebooks that are opened and run using those diffenrently called kernels will constantly complain that the kernel was not found. make it consistent.
-   - Yes: run this once so that your JupyterLab offers the
-     project's packages as the kernel "Python (rrw-workshop)", then start JupyterLab as
-     usual:
+   - Yes: start JupyterLab as usual.
 
-     ```bash
-     uv run python -m ipykernel install --user --name rrw-workshop --display-name "Python (rrw-workshop)"
-     ```
-     <br>
-     Open `experiments/2026-11-09_pbmc3k-first-look/code/first_look.ipynb` and run all
-     cells (Run → Run All Cells). You should see 2694 cells and 13714 genes, as in the lab.
-6. Back in the lab, add an entry for today at the top of `journal.md`: which system you
+   Open `experiments/2026-11-09_pbmc3k-first-look/code/first_look.ipynb`. It runs on the
+   kernel "Python (rrw-workshop)", shown at the top right. Run all cells
+   (Run → Run All Cells). You should see 2694 cells and 13714 genes, as in the lab.
+5. Back in the lab, add an entry for today at the top of `journal.md`: which system you
    used, whether the versions matched, and what you had to do differently from these
    steps. Commit it.
 

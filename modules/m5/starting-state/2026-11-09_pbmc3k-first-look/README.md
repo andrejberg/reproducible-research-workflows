@@ -31,10 +31,9 @@ in which versions, does it take to read it?
 
 The notebook runs on the kernel "Python (rrw-workshop)", with the packages listed in the
 project's `pyproject.toml`. `uv.lock`, next to it, records the exact version of every
-package. Git keeps every version of `uv.lock`, so a commit hash names the environment a
-result came from.
-
-- <the commit whose uv.lock the results ran with>
+package. The results come from the last commit that changed this folder, and that
+commit's `uv.lock` records the environment they ran with. The project's `README.md`,
+§ Software environment, shows how to find it.
 
 ## Results
 
