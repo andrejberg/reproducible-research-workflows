@@ -5,3 +5,6 @@ __pycache__/
 ~$*
 .~lock.*#
 .jupyter_ystore.db
+.lesshst
+.ssh/
+.venvs/

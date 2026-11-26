@@ -1,0 +1,33 @@
+# Structured facts about this experiment. Narrative belongs in README.md.
+# Paths are relative to this folder. Leave a value as null until you know it.
+
+experiment:
+  id: "2026-11-06_project-on-a-remote"   # the same as the folder name
+  title: "The project on a remote"
+  date_started: null                  # YYYY-MM-DD
+  date_completed: null
+  author: null
+  status: "draft"                     # draft | in_progress | completed
+  module: "M4"
+  project: "rrw-workshop"
+  keywords: ["Git", "remote repository", "version control"]
+
+inputs: []                            # this experiment reads no data
+
+code:
+  - path: "code/repository_status.ipynb"
+    role: "analysis"                  # data_cleaning | analysis | visualisation | workflow
+
+outputs:
+  - path: "results/repository-status.txt"
+    role: "report"                    # processed_data | figure | table | report
+
+software:
+  environment_file: "../../pyproject.toml"
+  lock_file: "../../uv.lock"
+  kernel: "rrw-workshop"
+
+reuse:
+  licence: "CC-BY-4.0"
+  contact: null
+  related_experiment: null
