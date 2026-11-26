@@ -91,11 +91,33 @@ uv add <package>           # add a package to pyproject.toml and uv.lock, and in
 ```
 
 Commit `pyproject.toml` and `uv.lock` after every change, so that anyone can recreate the
-same environment with `uv sync`.
+same environment with `uv sync`. Commit results together with the code that made them
+and with any change to `pyproject.toml` and `uv.lock` they need. Then every result belongs
+to a commit whose `uv.lock` records the environment it ran with.
 
 In the workshop lab, the environment is ready for you: the lab installs it at every start
 and registers it as the kernel "Python (rrw-workshop)". Choose that kernel in a notebook to
 run it with these packages.
+
+### Which environment did a result run with?
+
+The result comes from the last commit that changed its experiment. Find that commit, then
+read the versions in its `uv.lock`, for example of the package python-dateutil:
+
+```bash
+git log --oneline -- experiments/<experiment>        # commits that changed it, newest first
+git show <hash>:uv.lock | grep -A1 '^name = "python-dateutil"'
+```
+
+To recreate that environment, take both files from the commit and install them:
+
+```bash
+git checkout <hash> -- pyproject.toml uv.lock
+uv sync
+```
+
+`git checkout HEAD -- pyproject.toml uv.lock` and `uv sync` bring back the current
+environment.
 
 ## Run this project on another machine
 
@@ -111,25 +133,22 @@ Then, in a terminal, in the project folder, install the project's packages:
 uv sync
 ```
 
-If the machine has no JupyterLab, open the notebooks with this command:
+To open the notebooks, first make the project's environment available in JupyterLab as the
+kernel "Python (rrw-workshop)", the name the notebooks use. Run this once per machine:
+
+```bash
+uv run python -m ipykernel install --user --name rrw-workshop --display-name "Python (rrw-workshop)"
+```
+
+If the machine already has JupyterLab, start it as usual. If it has none, start it with
+this command:
 
 ```bash
 uv run --group jupyter jupyter lab
 ```
 
 It installs JupyterLab into the project's environment and starts it. JupyterLab opens in
-your browser, and its kernel "Python 3 (ipykernel)" runs with the project's packages. The
-kernel does not carry the project's name: `rrw-workshop` in `pyproject.toml` names the
-project, not a kernel. The kernel "Python (rrw-workshop)" in the workshop lab exists because
-the lab registers the environment under that name.
-
-If the machine already has JupyterLab, skip that command. Register the project's environment
-as a kernel once instead, then start JupyterLab as usual and choose the kernel
-"Python (rrw-workshop)" in your notebooks:
-
-```bash
-uv run python -m ipykernel install --user --name rrw-workshop --display-name "Python (rrw-workshop)"
-```
+your browser. In both cases, choose the kernel "Python (rrw-workshop)" in your notebooks.
 
 ## Data credit
 

@@ -1,0 +1,44 @@
+# Structured facts about this experiment. Narrative belongs in README.md.
+# Paths are relative to this folder. Leave a value as null until you know it.
+
+experiment:
+  id: "2026-11-09_pbmc3k-first-look"   # the same as the folder name
+  title: "A first look at the PBMC 3k single-cell dataset"
+  date_started: "2026-11-30"          # YYYY-MM-DD
+  date_completed: "2026-11-30"
+  author: "Ada Lovelace"
+  status: "completed"                 # draft | in_progress | completed
+  module: "M5"
+  project: "rrw-workshop"
+  keywords: ["single-cell RNA-seq", "PBMC", "AnnData", "software environment"]
+
+inputs:
+  - path: "data/raw/pbmc3k_ders.h5ad"
+    role: "raw_data"                  # raw_data | reference_data | configuration
+    source: "https://doi.org/10.5281/zenodo.22655336"
+    # Derived from the 10x Genomics dataset "3k PBMCs from a Healthy Donor".
+    source_version: "v1"
+    licence: "CC-BY-4.0"
+    checksum: "md5:4f19d2b86932b1fc2c6c488ba0d6dbac"   # as listed in the record
+
+code:
+  - path: "code/first_look.ipynb"
+    role: "analysis"                  # data_cleaning | analysis | visualisation | workflow
+
+outputs:
+  - path: null                        # data/processed/<file> or results/<file>
+    role: null                        # processed_data | figure | table | report
+
+software:
+  environment_file: "../../pyproject.toml"
+  lock_file: "../../uv.lock"
+  kernel: "rrw-workshop"
+
+provenance:
+  raw_to_processed: null              # the code that turns raw data into processed data
+  processed_to_results: null          # the code that turns processed data into results
+
+reuse:
+  licence: "CC-BY-4.0"
+  contact: null
+  related_experiment: null
