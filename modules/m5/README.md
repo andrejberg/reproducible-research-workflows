@@ -69,7 +69,10 @@ s3fs to your own project and finds the environment your EX1 results ran with.
    that changed the experiment, and that commit also holds the `uv.lock` they ran with:
 
    ```bash
+   # lists the commits that changed the experiment, newest first
    git log --oneline -- experiments/2026-11-09_pbmc3k-first-look
+
+   # replace <hash> with last commit for the experiment 
    git show <hash>:uv.lock | grep -A1 '^name = "python-dateutil"'
    ```
    <br>
@@ -77,12 +80,21 @@ s3fs to your own project and finds the environment your EX1 results ran with.
    top one is your EX1 commit, for example
    `3f2a1b7 add anndata and count cells and genes`. Put its hash in place of `<hash>`
    in the second command. It shows `version = "4.0.0"`: your cell counts ran with
-   python-dateutil 4.0.0. The project's `README.md`, § Software environment, describes
-   this way of finding an environment.
-3. Add an entry for today at the top of `journal.md` (in `work/rrw-workshop/`): which
+   python-dateutil 4.0.0. You could run
+   
+   ```bash
+   # don't run it, this is for understanding only
+   git checkout <hash> -- pyproject.toml uv.lock
+   uv sync
+   ```
+   <br>
+   to restore the environment that was active during this commit. The project's 
+   `README.md`, § Software environment, describes this way of finding and restoring an
+   environment.
+4. Add an entry for today at the top of `journal.md` (in `work/rrw-workshop/`): which
    package you added, which version it changed, and which commit holds the environment
    of the EX1 results.
-4. Open the Git panel. It should list `pyproject.toml`, `uv.lock` and `journal.md` as
+5. Open the Git panel. It should list `pyproject.toml`, `uv.lock` and `journal.md` as
    changed. Stage them all, write a short message, for example `add s3fs`, and commit.
    Compare with your partner: did uv print the same changes?
 
