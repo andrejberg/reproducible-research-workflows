@@ -62,12 +62,14 @@ change lasts as long as these two keep that limit; they have had it for years.
   commit in EX1 sees the setup's commit on top. Its `uv.lock` has no anndata: the
   environment of the counts was never committed, so run the counts again after the
   commit of this exercise and commit the notebook.
+  The `git checkout` block is for understanding only and is not run: it would replace
+  `pyproject.toml` and `uv.lock` with the versions of that commit, and `uv sync` would
+  install that environment again. `git checkout HEAD -- pyproject.toml uv.lock` and
+  `uv sync` would bring back the current one.
 - Step 3: see `journal-entry.md`, the entry of 2026-11-30.
 - Step 4: the commit holds `pyproject.toml`, `uv.lock` and `journal.md`. Pairs see the same
   lines from uv. The experiment's files do not change: the EX1 commit stays the last one
-  that changed the experiment, so step 2 still finds the environment of the counts. The
-  project's `README.md`, § Software environment, also shows how to recreate that
-  environment.
+  that changed the experiment, so step 2 still finds the environment of the counts.
 
 ## EX3: Recreate the environment on your own computer
 
