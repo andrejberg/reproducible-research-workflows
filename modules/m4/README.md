@@ -57,8 +57,11 @@ your work is safe and you can take it with you.
    - GitLab: your picture → Edit profile → SSH Keys → Add new key.
 
    Then, in JupyterLab, open Git → Manage Remote Repositories. Enter the name `origin` and
-   the SSH address, click Add and close the window.
-4. In the experiment's `README.md`, replace the placeholder under "Remote" with the
+   the SSH address, click Add and close the window. You can obtain the SSH address by going
+   to the repository.
+   - GitHub and GitLab: Code (colored button) → select SSH → copy address.
+
+5. In the experiment's `README.md`, replace the placeholder under "Remote" with the
    address. The Git panel should list only `README.md`. Commit it, then click Push (the
    cloud with the arrow up). Reload the repository's web page: you should see
    `experiments/`, `journal.md` and `M4_INSTRUCTIONS.md`.
