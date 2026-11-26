@@ -81,18 +81,38 @@ Then:
 
 ## Software environment
 
-Run these commands in a terminal from this folder:
+`pyproject.toml` lists the packages this project needs, and `uv.lock` records the exact
+version of each one. The package manager uv reads both and installs the same environment
+on any machine. Run these commands in a terminal from this folder:
 
 ```bash
 uv sync                    # install the packages that uv.lock records
 uv add <package>           # add a package to pyproject.toml and uv.lock, and install it
-uv run python -m ipykernel install --user --name rrw-workshop --display-name "Python (rrw-workshop)"
 ```
 
-The last command registers the environment as a Jupyter kernel. Choose the kernel
-"Python (rrw-workshop)" in a notebook to run it with these packages. Commit
-`pyproject.toml` and `uv.lock` after every change, so that anyone can recreate the same
-environment with `uv sync`.
+Commit `pyproject.toml` and `uv.lock` after every change, so that anyone can recreate the
+same environment with `uv sync`.
+
+In the workshop lab, the environment is ready for you: the lab installs it at every start
+and registers it as the kernel "Python (rrw-workshop)". Choose that kernel in a notebook to
+run it with these packages.
+
+## Run this project on another machine
+
+The machine needs:
+
+- uv, the package manager: <https://docs.astral.sh/uv/getting-started/installation/>. uv
+  also installs the right Python version if the machine does not have it.
+- Git, to clone the project and record your changes: <https://git-scm.com/downloads>.
+
+Then, in a terminal, in the project folder:
+
+```bash
+uv sync                                 # install the project's packages
+uv run --group jupyter jupyter lab      # open the notebooks with these packages
+```
+
+JupyterLab opens in your browser, and its kernel "Python 3" runs with the project's packages.
 
 ## Data credit
 

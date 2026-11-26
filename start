@@ -13,6 +13,15 @@ export GIT_CONFIG_GLOBAL="$HOME/work/.gitconfig"
 export UV_PROJECT_ENVIRONMENT="$HOME/.venvs/rrw-workshop"
 export UV_CACHE_DIR="$HOME/.cache/uv"
 
+# Rebuild that environment and its kernel "Python (rrw-workshop)" in the background, so the
+# lab does not wait for it. The kernel appears in the launcher once uv is done, usually after
+# a few seconds; what uv reported is in ~/.cache/rrw-environment.log.
+if [ -f "$HOME/work/rrw-workshop/pyproject.toml" ]; then
+    mkdir -p "$HOME/.cache"
+    nohup python3 "$(dirname "$0")/setup_module.py" --environment \
+        > "$HOME/.cache/rrw-environment.log" 2>&1 < /dev/null &
+fi
+
 # Fill in a Git name or email you have not set from your Jupyter4NFDI account (see
 # git_identity.py). The lab starts anyway if the hub does not answer within a few seconds.
 if [ -d "$HOME/work" ]; then
