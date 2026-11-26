@@ -1,0 +1,24 @@
+# The software environment of this project: the packages it needs. Experiments refer to
+# this file from their metadata.yml. uv.lock, next to it, records the exact version of
+# every package, including the ones these packages need.
+# Recreate the environment with: uv sync
+# Add a package with: uv add <package>
+[project]
+name = "rrw-workshop"
+version = "0.1.0"
+description = "Workshop project: reproducible research workflows with Jupyter and Python"
+requires-python = "==3.13.*"
+dependencies = [
+    "ipykernel==7.4.0",
+    "numpy==2.5.4",
+    "pandas==3.1.0",
+    "openpyxl==3.1.5",
+    "matplotlib==3.11.2",
+    "scipy==1.18.1",
+    "xarray==2026.9.0",
+]
+
+# Only for another machine without JupyterLab: `uv run --group jupyter jupyter lab` opens
+# the notebooks with this project's packages. `uv sync` does not install this group.
+[dependency-groups]
+jupyter = ["jupyterlab==4.6.5"]

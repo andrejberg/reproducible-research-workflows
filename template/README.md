@@ -12,7 +12,8 @@ documentation, data, code and results.
 project/
 ├── README.md
 ├── journal.md
-├── environment.yml
+├── pyproject.toml
+├── uv.lock
 ├── .gitignore
 ├── shared/
 └── experiments/
@@ -20,7 +21,9 @@ project/
 
 - `journal.md` is the chronological record of the project: decisions, progress, problems
   and next steps. The newest entry comes first.
-- `environment.yml` is the software environment, with exact package versions.
+- `pyproject.toml` lists the packages of the software environment; `uv.lock` records the
+  exact version of every package. The package manager uv writes both: never edit
+  `uv.lock` by hand.
 - `.gitignore` lists files Git should not track, such as Jupyter checkpoints.
 - `shared/data/` holds the reference data with its source, licence and provenance.
 - `shared/code/` holds functions used by more than one experiment.
@@ -75,6 +78,58 @@ Then:
 5. Record your observations and interpretation in `README.md`.
 6. Add a short entry at the top of `journal.md`.
 7. Commit the experiment folder in Git.
+
+## Software environment
+
+`pyproject.toml` lists the packages this project needs, and `uv.lock` records the exact
+version of each one. The package manager uv reads both and installs the same environment
+on any machine. Run these commands in a terminal from this folder:
+
+```bash
+uv sync                    # install the packages that uv.lock records
+uv add <package>           # add a package to pyproject.toml and uv.lock, and install it
+```
+
+Commit `pyproject.toml` and `uv.lock` after every change, so that anyone can recreate the
+same environment with `uv sync`.
+
+In the workshop lab, the environment is ready for you: the lab installs it at every start
+and registers it as the kernel "Python (rrw-workshop)". Choose that kernel in a notebook to
+run it with these packages.
+
+## Run this project on another machine
+
+The machine needs:
+
+- uv, the package manager: <https://docs.astral.sh/uv/getting-started/installation/>. uv
+  also installs the right Python version if the machine does not have it.
+- Git, to clone the project and record your changes: <https://git-scm.com/downloads>.
+
+Then, in a terminal, in the project folder, install the project's packages:
+
+```bash
+uv sync
+```
+
+If the machine has no JupyterLab, open the notebooks with this command:
+
+```bash
+uv run --group jupyter jupyter lab
+```
+
+It installs JupyterLab into the project's environment and starts it. JupyterLab opens in
+your browser, and its kernel "Python 3 (ipykernel)" runs with the project's packages. The
+kernel does not carry the project's name: `rrw-workshop` in `pyproject.toml` names the
+project, not a kernel. The kernel "Python (rrw-workshop)" in the workshop lab exists because
+the lab registers the environment under that name.
+
+If the machine already has JupyterLab, skip that command. Register the project's environment
+as a kernel once instead, then start JupyterLab as usual and choose the kernel
+"Python (rrw-workshop)" in your notebooks:
+
+```bash
+uv run python -m ipykernel install --user --name rrw-workshop --display-name "Python (rrw-workshop)"
+```
 
 ## Data credit
 

@@ -67,8 +67,9 @@ outputs:
     role: "processed_data"
 
 software:
-  environment_file: "../../environment.yml"
-  environment_name: "rrw-workshop"
+  environment_file: "../../pyproject.toml"
+  lock_file: "../../uv.lock"
+  kernel: "rrw-workshop"
 
 provenance:
   raw_to_processed: "code/growth_curves.ipynb"   # the code that turns raw data into processed data

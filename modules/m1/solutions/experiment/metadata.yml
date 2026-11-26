@@ -33,8 +33,9 @@ outputs:
     role: "figure"                    # processed_data | figure | table | report
 
 software:
-  environment_file: "../../environment.yml"
-  environment_name: "rrw-workshop"
+  environment_file: "../../pyproject.toml"
+  lock_file: "../../uv.lock"
+  kernel: "rrw-workshop"
 
 provenance:
   raw_to_processed: null              # the code that turns raw data into processed data

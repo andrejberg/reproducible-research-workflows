@@ -8,9 +8,19 @@
     python ~/setup_module.py            creates the folder work/rrw-workshop, if it is missing
     python ~/setup_module.py <module>   also adds the module's experiment to that folder, and
                                         its instructions as <MODULE>_INSTRUCTIONS.md
+    python ~/setup_module.py --environment
+                                        only installs the project's packages and registers
+                                        the kernel; the lab runs this at every start
 
 Each module's setup.json says which experiment to add and which files to download for it.
 Run it as often as you like: it never overwrites what is already there.
+Each run also installs the project's packages with `uv sync` and registers that environment
+as the kernel "Python (rrw-workshop)", so a run after a restart rebuilds both.
+
+A project folder without pyproject.toml was made from an earlier version of the template.
+If it holds only what the template gave it, the script creates it again. Otherwise it moves
+the folder to work/rrw-workshop-old, where you can still read your earlier work, and creates
+a new project.
 Its commits carry your Git name and email. Where you have not set them, it takes them from
 your Jupyter4NFDI account (see git_identity.py).
 
@@ -35,6 +45,8 @@ MATERIALS = Path(__file__).resolve().parent
 MODULES = MATERIALS / "modules"
 WORK = Path.home() / "work"
 PROJECT = WORK / "rrw-workshop"
+OLD_PROJECT = WORK / "rrw-workshop-old"
+FIRST_COMMIT = "Create the project from the template"
 
 # Commits carry your Git name and email. Where one is still missing, after asking the hub
 # (git_identity.py), the commit uses this placeholder, so it works before you set yours.
@@ -42,6 +54,13 @@ PLACEHOLDER = {"user.name": "Setup script", "user.email": "setup@example.invalid
 GIT = ["git"]
 NOT_CONTENT = (".ipynb_checkpoints", "__pycache__")
 DOWNLOAD_TIMEOUT = 60  # seconds without a response
+
+# The project's environment and the kernel that runs notebooks in it. The environment stays
+# on the local disk, outside work/ (the start script sets this path; the default here is the
+# same path, for a session started without it).
+ENVIRONMENT = Path(os.environ.get("UV_PROJECT_ENVIRONMENT", Path.home() / ".venvs" / "rrw-workshop"))
+KERNEL = "rrw-workshop"
+KERNEL_DISPLAY_NAME = "Python (rrw-workshop)"
 
 
 def use_identity():
@@ -82,6 +101,41 @@ def create_project():
         copy_into_place(build, PROJECT)
     init(PROJECT)  # lets Git check what the work folder supports, which can differ from the local disk
     print(f"Created the folder {PROJECT} from the template, with a Git repository and a first commit.")
+
+
+def untouched():
+    """True if the project holds only what the template gave it: its first commit and no changes."""
+    if not (PROJECT / ".git").exists():
+        return False
+    try:
+        history = git(PROJECT, "log", "--format=%s").splitlines()
+        changes = git(PROJECT, "status", "--porcelain", "--untracked-files=all")
+    except subprocess.CalledProcessError:
+        return False
+    return history == [FIRST_COMMIT] and changes == ""
+
+
+def replace_old_project():
+    """The project has no pyproject.toml, so it was made from an earlier version of the template.
+    Remove it if it holds only what the template gave it; otherwise move it aside, so that
+    nothing of yours is lost. Either way, the caller then creates the project again."""
+    if untouched():
+        # Rename first, so that an interrupted removal leaves no half-removed project.
+        removing = WORK / f".{PROJECT.name}.removing"
+        shutil.rmtree(removing, ignore_errors=True)
+        PROJECT.rename(removing)
+        print(f"The folder {PROJECT} was made from an earlier version of the template and held "
+              "nothing of yours yet, so it is being created again from the current template ...", flush=True)
+        shutil.rmtree(removing, ignore_errors=True)
+        return
+    aside, number = OLD_PROJECT, 1
+    while aside.exists():
+        number += 1
+        aside = WORK / f"{OLD_PROJECT.name}-{number}"
+    PROJECT.rename(aside)
+    print(f"The folder {PROJECT} was made from an earlier version of the template. It was moved to "
+          f"{aside}, and a new project is created from the current template. What you did in the "
+          f"old folder is not part of the new project, but you can still open and read it in {aside}.")
 
 
 def add_repository():
@@ -202,9 +256,36 @@ def add_experiment(module):
     print(f"Module {module}: its instructions are in {instructions}.")
 
 
+def sync_environment():
+    """Install the packages that pyproject.toml and uv.lock record, and register the kernel."""
+    if not (PROJECT / "pyproject.toml").is_file():
+        print(f"The folder {PROJECT} has no pyproject.toml, so no software environment was installed.")
+        return
+    uv = shutil.which("uv")
+    if uv is None:
+        sys.exit("The lab has no uv, so the project's software environment was not installed. "
+                 "Stop the lab and start it again from the workshop page.")
+    environment = os.environ | {"UV_PROJECT_ENVIRONMENT": str(ENVIRONMENT)}
+    print("Installing the project's software environment with uv sync ...", flush=True)
+    for command in ([uv, "sync", "--quiet"],
+                    [uv, "run", "--no-sync", "python", "-m", "ipykernel", "install", "--user",
+                     "--name", KERNEL, "--display-name", KERNEL_DISPLAY_NAME]):
+        result = subprocess.run(command, cwd=PROJECT, env=environment, capture_output=True, text=True)
+        if result.returncode != 0:
+            sys.exit(f"uv could not install the project's software environment:\n"
+                     f"{(result.stderr or result.stdout).strip()}\n"
+                     "Check the network connection and run this command again. "
+                     "If it keeps failing, please tell your tutor.")
+    print(f"Installed the packages of {PROJECT / 'pyproject.toml'} in {ENVIRONMENT} and registered "
+          f"it as the kernel \"{KERNEL_DISPLAY_NAME}\".")
+
+
 def setup(module):
     WORK.mkdir(exist_ok=True)
     use_identity()
+    shutil.rmtree(WORK / f".{PROJECT.name}.removing", ignore_errors=True)
+    if PROJECT.exists() and not (PROJECT / "pyproject.toml").is_file():
+        replace_old_project()
     if not PROJECT.exists():
         create_project()
     elif not (PROJECT / ".git").exists():
@@ -216,12 +297,16 @@ def setup(module):
         print(f"No module was named, so no experiment was added. Available modules: {', '.join(modules()) or 'none'}.")
     else:
         add_experiment(module)
+    sync_environment()
 
 
 def main():
     if len(sys.argv) > 2 or sys.argv[1:] in (["-h"], ["--help"]):
         sys.exit(__doc__)
     module = sys.argv[1] if len(sys.argv) == 2 else None
+    if module == "--environment":
+        sync_environment()
+        return
     if module is not None and module not in modules():
         sys.exit(f"There is no module {module!r}. Available: {', '.join(modules()) or 'none'}.")
 
