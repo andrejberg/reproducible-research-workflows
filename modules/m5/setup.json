@@ -1,0 +1,10 @@
+{
+  "experiment": "2026-11-09_pbmc3k-first-look",
+  "download": [
+    {
+      "url": "https://zenodo.org/api/records/22655336/files/pbmc3k_ders.h5ad/content",
+      "md5": "4f19d2b86932b1fc2c6c488ba0d6dbac",
+      "path": "data/raw/pbmc3k_ders.h5ad"
+    }
+  ]
+}
