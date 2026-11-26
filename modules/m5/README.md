@@ -57,8 +57,8 @@ kept.
 1. In the terminal, in `~/work/rrw-workshop`, run `uv add s3fs`. Read what uv prints:
    `+` marks a package it installs and `-` one it removes. You should see
    `- python-dateutil==4.0.0` and `+ python-dateutil==2.9.0.post0`. pandas uses
-   python-dateutil to read dates, and s3fs needs a version below 3, so uv replaced the
-   version your project had. You never added python-dateutil yourself.
+   python-dateutil to read dates, and a package that s3fs needs requires a version below 3,
+   so uv replaced the version your project had. You never added python-dateutil yourself.
 2. See the same change in `uv.lock`, then find the last commit that changed it before:
 
    ```bash
