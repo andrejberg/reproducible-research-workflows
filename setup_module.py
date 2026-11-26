@@ -28,6 +28,7 @@ The work folder is slow with many small files. To write fewer of them, this scri
 the folder on the local disk and packs its Git history into one file before copying it.
 """
 
+import fcntl
 import hashlib
 import http.client
 import json
@@ -266,16 +267,25 @@ def sync_environment():
         sys.exit("The lab has no uv, so the project's software environment was not installed. "
                  "Stop the lab and start it again from the workshop page.")
     environment = os.environ | {"UV_PROJECT_ENVIRONMENT": str(ENVIRONMENT)}
-    print("Installing the project's software environment with uv sync ...", flush=True)
-    for command in ([uv, "sync", "--quiet"],
-                    [uv, "run", "--no-sync", "python", "-m", "ipykernel", "install", "--user",
-                     "--name", KERNEL, "--display-name", KERNEL_DISPLAY_NAME]):
-        result = subprocess.run(command, cwd=PROJECT, env=environment, capture_output=True, text=True)
-        if result.returncode != 0:
-            sys.exit(f"uv could not install the project's software environment:\n"
-                     f"{(result.stderr or result.stdout).strip()}\n"
-                     "Check the network connection and run this command again. "
-                     "If it keeps failing, please tell your tutor.")
+    # The lab runs this at every start in the background. A lock keeps a second run (for
+    # example SETUP.ipynb right after the start) from installing at the same time.
+    ENVIRONMENT.parent.mkdir(parents=True, exist_ok=True)
+    with open(ENVIRONMENT.parent / f".{ENVIRONMENT.name}.lock", "w") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            print("The lab is installing the software environment already. Waiting for it ...", flush=True)
+            fcntl.flock(lock, fcntl.LOCK_EX)
+        print("Installing the project's software environment with uv sync ...", flush=True)
+        for command in ([uv, "sync", "--quiet"],
+                        [uv, "run", "--no-sync", "python", "-m", "ipykernel", "install", "--user",
+                         "--name", KERNEL, "--display-name", KERNEL_DISPLAY_NAME]):
+            result = subprocess.run(command, cwd=PROJECT, env=environment, capture_output=True, text=True)
+            if result.returncode != 0:
+                sys.exit(f"uv could not install the project's software environment:\n"
+                         f"{(result.stderr or result.stdout).strip()}\n"
+                         "Check the network connection and run this command again. "
+                         "If it keeps failing, please tell your tutor.")
     print(f"Installed the packages of {PROJECT / 'pyproject.toml'} in {ENVIRONMENT} and registered "
           f"it as the kernel \"{KERNEL_DISPLAY_NAME}\".")
 
