@@ -23,8 +23,9 @@ outputs:
     role: "report"                    # processed_data | figure | table | report
 
 software:
-  environment_file: "../../environment.yml"
-  environment_name: "rrw-workshop"
+  environment_file: "../../pyproject.toml"
+  lock_file: "../../uv.lock"
+  kernel: "rrw-workshop"
 
 reuse:
   licence: "CC-BY-4.0"
