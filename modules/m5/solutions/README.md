@@ -55,9 +55,8 @@ change lasts as long as these two keep that limit; they have had it for years.
 - Step 1: see "What uv and Git show". The other lines with `+` are new packages that s3fs
   needs. Some of them, such as `six` and `urllib3`, were already in `uv.lock` for
   JupyterLab on another computer, but not installed in the lab's environment.
-- Step 2: `git log` lists two commits, the EX1 commit on top and
-  `Create the project from the template` or the setup's commit of the experiment below
-  it. `git show 3f2a1b7:uv.lock | grep …` prints `name = "python-dateutil"` and
+- Step 2: `git log` lists two commits, the EX1 commit on top and the setup's commit
+  `Add the starting state of m5` below it. `git show 3f2a1b7:uv.lock | grep …` prints `name = "python-dateutil"` and
   `version = "4.0.0"`. `git show` reads the file as it was in that commit, so the change
   uv just made, which is not committed yet, does not appear. A participant who did not
   commit in EX1 sees the setup's commit on top. Its `uv.lock` has no anndata: the
