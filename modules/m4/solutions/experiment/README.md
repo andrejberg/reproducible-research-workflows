@@ -36,7 +36,7 @@ computer where I do my research, and can an earlier state be brought back?
 - What errors, warnings or unexpected results occurred?
 - Added on the repository's web page and pulled into the lab (EX2).
 - A commit made by mistake was dropped with a hard reset before it was pushed; this
-  commit follows straight on the journal entry from my computer (EX3).
+  commit follows straight on the edit from the web page (EX2).
 
 ## Reproducing this experiment
 

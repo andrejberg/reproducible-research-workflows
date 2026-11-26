@@ -1,7 +1,7 @@
 # M4 – How do I share and sync my work with Git?
 
 You put your project on a private remote repository, keep it in sync, look at what has
-changed, and go back to earlier states of your work.
+changed, and undo a commit you made by mistake.
 
 You leave with a project that lives outside the workshop platform and that you can clone
 to the computer where you do your research.
@@ -61,43 +61,41 @@ your work is safe and you can take it with you.
    to the repository.
    - GitHub and GitLab: Code (colored button) → select SSH → copy address.
 
-5. In the experiment's `README.md`, replace the placeholder under "Remote" with the
+4. In the experiment's `README.md`, replace the placeholder under "Remote" with the
    address. The Git panel should list only `README.md`. Commit it, then click Push (the
    cloud with the arrow up). Reload the repository's web page: you should see
    `experiments/`, `journal.md` and `M4_INSTRUCTIONS.md`.
 
-## EX2: Sync, look at changes and go back (20 min, in pairs)
+## EX2: Sync, look at changes and undo a mistake (20 min, in pairs)
 
-You will change your project in more than one place. Practise pulling a change, seeing
-what it changed, and looking at an earlier state.
+You will change your project in more than one place, and sometimes by mistake. Practise
+pulling a change, seeing what it changed, and going back to a healthy state.
 
 1. On the repository's web page, open the experiment's `README.md`, edit it (pencil
    icon, or Edit → Edit single file) and add a line under "Observations and
-   interpretation". Commit the change there. In Jupyter Lab in the Git panel, click Pull
+   interpretation". Commit the change there. In JupyterLab, in the Git panel, click Pull
    (the cloud with the arrow down).
-3. In the Git panel, open the History tab and click the top commit, the one you made on
+2. In the Git panel, open the History tab and click the top commit, the one you made on
    the web. It lists `README.md`; click the file to see the change: your line is green.
-4. Run all cells of `repository_status.ipynb`. The Git panel lists the notebook as changed
+3. Run all cells of `repository_status.ipynb`. The Git panel lists the notebook as changed
    and `results/repository-status.txt` as untracked. Save and close the notebook, then
    right-click it in the Git panel → Discard. Open it again: it is back as in the last
    commit, without outputs.
-5. In the terminal, run:
-
-   ```bash
-   cd ~/work/rrw-workshop
-   git log --oneline
-   ```
-   <br>
-   Copy the short code of the commit "Add the starting state of m4" and run
-   `git switch --detach <code>`. Open the experiment's `README.md`: the address and your
-   line from the web are not there. Run `git switch main`: both are back.
-6. Commit `results/repository-status.txt` and push. On the web page, the experiment now
-   has a `results/` folder with the status file.
+4. Make a mistake: in the experiment's `README.md`, delete the address under "Remote",
+   save, and commit only `README.md` with the message "delete the remote address". Do not
+   push. Undo it: in the History tab, click the commit below your mistake (the one from
+   the web), click its icon "Discard changes introduced *after* this commit (hard reset)"
+   (hover over the icons to see their names) and confirm. The `README.md` has the address
+   again, and the mistake is gone from the History.
+5. Under "Observations and interpretation", add a line on what the hard reset did. Commit
+   it together with `results/repository-status.txt` and push. On the web page, the commit
+   history goes from your web edit straight to this commit, and the experiment has a
+   `results/` folder with the status file.
 
 ## EX3: Work on another computer (30 min, homework)
 
 Your research happens on your own computer. Clone the project there and bring a change
-back, then undo a commit you made by mistake.
+back.
 
 1. On the computer where you do your research, create an SSH key in a terminal with
    `ssh-keygen -t ed25519` (press Enter to accept the default place `~/.ssh/`), and add the
@@ -118,15 +116,6 @@ back, then undo a commit you made by mistake.
    <br>
    If Git asks who you are, set your name and email as it says, and commit again.
 4. Back in JupyterLab, click Pull in the Git panel. `journal.md` should show the new entry.
-5. Make a mistake: in the experiment's `README.md`, delete the address under "Remote",
-   save, and commit with the message "delete the remote address". Do not push.
-6. Undo it: in the Git panel's History tab, click the commit below your mistake (the
-   journal entry). Click its icon "Discard changes introduced *after* this commit (hard
-   reset)" (hover over the icons to see their names) and confirm. The `README.md` has the
-   address again, and the mistake is gone from the History.
-7. Under "Observations and interpretation", add a line on what the hard reset did. Commit
-   and push. On the web page, the commit history goes from the journal entry straight to
-   this commit.
 
 ## Solutions
 

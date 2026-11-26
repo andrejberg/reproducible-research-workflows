@@ -35,7 +35,7 @@ time: look for the same words nearby.
   project, from "Create the project from the template" on. The address in the README is
   no secret.
 
-## EX2: Sync, look at changes and go back
+## EX2: Sync, look at changes and undo a mistake
 
 - Step 1: editing on the web page makes a commit on the remote. Pull brings it into the
   project; since nothing else changed in the lab, Git only moves the project forward to
@@ -50,12 +50,16 @@ time: look for the same words nearby.
   replaces the notebook with its version from the last commit. Its outputs and any other
   uncommitted change are gone; this cannot be undone. The status file is new and
   untracked, so Discard does not touch it.
-- Step 4: `git switch --detach <code>` puts the whole project in the state of that commit;
-  Git calls this a "detached HEAD". The address and the line from the web are missing,
-  because they were committed later. The untracked status file stays, because Git keeps
-  files it does not track when it switches. `git switch main` returns to the newest commit.
-- Step 5: the commit holds only `results/repository-status.txt`. It records the state of
-  the project when you ran the notebook.
+- Step 4: the mistake is a commit in the lab only. It is not pushed, so the remote does
+  not know it. The hard reset moves the project back to the commit from the web and drops
+  every commit after it, with their changes. The untracked status file stays, because Git
+  keeps files it does not track. Because the mistake was never pushed, nothing else has to
+  change. A pushed commit would also be on the remote: there you would make a new commit
+  that undoes it (the icon "Revert changes introduced by this commit") instead.
+- Step 5: the new commit follows straight on the commit from the web, as if the mistake
+  had never happened. It holds the README line and `results/repository-status.txt`, which
+  records the state of the project when you ran the notebook. See `experiment/README.md`
+  for the result.
 
 ## EX3: Work on another computer
 
@@ -67,14 +71,6 @@ time: look for the same words nearby.
 - Step 3: see `journal-entry.md`. `git push` sends the new commit to the remote.
 - Step 4: the pull brings the journal entry into the lab, the same way as the web edit in
   EX2.
-- Step 5: the mistake is a commit in the lab only. It is not pushed, so the remote does
-  not know it.
-- Step 6: the hard reset moves the project back to the journal entry and drops every
-  commit after it, with their changes. Because the mistake was never pushed, nothing else
-  has to change. A pushed commit would also be on the remote: there you would make a new
-  commit that undoes it (the icon "Revert changes introduced by this commit") instead.
-- Step 7: the new commit follows straight on the journal entry, as if the mistake had
-  never happened. See `experiment/README.md` for the result.
 
 ## Skills covered
 
@@ -83,14 +79,13 @@ Each M4 skill, with the exercise step that practises it:
 - create a private remote repository — EX1 1
 - create an SSH key and add it to the account — EX1 2 and 3, EX3 1
 - add a remote — EX1 3
-- push commits — EX1 4, EX2 5, EX3 3 and 7
+- push commits — EX1 4, EX2 5, EX3 3
 - pull changes — EX2 1, EX3 4
 - see what a commit changed in the Git panel's History — EX2 2
 - clone a repository — EX3 2
-- switch to an earlier commit and back — EX2 4
 - discard uncommitted changes — EX2 3
-- undo a commit that was not pushed — EX3 5 and 6
+- undo a commit that was not pushed — EX2 4
 
 Requirements from earlier modules used here: the preparation's hosting account (EX1 1),
-an experiment entry and its README (EX1 4, EX3 7), a commit in the Git panel (EX1 4,
-EX2 5, EX3 5 and 7), a file's history in Git (EX2 2 and 4).
+an experiment entry and its README (EX1 4, EX2 5), a commit in the Git panel (EX1 4,
+EX2 4 and 5), a file's history in Git (EX2 2 and 4).
