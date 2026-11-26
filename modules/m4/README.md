@@ -36,9 +36,16 @@ your work is safe and you can take it with you.
    kept when the lab restarts:
 
    ```bash
+   # create a directory inside work
    mkdir -p ~/work/.ssh
+   
+   # generate an SSH key pair inside this directory
    ssh-keygen -t ed25519 -N "" -C "rrw-workshop lab" -f ~/work/.ssh/id_ed25519
+
+   # tell git which SSH key to use
    git config --global core.sshCommand "ssh -i ~/work/.ssh/id_ed25519 -o UserKnownHostsFile=~/work/.ssh/known_hosts -o StrictHostKeyChecking=accept-new"
+   
+   # show public key
    cat ~/work/.ssh/id_ed25519.pub
    ```
    <br>
@@ -63,15 +70,15 @@ what it changed, and looking at an earlier state.
 
 1. On the repository's web page, open the experiment's `README.md`, edit it (pencil
    icon, or Edit → Edit single file) and add a line under "Observations and
-   interpretation". Commit the change there. In the Git panel, click Pull (the cloud with
-   the arrow down).
-2. In the Git panel, open the History tab and click the top commit, the one you made on
+   interpretation". Commit the change there. In Jupyter Lab in the Git panel, click Pull
+   (the cloud with the arrow down).
+3. In the Git panel, open the History tab and click the top commit, the one you made on
    the web. It lists `README.md`; click the file to see the change: your line is green.
-3. Run all cells of `repository_status.ipynb`. The Git panel lists the notebook as changed
+4. Run all cells of `repository_status.ipynb`. The Git panel lists the notebook as changed
    and `results/repository-status.txt` as untracked. Save and close the notebook, then
    right-click it in the Git panel → Discard. Open it again: it is back as in the last
    commit, without outputs.
-4. In the terminal, run:
+5. In the terminal, run:
 
    ```bash
    cd ~/work/rrw-workshop
@@ -81,7 +88,7 @@ what it changed, and looking at an earlier state.
    Copy the short code of the commit "Add the starting state of m4" and run
    `git switch --detach <code>`. Open the experiment's `README.md`: the address and your
    line from the web are not there. Run `git switch main`: both are back.
-5. Commit `results/repository-status.txt` and push. On the web page, the experiment now
+6. Commit `results/repository-status.txt` and push. On the web page, the experiment now
    has a `results/` folder with the status file.
 
 ## EX3: Work on another computer (30 min, homework)
