@@ -105,14 +105,31 @@ The machine needs:
   also installs the right Python version if the machine does not have it.
 - Git, to clone the project and record your changes: <https://git-scm.com/downloads>.
 
-Then, in a terminal, in the project folder:
+Then, in a terminal, in the project folder, install the project's packages:
 
 ```bash
-uv sync                                 # install the project's packages
-uv run --group jupyter jupyter lab      # open the notebooks with these packages
+uv sync
 ```
 
-JupyterLab opens in your browser, and its kernel "Python 3" runs with the project's packages.
+If the machine has no JupyterLab, open the notebooks with this command:
+
+```bash
+uv run --group jupyter jupyter lab
+```
+
+It installs JupyterLab into the project's environment and starts it. JupyterLab opens in
+your browser, and its kernel "Python 3 (ipykernel)" runs with the project's packages. The
+kernel does not carry the project's name: `rrw-workshop` in `pyproject.toml` names the
+project, not a kernel. The kernel "Python (rrw-workshop)" in the workshop lab exists because
+the lab registers the environment under that name.
+
+If the machine already has JupyterLab, skip that command. Register the project's environment
+as a kernel once instead, then start JupyterLab as usual and choose the kernel
+"Python (rrw-workshop)" in your notebooks:
+
+```bash
+uv run python -m ipykernel install --user --name rrw-workshop --display-name "Python (rrw-workshop)"
+```
 
 ## Data credit
 

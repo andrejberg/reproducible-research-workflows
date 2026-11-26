@@ -18,7 +18,7 @@ dependencies = [
     "xarray==2026.9.0",
 ]
 
-# Only for running the project on another machine: `uv run --group jupyter jupyter lab`
-# opens the notebooks with this project's packages. `uv sync` does not install this group.
+# Only for another machine without JupyterLab: `uv run --group jupyter jupyter lab` opens
+# the notebooks with this project's packages. `uv sync` does not install this group.
 [dependency-groups]
 jupyter = ["jupyterlab==4.6.5"]
